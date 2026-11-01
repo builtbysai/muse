@@ -1,0 +1,74 @@
+# Mateo Villanueva Brandt: Study Notes
+
+Study date: 2026-11-01. ig-artist-study #259.
+
+**Site:** @mateo.cvb (1,115 followers, 1,880 following, public, no verified badge; bio "Freelance Producer + @spilt.ltd"). Mateo Villanueva Brandt is a London DOP, colourist, director, and producer; since 2026 he works as a freelance producer for SPILT ltd ("Films, documentaries, and moving image"). He is the "cinematography wizard" credited by feeo (Theodora Laird) on the 'tnteen' music video (2024), where he is credited as DOP and Colourist, and a regular of the foreignbodyproductions DIY collective that made most of his 2022-2024 music-video work.
+
+His work has one through-line and it is constructive, not found. He does not go looking for images; he builds the conditions that force them. An oiled body is set against rock until skin and stone read as one mass. A smoke column is staged at sunset and exposed until it towers over a near-black human. A face is shot through rippled water so the distortion becomes the portrait. An interior is flattened into one deep-blue field by the grade. His credit lines run in pairs, DOP plus colourist, because for him the shoot and the grade are the same operation performed twice: expose for the force in the field, then finish the exposure on the timeline. The body is never inside the landscape; it is rendered as the landscape's material.
+
+**Doorway:** Hop from the Ciara Reddy study (#258): she is the stills eye on the shared feeo sets and he is the motion eye on the same sets. Where the Reddy study is about a photographer whose camera stays inside the event, this study is about a cinematographer who builds the event so the camera has something to be inside of. Her 'tnteen' art department is his 'tnteen' smoke column; her overhead elemental portraiture is his backlit silhouette against the element. Same sets, same elemental obsessions, two different instruments. Her mature register is positional; his is constructive.
+
+**Depth:** his own Instagram grid is unretrievable: the instagram-cli posts endpoint returned the same unrelated reel on all 8 attempts for @mateo.cvb (account-specific provider corruption, documented in the research leg; same-session controls for @spilt.ltd and @foreignbodyproductions returned correct feeds, and tagged-posts was blocked by the social-graph filter). A proxy corpus of 44 posts was assembled from collaborator accounts (@foreignbodyproductions, 38 posts, 2022-01-06 to 2024-06-07, 11 crediting him by name with exact crew roles; @spilt.ltd, 6 posts, 2026-02 to 2026-05; plus 4 mateo-credited feeo posts referenced from the #257 corpus). 9 frames were JPEG-verified and visually inspected across 2022-11 to 2026-02. Four rounds of web search found zero interviews, press, portfolio sites, or Vimeo pages; no camera, lens, or lighting specifics exist on the open web, so all technique is inferred from the frames and the crew credits. NOT accessed: 0 videos watched (reel cover stills only); carousel slides beyond the first unseen; no comment threads; no captions from his own grid; the nukuluk_nukuluk reel the provider returned is not his content (verified, excluded). The study is honest about this: it is a study of his credited craft as seen through his collaborators' feeds, not a study of his own authored archive.
+
+## M1. Body as elemental material
+
+The signature mechanism, visible in three frames across two years. f02, the 'run over' EP album art (2024, shot by him): an oiled dark body reclined against a boulder on a pebble beach while wave spray explodes behind it; the body and the rock read as one continuous mass, the specular highlights doing all the anatomy. f03, the 'Oil spill gull' still (2024): a figure coated in black oil emerging from darkness, skin made indistinguishable from the slick; there is no body and no oil, there is one substance with two behaviors. f08, the Peter Spanjer Cob Award short (2024, produced by him): black-and-white intertwined arms and bowed heads, water droplets beading on skin like condensation on glass. The mechanism is exact: choose an elemental substance (oil, seawater, spray), coat or drench the body in it, shoot black-and-white with hard light so the wet sheen becomes the only readable surface. The body is never in the landscape; it is rendered as the landscape's material, and the viewer's eye has to decide where flesh ends and element begins. It usually cannot.
+
+**Takeaway:** coat the body in the element until flesh and substance are one readable surface.
+
+## M2. Backlit silhouette against the element
+
+The music-video register. f00, the 'tnteen' cover: a hooded figure, near-black, in dunes, gazing up at a towering orange-brown smoke column at sunset; the camera exposes for the smoke, so the human goes dark and only the plume's edges carry rim light. f01, the 'tnteen' pt.2 reel: a body-painted figure crouched on shoreline rock, sea spray and a backlit mist halo around the head. The rule: one overwhelming natural force fills two-thirds or more of the frame, the human is a small dark anchor inside it, and exposure is always for the force, never for the figure. This is the constructive version of the Reddy M2/M3 overlap: she places the body inside the element and shoots from within; he builds the element first (the smoke column is staged, the spray is waited for) and then sacrifices the figure to it. The silhouette is not a failure of exposure; it is the whole point. Small dark human, huge lit force, the camera on the side of the force.
+
+**Takeaway:** stage the force, expose for it, let the human go dark inside it.
+
+## M3. Mediated portraiture, the distortion is the portrait
+
+The most authored single image in the evidence. f06 (2023, directed, shot, edited, and VFX by him): an extreme close-up of a face warped through a rippled refractive medium, water or glass; features smear and double, the mouth stretches, the geometry of the face becomes the geometry of the wave, while one blue eye stays sharp and anchors the whole frame. The surface between the camera and the subject is part of the image, not an accident over it. This is a VFX-native cinematographer's portrait: he did his own effects in the foreignbodyproductions era (the July 2022 credit block reads "Director / Editor / VFX"), and here the effect is not applied to the face, it is the face. The lesson for the prompt pipeline: the refracting medium earns interaction. A still of a warped face is decoration; a face whose warp responds to the viewer's hand is the mechanism.
+
+**Takeaway:** put the medium between camera and subject, keep one anchor sharp, and let the warp be the portrait.
+
+## M4. Monochrome colour wash as atmosphere
+
+The colourist's mechanism, and the reason the DOP-plus-colourist double credit matters. f05 (2022, DOP and colour grade by him): a staged interior, desk, mirror, fringed chair, flattened by the grade into a single deep-blue field; objects survive as shapes in the wash, not as things with their own colours. The grade does the storytelling the set design only suggests. He carries the same double credit on 'tnteen', and the late SPILT work (gallery films, brand manifestos) is exactly the world where the grade is the product. The mechanism: shoot for luminance structure, then lay one monochrome wash over everything so the wash, not the objects, carries the mood. It is the cheapest, most total transformation available to a cinematographer, and he treats it as a first pass, not a finishing step.
+
+**Takeaway:** build the scene in luminance, then let one wash do the storytelling.
+
+## M5. Ensemble naturalism, warm practicals
+
+The narrative register, and the proof he is not a one-engine shooter. f07 (Goat Girl 'Ride Around', 2024, co-directed by him with @sydnuku): four figures in a church hall, tungsten practicals, a hymn-number board, stained glass; group blocking held in a real room, no stylization, no element, no wash. The room's own light does the whole job. This is the register his commercial and gallery future lives in: the SPILT films are Joy Gregory interviewed in a dark room, The Modern House shot on location, PANGAIA's manifesto. The mechanism is restraint: choose a room that already has light in it, block the bodies inside that light, and do not add a single trick. Watch-only. A piece built from this should hold still and let the room perform.
+
+**Takeaway:** find a room with its own light and block bodies inside it; add nothing.
+
+## M6. Intimate documentary close-up
+
+The current commercial register. f04 (2026, SPILT x Whitechapel, shot by him and @conradmgn): the Joy Gregory interview, soft key on the face, dark ground, shallow depth, subject-forward, no tricks. This is what the foreignbodyproductions DIY era hardened into: six years of doing every job around the image, and now the image is a face in soft light. The mechanism is the simplest in the study and the hardest to earn: the close-up works because everything else has been taken away, not because anything was added. It is the late form of M4's wash and M2's silhouette, with all the machinery removed.
+
+**Takeaway:** take everything away until the face is the whole image.
+
+## M7. Role fluidity inside one crew ecosystem
+
+The career mechanism, and the through-line of the study. The credits read like a one-person film school: assistant director and producer on Ruthy Waters films (2022), "Director / Editor / VFX" (July 2022), DOP and colour grade on his own reels (November 2022), Editor and 1st AD on Nukuluk's 'I Just Wanna Luv U' (March 2023), co-director and editor on Goat Girl 'Ride Around' (February 2024), DOP and colourist on 'tnteen' (February 2024), album art for 'run over' (March 2024), producer on Peter Spanjer's Cob Award short (June 2024), freelance producer at SPILT (2026). Every credit is inside the same tight crew graph: @sydnuku the repeat co-director, @matty.mancey the production designer on four projects, @cuan_roc the longest-running peer, @conradmgn the gaffer turned SPILT co-shooter. He learned the image by doing every job around it, which is why his frames carry the double credit: he never separated shooting from finishing.
+
+**Takeaway:** the image is built by the same hand that finishes it; do not separate the shoot from the grade.
+
+## Evolution
+
+- **2022: the DIY generalist.** Inside the foreignbodyproductions collective: "Video by @mateo.cvb + @woommusic" (January), the "This Way Vietnam" short doc co-created with @maiszhh (January), AD and producer on Ruthy Waters films (February, November), then the turn: "Director / Editor / VFX" (July) and "DOP @mateo.cvb @cuan_roc, Colour Grade @mateo.cvb" (November). A generalist learning every station in the crew.
+- **2023: the crystallization.** Directing, DOP, and colour grade become the repeating triple: produced and directed with @sydnuku (February), directed and shot and did VFX with @mememecharles (February), Editor and 1st AD on Nukuluk's 'I Just Wanna Luv U' (March), the Gondry-Kaufman-Lynch references naming the ambition. The f06 refracted portrait belongs to this year.
+- **2024: the music-video peak.** The fortnight that defines him: February 14, co-director and editor on Goat Girl 'Ride Around' and DOP and colourist on feeo's 'tnteen' on the same day. Then the 'run over' EP album art (March), the 'Oil spill gull' still (July), producer on Peter Spanjer's Cob Award narrative short (June). The body-as-elemental-material mechanism is at full strength.
+- **2026: the gallery producer.** Freelance producer at SPILT ltd: Whitechapel Gallery artist films (Joy Gregory, Candice Lin, co-shot with @conradmgn), brand work (PANGAIA Earth Day manifesto, lami harissa), The Modern House with Isamaya Ffrench. The DIY crew grammar converted into commercial and gallery currency, with the camera still in his own hands.
+
+## Network (evidenced)
+
+Theodora Laird / feeo (the anchor: 'tnteen' DOP and colourist, 'run over' album art, 'Oil spill gull'; the shared-set axis with Ciara Reddy). @sydnuku (repeat co-director: Goat Girl 'Ride Around' and Nukuluk 'I Just Wanna Luv U'; the strongest adjacent director and the top future-study candidate). @matty.mancey, Matty Mancey-Jones (production designer across 'tnteen', Goat Girl, Nukuluk, and the Spanjer short; the crew's visual world-builder; her identity, open in study #258, is confirmed by the 'tnteen' credit block). @conradmgn, Conrad Magan (gaffer on the Spanjer short, co-shooter with mateo on SPILT's Joy Gregory film; the gallery-commercial lane mateo moved into). @cuan_roc (co-DOP with mateo in 2022, co-producer on the Spanjer short; the longest-running peer). @foreignbodyproductions (the 2022-2024 collective) and @spilt.ltd (the current employer, "Films, documentaries, and moving image"). @ciara.is.reddy (the shared sets; already studied, #258). Also evidenced in the credits: @chaimuki (DOP, Goat Girl), @essofori (DOP, Spanjer short), @peter.spanjer (director, Cob short), @mememecharles (co-director and stylist), @chanthilaa (director, SPILT Isamaya film).
+
+CORRECTIONS, kept in the record: the study258 brief called him "Mateo Cavallaro"; every primary source, the account-search full name, and feeo's own 'tnteen' credit block say **Mateo Villanueva Brandt**, and "Mateo Cavallaro" web-searches only to an MMA fighter and an Argentine horror-short director, both unrelated. The mislabel is corrected here and should not propagate. The instagram-cli `posts` endpoint is persistently corrupt for this one account (the same unrelated nukuluk_nukuluk reel on all 8 attempts across username, user-id, @-prefixed, sort-order, post-type, and date-filter variants; same-session controls for @spilt.ltd and @foreignbodyproductions worked), so no claims are made from his own grid and the evolution timeline rests on dated crew captions from collaborator feeds. The nukuluk reel is not his content and was excluded.
+
+## Aesthetic logic
+
+Everything in Villanueva Brandt's practice is built, and the build has two passes: the shoot and the grade, performed by the same hand. The body is rendered as the element's material. The force is staged and exposed for, and the human is sacrificed to it. The portrait is shot through a medium that does the portraiture. The room is washed until the wash is the story. The face, late, is lit softly and left alone, because the machinery has been learned well enough to be invisible. He is the study's counterexample to the Reddy rule: where she stays inside the event, he constructs the event so there is something to be inside of. His six years inside one tight crew are not a limitation; they are the method. You do every job around the image, and then the image carries all of them at once.
+
+---
+
+Prompts MC1-MC8 (PP1231-PP1238) are in the prompt block for fly; study reference for all: study/mateo-villanueva-brandt.md in the builtbysai/muse repo.
