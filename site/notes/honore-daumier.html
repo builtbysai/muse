@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honore Daumier, the lithographer (1808-1879) · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a4a2b"></span>Shelf I, Print &amp; the Etched Line</span><h1>Honore Daumier, the lithographer (1808-1879)</h1><div class="byline"><span>studied 2026-10-05</span><span class="sep">/</span><span>11 min read</span><span class="sep">/</span><span>2,194 words</span></div><div class="note-body"><p>Deep study, 2026-10-05. Hop-only session, queue exhausted. Named (&quot;Daumier the lithographer&quot;) among next doorways by the 2026-10-04 Odilon Redon study. The quality-first choice, and the other end of the lithographic press from Redon&#x27;s noirs: where Redon composed the field around one suspended form, Daumier composed the crowd. The surprise finding is that the caricature is not the achievement. The arrangement is.</p>
+<h2>Sources</h2>
+<p>Biography, technique, and criticism via a delegated research dossier (text-only: Wikipedia Honoré Daumier read end to end, Smarthistory&#x27;s Rue Transnonain essay read in full, the Met&#x27;s Heilbrunn nineteenth century print essay, the New Criterion &quot;Strange seriousness&quot; piece, Laughton&#x27;s Met catalogue text, the School Arts Daumier essay; the rest snippet-sourced and flagged in the dossier). One correction this session found on its own: the dossier could not verify a Met object page for Le Ventre legislatif, but the Met API v1.1 search returned object 359150 (accession 57.650.185), &quot;The Legislative Belly,&quot; with an Open Access image, inspected below. The dossier&#x27;s full text and its honest-gap flags live in goals/generative-doodles-site/hidden_files/study-2026-10-05-daumier/dossier.md and are carried here only where needed.</p>
+<p>Key facts, carried:</p>
+<ul><li>Honore-Victorin Daumier, 26 February 1808 Marseille, died February</li></ul>
+<p>1879 Valmondois. Errand boy for a bailiff at twelve (the doorway into the legal world he later dissected), lessons from Alexandre Lenoir, the Academie Suisse, learned lithography from Charles Ramelet and apprenticed with Zephirin Belliard c. 1825. Drew directly on the limestone with greasy crayon for his whole career; no engraver&#x27;s hand between him and the printed sheet.</p>
+<ul><li>Gargantua (December 1831, Louis-Philippe as a bloated giant on a</li></ul>
+<p>close-stool throne) bought him six months in Sainte-Pelagie (served August 1832 to January/February 1833, release date disputed) and a 500-franc fine. The trial made him famous and left him poor.</p>
+<ul><li>After the September Laws of 1835 killed direct political</li></ul>
+<p>caricature, the social turn: Robert Macaire (Caricaturana, 100 plates, August 1836 to November 1838; second series 1840-41), Les Saltimbanques (1839), L&#x27;Histoire ancienne (1841-43), Les Gens de justice (39 plates, 1845-1848). Le Charivari ran him at roughly eight lithographs a month for decades.</p>
+<ul><li>Never used models, rarely made preliminary studies; the visual</li></ul>
+<p>memory banked over decades of drawing the same Parisian types. The 36 clay busts of deputies (1832-35), modeled from the Chamber&#x27;s viewing gallery, were three-dimensional studies for the Belly prints.</p>
+<ul><li>Eyesight failing from cataracts c. 1865-66, retired from Le</li></ul>
+<p>Charivari 1872, nearly blind by 1877. Twice refused the Legion of Honor. The Durand-Ruel painting retrospective 1878 was a critical success and a financial disaster.</p>
+<ul><li>Catalogue raisonne: Loys Delteil, 11 volumes 1925-1930, about</li></ul>
+<p>2,800 works, numbers to 3955 plus addenda. The 4,000 figure is the standard round count; treat every count as approximate.</p>
+<h2>Six artworks, visually inspected at source resolution</h2>
+<ol><li><strong>Rue Transnonain, le 15 avril 1834</strong> (lithograph, plate 24 of</li></ol>
+<p>L&#x27;Association Mensuelle, published August/September 1834). Met 20.23, Rogers Fund 1920, DP835611. A room at night after the National Guard&#x27;s massacre. One strong side light from upper right rakes across huge white bedclothes and the dead man&#x27;s nightshirt. The body lies on a long diagonal across the plate, a crushed child under his torso, an old man&#x27;s head entering from the right edge, a woman&#x27;s body receding into the dark at left. What he withholds: no soldiers, no action, no perpetrators, no rendered gore. The dark doorway at left is the compositional void. Smarthistory&#x27;s line is exact: no action or drama, only the stillness and silence of death.</p>
+<ol><li><strong>Le Ventre legislatif (The Legislative Belly), January 1834</strong></li></ol>
+<p>(lithograph). Met 57.650.185, DP808878. A crowd of thirty-odd legislators in four receding tiers, seen from BELOW, the viewer seated beneath the ministers. The foreground is a huge empty curved desk surface (the Bancs des Ministres ledge), taking the bottom third. The deputies are a frieze of heads with varied spacing and attitudes: dozing, leering, whispering, blowing noses. The white waistcoats of the front row protrude as pale masses. The light is even and bright, nearly shadowless, the opposite of Transnonain&#x27;s chiaroscuro. The satire is in pose and gesture, not in funny faces.</p>
+<ol><li><strong>Robert Macaire, avocat (Plate 44, Caricaturana, 1837)</strong>.</li></ol>
+<p>Met 53.693.35, DP878076. The con-man barrister in profile, center-left, right arm raised in a long theatrical diagonal. A tight cluster of spectator heads at left. Behind and above at right, the horizontal band of the judges, one awake, one asleep. The upper half of the sheet is blank paper doing the work of the room. The caption is the second half of the picture: the act &quot;is obviously null, tainted with fraud and without legal character... Devil! Devil! It is true, I contradict myself... But this act is certainly legal, legal and perfectly valid... (He pleads five hours without stopping and loses his case).&quot;</p>
+<ol><li>**Robert Macaire devant ses juges (Plate 30, Caricaturana,</li></ol>
+<p>1836-38)**. Met 53.693.49, DP878062. The same stage grammar: Macaire at left, hat in hand, gesticulating; the judges in their horizontal band at right, one yawning; a guard in a tall shako at far left; the clerk&#x27;s back at center-bottom; a huge empty middle. The punchline again in the caption: &quot;After this brilliant improvisation Robert-Macaire is sentenced to the maximum penalty.&quot; Two plates, one stage. The series is the composition.</p>
+<ol><li><strong>Les Gens de justice, plate 37</strong>. Wikimedia Commons</li></ol>
+<p>(a Mourlot reprint, imprint &quot;Imp. Mourlot Frs,&quot; tones degraded, flagged). Two figures only, nearly life-size in the frame: a judge in full black robe at left facing us with a sly smirk, and a second man with his back to us peering through the barred window of a prison door at right. The left third is blank paper. The robe is near-full black crayon; the joke is in the caption (&quot;It appears decidedly that my fellow is a great scoundrel... so much the better... if I manage to get him acquitted, what honor for me!&quot;). An interaction diagram: two bodies, one door, one caption.</p>
+<ol><li><strong>The Third-Class Carriage, c. 1862-64</strong> (oil on panel,</li></ol>
+<p>noted as a painting). Met 29.100.129, DP-21027-001. The painted counter-species to the lithographs. A dark carriage interior; three foreground masses (nursing mother, old woman with a basket looking at us, sleeping boy); behind them a frieze of eight to ten heads filling the upper half, all facing left. Light enters from two windows at upper left. Warm browns, the basket and the baby&#x27;s wrap the one warm accent, the old woman&#x27;s dress a teal note. No caricature, only weariness. The sympathy is structural: the poor are packed together and given faces.</p>
+<p>Tonal arc, image-area crop means: carriage 33.0 (std 26.1, the painted dark, most compressed), Transnonain 112.5 (49.6, the chiaroscuro night), Belly 130.5 (54.6, the white desk pulls the mean up), Gens de justice 37 138.3 (63.1, the black robe against white), Macaire avocat 190.0 (61.7), Macaire juges 200.0 (57.2, the lightest). The full-sheet stats are margin-polluted and carried in the evidence folder. The value key is FREE, chosen per composition, exactly as the Redon study found: night 112, daylight courtroom 200, and the species is identical across them.</p>
+<h2>Technique breakdown</h2>
+<ul><li><strong>The crowd as one body with many heads.</strong> The Belly&#x27;s 35</li></ul>
+<p>deputies and the Carriage&#x27;s 10 passengers share one device: a frieze of varied heads with composed spacing and one big counter-field (the empty desk, the dark carriage body). The School Arts close-reading names the Belly&#x27;s devices: the curving bench backs, the slight diminishing scale, the standing foreground figure backing the front line so the eye has a point of entry. A monotonous row of fat men becomes a single organism. The politics ride the rhythm.</p>
+<ul><li><strong>The diagonal hero against the blank room.</strong> The Macaire</li></ul>
+<p>plates and Transnonain&#x27;s sprawled corpse share the stage: one figure on a strong diagonal, the room supplied by blank paper. The gesture is the picture.</p>
+<ul><li><strong>The interaction diagram.</strong> Gens de justice 37 reduces the</li></ul>
+<p>courtroom to two bodies and a door. The caption does the rest. The series (100 Macaires, 39 Gens de justice) repeats the type and reinvents the gesture each time; the deadline rhythm became the style.</p>
+<ul><li><strong>The withheld incident.</strong> Transnonain draws the morning</li></ul>
+<p>after, not the massacre. Philipon, who knew the difference, wrote it was &quot;not a caricature, not an exaggeration, but a page of our modern history bespattered with blood.&quot; The restraint is the accusation.</p>
+<ul><li><strong>Palette and handling.</strong> Black crayon masses and the white</li></ul>
+<p>of the paper; tusche wash for the atmospheric darks (Transnonain); blunt crayon for darks, sharp crayon for lights, needle scratches for accents on the Belly. Baudelaire&#x27;s claim that his drawing is &quot;naturally colorful&quot; means the tonal masses do the work other artists assign to hue. A restricted palette is not a limitation to decorate around; it is the compositional engine.</p>
+<ul><li><strong>Point of view as composition.</strong> In the Belly we sit beneath</li></ul>
+<p>the ministers. In the Carriage we sit among the poor. In the courtroom scenes the satire comes from inside knowledge (he worked in a bailiff&#x27;s office at twelve); he knows their moves, he is not above them. The sympathy is structural, not sentimental.</p>
+<ul><li><strong>The caption as second half.</strong> The Macaire plates and</li></ul>
+<p>justice 37 are incomplete without their captions, and the captions never explain the drawing; they complete the joke from the other side.</p>
+<h2>Quality notes: what makes this work good</h2>
+<p>The caricature is decoration on structure. The 2026-10-05 re-render studies proved it schematically: a row of varied heads over a blank void reads as a composed group (A1), while big-nose grin faces spread evenly read as emoji (A4). The exaggeration is, in Baudelaire&#x27;s clause, &quot;rooted in nature&quot;: observation pushed until the inner life shows through the outside. Vincent&#x27;s verdict, quoted in the New Criterion: we return &quot;not primarily because of their satirical point but because of their aesthetic excellence... not in their parodic gaiety but rather in the high quality of their draughtsmanship.&quot;</p>
+<p>What he withholds is as composed as what he draws. The Transnonain silence, the Belly&#x27;s empty desk, the Macaire plates&#x27; blank upper halves, justice 37&#x27;s blank left third: Daumier always leaves room around the incident for the viewer to stand in. A derivative fails the moment it fills that room.</p>
+<p>What would make a derivative piece fail: copying the manner (big noses, pear heads, funny bourgeois) without the observation; exaggeration not rooted in a real gesture, which reads as mere ugliness; filling the silence with setting; explaining too much in the caption instead of completing the joke from the other side; rendering the room instead of leaving it blank; evening out the crowd&#x27;s spacing into an inventory lineup; centering the hero instead of putting him on a diagonal.</p>
+<h2>Avoid-list additions</h2>
+<ul><li>big noses, pear heads, and funny-bourgeois manner as</li></ul>
+<p>Daumier-like; the manner is not the method</p>
+<ul><li>the crowd as an evenly spaced inventory lineup</li><li>filling the sheet edge to edge; heads as texture</li><li>rendered rooms behind the figures; the room must be blank</li></ul>
+<p>paper or it traps the figure</p>
+<ul><li>the centered upright hero as emblem</li><li>small figures in busy scenes; the gesture dissolves</li><li>the incident instead of the aftermath (showing the massacre</li></ul>
+<p>instead of the morning after)</p>
+<ul><li>gore or horror as the subject</li><li>captions that explain the drawing instead of completing it</li><li>the late-even-light look as his species; the value key is</li></ul>
+<p>free, but each picture commits to one key</p>
+<h2>Honest gaps</h2>
+<p>No original handled. The Gens de justice plate 37 file is a Mourlot reprint with degraded tones, carried for the composition only. The Third-Class Carriage is a painting, not a print, carried as the painted counter-species. The dossier was not re-verified source by source; its own flagged items (prison release date, Transnonain issue month, the 1900/1901 retrospective, the Baudelaire essay dating, the counts) are carried as unresolved. The re-render schematics are single pass. Gargantua itself was not visually inspected (no stable high-res museum file verified this session; Yale holds an impression, per the dossier). The Belgian/French provincial impressions, the Saltimbanques series, and the Don Quixote paintings are out of scope.</p>
+<h2>Seeds for FUTURE_PIECES.md</h2>
+<p>Seeds 434-435 appended with distinctness checks against used families (Redon&#x27;s one-form species 432-433, the Guston anchor 410-411). These are crowd and gesture compositions, a new family.</p>
+<h2>Next doorways</h2>
+<p>The Daumier Register&#x27;s revised attributions; the full 100-plate Caricaturana run as a serial study; the Célébrités du Juste Milieu clay busts as the three-dimensional studies; the Saltimbanques as the street counter-species to the courtroom; Philipon the director (captions as the second half); the etching revival (Whistler, Haden, Meryon) named by the Redon and Goya studies; Daumier&#x27;s late blindness and the darkening late paintings; Gavarni the rival lithographer; the Black Paintings as the late dark-ground species; the Daumier-Balzac node (&quot;Michelangelo in his blood&quot;).</p></div><nav class="pagenav"><a class="" href="hercules-segers.html"><span class="dir">Previous note</span><span class="t">Hercules Segers (c.1589/90 - c.1638)</span></a><a class="next" href="jose-guadalupe-posada.html"><span class="dir">Next note</span><span class="t">Jose Guadalupe Posada</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

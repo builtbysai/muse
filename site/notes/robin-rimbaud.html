@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robin Rimbaud / Scanner, study #236 (2026-10-31, cron expansion) · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Shelf III, Sound &amp; Music Systems</span><h1>Robin Rimbaud / Scanner, study #236 (2026-10-31, cron expansion)</h1><div class="byline"><span>studied 2026-10-31</span><span class="sep">/</span><span>9 min read</span><span class="sep">/</span><span>1,885 words</span></div><div class="note-body"><p>IG: <strong>@robinrimbaud</strong> (&quot;Robin Rimbaud - Scanner&quot;), verified, 20,833 followers, bio &quot;Careering across the cultural landscape, embracing books, films, music, technology, arts, dance and much more&quot;. No namesakes of concern; the handle matches scannerdot.com. Robin Rimbaud, b. 6 May 1964, Southfields, London, records and performs as Scanner. 30+ year practice across sound art, installation, dance scores, film scores, curating, writing. One of the first artists to build an entire practice on intercepted transmissions.</p>
+<h2>Corpus and method</h2>
+<p>Instagram pull of @robinrimbaud, 1,124 unique posts (dedupe on post_id), 2017-07-11 to 2026-10-31. caption_index.txt covers all 1,124 with date, media type, URL, and first 200 characters. Media: 746 carousel / 232 image / 146 video. Year mix: 2017:1 / 2018:41 / 2019:30 / 2020:4 / 2021:15 / 2022:97 / 2023:273 / 2024:262 / 2025:229 / 2026:172. Captions average ~1,200 characters; 1,117 of 1,124 carry captions. 20 frames stratified 2017-26, preferring posts that describe works, installations, materials, or processes; picks saved in pick.txt. og:image downloaded with the study230 dl.sh technique (iPhone UA, og:image regex + html.unescape, 2s sleep); all 20 valid JPEG (magic ff d8 ff verified), all visually inspected by the research worker, 4 spot-checked by the study author. Web leg: Eyebeam bio, Wikipedia, Tang Museum (Ricochet elevator piece), Clot magazine, scannerdot.com, Electricity Club 2024 interview, Sound on Sound, Musicians&#x27; Union, Wise Music Classical, Soniccouture Library announcement, theartsdesk Q&amp;A (Deloitte Ignite), Disquiet (Colofon &amp; Compendium), Strom newsletter, designingsound interview.</p>
+<h2>Core engine</h2>
+<p><strong>THE ETHER IS FULL; THE ARTIST IS THE TUNER: scan what is already being transmitted, recorded, or archived, then slow it, loop it, degrade it, and re-site it until it means something new.</strong></p>
+<p>The named mechanisms:</p>
+<ol><li><strong>Intercept-and-dramatize.</strong> 1992: buys a radio scanner from a</li></ol>
+<p>friend, starts working intercepted mobile-phone conversations into music in real time, adding musical and emotional weight to fragments that were never meant to be heard. The moniker is the method: scanning the airwaves for content. Corpus continuation: &quot;recording cities whilst travelling instead of taking photos&quot; (2025-11-14); the device itself exhibited as a relic (The Horror Show, Somerset House, 2022, f05), photographed B&amp;W like a museum object. Watchable behavior: a sensor sweeps a band, fragments are caught, held, weighted, released.</p>
+<ol><li><strong>Slow, loop, degrade.</strong> The Esprits de Paris method: Paris field</li></ol>
+<p>recordings slowed down and looped until the distortions become the composition. Ongoing studio ritual: 15-second Strega loops for a 12-hour radio broadcast at Het Concreet (2023-11-16); Make Noise + Strymon tape-loop sessions (2018-10-27, f01). The material is never fresh; it is worn down until it speaks.</p>
+<ol><li><strong>Archive-as-instrument.</strong> 5,000+ hours of spoken-word archives</li></ol>
+<p>(2025 Strom newsletter); Scanner:Library (Soniccouture, 2026): 401 recordings, most recovered from cassettes (police-scanner intercepts, electronic improvisations, location audio), three identical layers, 10M+ combinations, 200 presets. The Instagram feed itself is a daily visual archive of other artists&#x27; works. Mechanism: a finite pile of fragments recombined combinatorially, never repeated.</p>
+<ol><li><strong>Site-specific spatial sound.</strong> Sound designed to fit and reveal</li></ol>
+<p>a space&#x27;s behavior: Bridging the World (2014, Museum of London Docklands), a walk-through river of hanging speakers; Ricochet (Tang Teaching Museum): slowed bat echolocation mapped to an elevator&#x27;s rebounds between floors, spatial behavior mirroring as composition; Salles des Depart and Channel of Flight, permanent installations in a working public morgue (Raymond Poincare hospital, Garches); Water Drops (Rijeka Airport); Sound Curtains (Science Museum London). Corpus: the morgue installation confirmed permanent, 2025-11-14, f18.</p>
+<ol><li><strong>Public-participation collage.</strong> Deloitte Ignite (artsdesk Q&amp;A):</li></ol>
+<p>the public emailed in sounds for a fortnight; he wove them into the installation after manipulating them &quot;though having been manipulated by Scanner&#x27;s fiendish software, they are unlikely to be easily recognisable.&quot; Bridging the World took public bridge recordings and personal stories. The crowd supplies the raw fragments; the system anonymizes them into material.</p>
+<ol><li><strong>Serial collaboration.</strong> Every era is defined by a partner: Mike</li></ol>
+<p>Kelley (Esprits de Paris, 2001), Stephen Vitiello (Sound Surface, 2004), Wayne MacGregor (Qualia, 2004, Royal Ballet), Joel Cadbury (The Big Dance, 2012), Erik Kessels + Stefano Pilia (Un&#x27;immagine, 2025). Corpus: &quot;I&#x27;m a serial collaborator.&quot; 75 contemporary dance productions scored. The partner changes the instrument.</p>
+<ol><li><strong>Score-to-image.</strong> Re-soundtracked Godard&#x27;s Alphaville (1998,</li></ol>
+<p>performed worldwide); live-scored Harry Smith&#x27;s Early Abstractions (1946-52) at Harry Smith at 100 (Brighton, Nov 2024, f15: performer as silhouette under the projection); Un&#x27;immagine: 30,000 images from the 7M-photo Publifoto archive stitched into one continuously moving photograph, live-scored for 500 guests at Gallerie d&#x27;Italia (2025). Images exist; he gives them new time.</p>
+<ol><li><strong>Rework, re-present.</strong> Greengrassi 2022: &quot;surround sound work</li></ol>
+<p>that reworks early material of mine in a new way&quot;; Electric Dreams opening performance, OGR Turin, 31 Oct 2026. Nothing is finished; everything is re-tuned for the new room.</p>
+<h2>Evolution</h2>
+<ul><li><strong>1982-1991:</strong> begins composing for professional productions</li></ul>
+<p>(Eyebeam). Early releases on his own? no, debut later.</p>
+<ul><li><strong>1992-1997:</strong> buys the radio scanner (~1992); debut CD</li></ul>
+<p>Scanner on Ash International (Touch subsidiary), working with Mike Harding. Co-founds the I/O/D webzine with Matthew Fuller and Graham Harwood (1994, one of the first experimental e-zines). Mass Observation (1994), Scanner2, Delivery (1997). Sets up and curates The Electronic Lounge at London&#x27;s ICA, 1994-2000.</p>
+<ul><li><strong>1998-2000:</strong> Surface Noise performed on a London bus for</li></ul>
+<p>Artangel; Imaginaria 99 Award for Digital Arts (ICA); becomes &#x27;Professor Scanner&#x27; at John Moores University, Liverpool. Alphaville re-soundtrack premiered, performed worldwide.</p>
+<ul><li><strong>2001-2004:</strong> Esprits de Paris developed with Mike Kelley;</li></ul>
+<p>Salles des Depart permanent installation in the working morgue at Raymond Poincare hospital, Garches (2001); Channel of Flight (2003). Sound Surface with Stephen Vitiello (2004), the first Tate Modern sound-art commission. Qualia for Wayne MacGregor, Royal Ballet (2004).</p>
+<ul><li><strong>2007-2013:</strong> Kirikou &amp; Karaba score (2007); Philips Wake-Up</li></ul>
+<p>Light sound design (2009). The Big Dance (2012): score for 1,000 dancers in Trafalgar Square, broadcast on Channel 4. Live_ Transmission: Joy Division Reworked with Heritage Orchestra (Brighton Festival 2012). Scanner: A Month in the Life of an Artist, Melkweg Amsterdam (2013).</p>
+<ul><li><strong>2014-2019:</strong> Bridging the World speaker-river installation</li></ul>
+<p>(Museum of London Docklands, 2014); Vex house with Chance de Silva architects, Stoke Newington (2017, permanent soundtrack; RIBA London Award 2018, Grand Designs). Cisco telephone-system sound worldwide (2019). VR ballet Nightfall score (Dutch National Ballet, 2016).</p>
+<ul><li><strong>2020-2023:</strong> lockdown fecundity: nine albums since 2020</li></ul>
+<p>(Musicians&#x27; Union). An Ascent (DiN, 2020). Scanner Sunday livestreams (2021). Tape-loop rituals documented; Het Concreet residency (2023). Corpus becomes a daily diary in 2023 (273 posts).</p>
+<ul><li><strong>2024:</strong> Esprits de Paris (multi-screen audio-visual w/</li></ul>
+<p>Kelley, homage to EVP researchers Jurgenson/Raudive) enters the Centre Pompidou permanent collection. Own label Alltagsmusik (&quot;Everyday Music&quot;) launched: Alchemeia (Jan 2024), The Phenol Tapes (recorded 2017, Captiva Island FL), The Berklee Sessions. Harry Smith at 100: live scoring of Early Abstractions, Attenborough Centre Brighton, 15 Nov 2024.</p>
+<ul><li><strong>2025:</strong> Savvy Award, Amsterdam (&quot;world&#x27;s only award for</li></ul>
+<p>innovation across all disciplines&quot;). Un&#x27;immagine with Erik Kessels + Stefano Pilia (Gallerie d&#x27;Italia Turin, Sept): 30,000 images from the 7M Publifoto archive stitched into one continuously moving photograph, live-scored for 500 guests (f17). Forces, Reactions, Deflections (Quiet Details, geophone- sourced).</p>
+<ul><li><strong>2026:</strong> Scanner:Library (Soniccouture, Oct; 2 years in the</li></ul>
+<p>making): 401 original recordings, three layers, 10M+ combinations, 100+ presets designed by him. Electric Dreams: Art &amp; Technology Before the Internet opening performance, OGR Turin, 31 Oct 2026.</p>
+<h2>Network (evidenced only)</h2>
+<ul><li><strong>Stephen Vitiello</strong> (#233; @stephenvitiello x10 in corpus):</li></ul>
+<p>&quot;finest sonic friend of the last 28 years&quot; (corpus, Nov 2025); Sound Surface (2004), first-ever Tate Modern sound-art commission. Reciprocal: Vitiello&#x27;s #233 study cites Rimbaud. Closest long-term sonic collaborator, evidenced both ways.</p>
+<ul><li><strong>Mike Kelley</strong> (7+ plain-text mentions): Esprits de Paris</li></ul>
+<p>developed together from 2001; corpus confirms the work entered the Centre Pompidou permanent collection (2024-12-04, f16).</p>
+<ul><li><strong>Lawrence English</strong> (#235; @room40shoots x7; plain-text</li></ul>
+<p>&quot;room40&quot; x6): English booked Scanner in the 1990s; the I/O3 trio (English, Toop, Scanner, DJ Olive). English&#x27;s #235 study cites Rimbaud x7.</p>
+<ul><li><strong>David Toop</strong> (7 plain-text mentions): Greengrassi group show</li></ul>
+<p>2022 with Toop + room40; 1990s Cologne gig with Ikeda and Toop (f19 caption). Web-evidence only in Toop&#x27;s direction; no IG handle for Toop found (subject skipped in the #236 pick).</p>
+<ul><li><strong>Brian Eno</strong> (@brianeno x15, plain-text 40+): corpus&#x27;s most</li></ul>
+<p>celebrated figure; Eno release celebrations across the years. Not an evidenced collaborator, an evidenced orienting star.</p>
+<ul><li><strong>Laurie Anderson</strong> (7+ mentions): 2017 Manchester meet-up, the</li></ul>
+<p>account&#x27;s only 2017 post (f00); bios list her as a collaborator. <strong>Derek Jarman</strong> (10+ mentions): an influence, posts only; scored? not established. <strong>Bryan Ferry</strong> (1): 1990s session story, &quot;strange radio noises and interferences&quot; added to Ferry tracks with Dave Stewart.</p>
+<ul><li><strong>Erik Kessels</strong> (@erik.kessels x5) + <strong>Stefano Pilia</strong> (1):</li></ul>
+<p>Un&#x27;immagine collaborators (2025). <strong>Ryoji Ikeda</strong> (plain-text, f19): data-cosm at 180 Studios; recalls meeting Ikeda in 1990s Cologne with David Toop. <strong>Carsten Nicolai/Alva Noto</strong> (4+), <strong>Mika Vainio</strong> (3, friend, mourned), <strong>Harry Smith</strong> (3, at 100), <strong>Jan Svankmajer</strong> (2, in-person meeting @eye_film), <strong>Merce Cunningham</strong> (6+), <strong>Thurston Moore</strong> (@ x4), <strong>Hainbach</strong> (@ x4), <strong>Mengqi</strong> (@ x4), <strong>Touch Music/Mike Harding</strong> (web-evidenced).</p>
+<ul><li><strong>Taylor Deupree</strong> (#228; 0 mentions in this corpus; 0 mentions</li></ul>
+<p>of Rimbaud in the #228 corpus): the two share this exact scene and never cross-reference in either corpus. <strong>Ballet Rambert</strong>: appears in goal-guide notes, NOT verified in this research pass; do not use.</p>
+<h2>What to take for prompts</h2>
+<p>Rimbaud is overwhelmingly sonic, so every prompt is an honest translation of a mechanism into a visual system, never a claim about his visuals. His own visual grammar (device portraiture, gear still-lifes, stage silhouettes under projections, the curved wooden Esprits de Paris wall, gallery halls walled in archival photographs) is decoration; the mechanisms are the drivers. The translatable moves: scanning a band for fragments and weighting them (intercept-and-dramatize), wearing material down by repetition until it speaks (slow/loop/degrade), a finite pile of fragments recombined combinatorially (archive-as- instrument), behavior mirroring between a space and a field (elevator rebound logic), crowd-supplied raw material the system anonymizes (public-participation collage), the partner changing the instrument (serial collaboration), giving existing images new time (score-to-image), and re-tuning finished work for the new room (rework).</p>
+<h2>Honest gaps</h2>
+<ul><li>146 video posts: poster frames only; no motion, no audio at any</li></ul>
+<p>point. No prompt depends on sonic character.</p>
+<ul><li>746 carousels: only slide 1 retrievable via og:image; slides 2+</li></ul>
+<p>unseen, so most of the corpus&#x27;s images were never viewed.</p>
+<ul><li>f08 (2023-11-05, hetconcreet residency prep): frame shows a B&amp;W</li></ul>
+<p>archival photo of an elderly man at a vintage electronic console, not obviously &quot;residency prep&quot;; flagged as a possible og:image mismatch.</p>
+<ul><li>&quot;Trappist&quot;, &quot;The Dream Machine&quot;, and &quot;Vex&#x27;d&quot; as work titles: NOT</li></ul>
+<p>found in corpus or web; do not use. &quot;Trafalgar Square&quot; was the venue for The Big Dance (2012), not a work title. His house work is Vex (2017), not &quot;Vex&#x27;d&quot;.</p>
+<ul><li>Corpus covers 2017-2026; pre-2017 history is web-sourced.</li><li>Working data: ~/workspace/goals/fly-generative-lane/hidden_files/study236/</li></ul>
+<p>(posts_raw.json, caption_index.txt, pick.txt, frames/f00-f19.jpg, research-notes.md, web-notes.md, frames.log).</p></div><nav class="pagenav"><a class="" href="richard-chartier.html"><span class="dir">Previous note</span><span class="t">Richard Chartier, study #232 (2026-10-31, cron expansion)</span></a><a class="next" href="ruth-goller.html"><span class="dir">Next note</span><span class="t">Ruth Goller (study #250)</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jurg Lehni · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Shelf VI, Machines in Motion</span><h1>Jurg Lehni</h1><div class="byline"><span>studied 2026-09-19</span><span class="sep">/</span><span>19 min read</span><span class="sep">/</span><span>3,758 words</span></div><div class="note-body"><p><strong>Artist / designer / programmer:</strong> Jurg Lehni, born 1978 in Lucerne, Switzerland. Studied at ETH Zurich, HyperWerk Basel, and ECAL Lausanne. Doorway: a two-hop from the studied interactive classics. The paper.js tadpoles and chain pieces (studied 2026-09-19) were built on his library, and Zach Lieberman (studied 2026-09-24) described Paper.js as feeling like &quot;coding directly inside a vector graphics program such as Adobe Illustrator.&quot; This session goes upstream of the library to the drawing machines and the Illustrator plugin that produced it. Territory: plotter kinematics, hardware, typography, mechanical installation.</p>
+<p><strong>Depth: deep (visual pass 2026-09-28).</strong> Preliminary text pass 2026-09-24 (see kinematics section below) plus this visual pass: full SFMOMA essay &quot;Jurg Lehni and the Poetic Potential of Drawing Machines&quot; read end to end, full 2020 postdigitalgraphicdesign interview read in the Hektor/Scriptographer/ Paper.js sections, and 8 images visually inspected at full res, 7 of them Lehni works: Hektor installed on a gallery wall drawing a spray rosette (SFMOMA, 1024px), Hektor live at the Swiss Institute 2007 (Core77), Hektor writing &quot;Design and the Elastic Mind&quot; at MoMA 2008 (1000px), Viktor drawing on a black ICA-style wall (Makezine), Viktor&#x27;s chalk mind-map at SOMArts 2014 (SFMOMA, 1024px), Lehni training Viktor&#x27;s gondola by hand (SFMOMA, 1024px), and the Scriptographer palette/console inside Adobe Illustrator (SFMOMA, 1024px). One image-search hit for Viktor turned out to be Tinguely&#x27;s Metamatic No. 13 (SIK-ISEA); excluded, not Lehni. lehni.org is dead and archive.org was offline in-session, so no pages from his own site were seen.</p>
+<h2>Hektor (2002, with Uli Franke)</h2>
+<p>A portable spray-paint output device for computers. The whole machine fits in a suitcase: two electric motors, a spray-can holder, toothed belts, cables, a strong battery, and a circuit board wired to a laptop. The two motors are mounted on the wall; they suspend the can holder and define its position by changing the lengths of the two belts. It is driven directly from Adobe Illustrator: the spray can follows the paths of the vector graphic on the wall. The Swiss Institute&#x27;s description of a 2007 live performance nails the concept: Hektor &quot;replicates the motion of a graffiti artist&#x27;s hand, making lo-fi graphics with digital brains.&quot;</p>
+<p>The important part is the machine&#x27;s inaccuracy. A survey of drawing machines notes that the fragility of the installation gives the system a less accurate but poetic quality, and Lehni leans into it rather than engineering it out. Wikipedia&#x27;s polar plotter entry lists Lehni and Franke (2002) first among the artists who used the form; the plotter community calls Hektor &quot;the original cable-based drawbot from 2002.&quot;</p>
+<p>From the SFPC 2013 talk notes, in his own framing: he ran Hektor &quot;as a service&quot; at events (take home your portrait and a film of how it was made), he is &quot;not so much interested in delegating work in the machine,&quot; his earliest work was test patterns, and his working diagrams were &quot;mathematical diagrams depicting harmonic frequencies&quot; and &quot;a system of two changing values.&quot; He wrote the Hektor control software with Scriptographer. When other people started building the same machines he found it hard to accept at first, then concluded: the idea is bigger than you, and the idea also visits other people.</p>
+<h3>The kinematics, reconstructed</h3>
+<p>The machine thinks in belt lengths, not in x and y. With motors at (-600, 0) and (600, 0), a target point (x, y) needs cable lengths L1 = hypot(x + 600, y) and L2 = hypot(x - 600, y); position is pure triangulation. The controller interpolates linearly in (L1, L2) cable space between vector vertices and quantizes to motor steps.</p>
+<p>I simulated this (script: hidden_files/study-renders/lehni_sim.py) with a test pattern of the kind he describes: circle, square, lissajous figure, line grid. Findings, all read off the rendered frames:</p>
+<ul><li>A Cartesian straight chord is curved in cable space, so linear</li></ul>
+<p>cable-space interpolation bows it. A 300-unit horizontal edge bows 7.8 units at its midpoint (panel 3, zoomed 5x, inspected). Vertices land within 0.58 units (quantization only). The error lives between vertices, not at them.</p>
+<ul><li>The gondola is a pendulum. A spring-follow model of the can holder shows</li></ul>
+<p>lag and overshoot at direction changes, worst at corners (panel 2).</p>
+<ul><li>Spray is discrete: every micro-step is one soft dot, so line density</li></ul>
+<p>follows machine speed (panel 2, darker pass).</p>
+<ul><li>The two-changing-values diagram is the payoff. Plot L1(t) and L2(t)</li></ul>
+<p>while the machine draws one Cartesian circle and you get two near-sine waves, phase-shifted (panel 4, inspected). A circle in our space is harmonic motion in the machine&#x27;s space. This is exactly the &quot;mathematical diagram depicting harmonic frequencies&quot; from his talk notes: the machine&#x27;s native language is sinusoidal, and the drawing is a projection of it.</p>
+<p>Honesty note: this is a reconstruction of the documented principle, not his firmware. I did not verify his actual interpolation scheme, belt versus cable construction, or motor model.</p>
+<h2>Scriptographer and Paper.js</h2>
+<p>Scriptographer was a scripting plugin for Adobe Illustrator, written in C++ and Java: it embedded a JVM in Illustrator, wrapped the Adobe SDK in Java classes, and exposed it all to JavaScript through the Rhino engine. Lehni called it a counterproposal: confront a closed piece of software built by a large industry-defining company with an open-source attitude. What if designers, not programmers, built their own tools and made Illustrator do things it cannot do on its own? The idea was to blur the boundary between the creative process and the tools design education teaches.</p>
+<p>It was also a community: a script exchange site organized in three categories, 43 General Scripts (generate or modify objects), 41 Interactive Tools (mouse-controlled drawing tools), 11 Raster Scripts (pixel-data based). The beloved examples: a Voronoi tool, a maze generator, sketchy structural objects, rhythms and patterns derived from typography. Jonathan Puckey built a drawing tool that places the letters of a designed typeface and lets the user tune each letter&#x27;s parameters: half automated, half manual design.</p>
+<p>It broke every time Adobe shipped a new Creative Suite, and CS6 (2012) finally killed it: Lehni calculated that even with Kickstarter money it would take months of full-time work to revive, and he would still be at Adobe&#x27;s mercy at the next update. Meanwhile the ECAL workshops he ran with Puckey had been streamlining the API and writing real documentation, so the two built Paper.js instead: the open &quot;Swiss army knife of vector graphics scripting&quot; on HTML5 canvas. The lesson he took: never build your practice on someone else&#x27;s closed platform if you can help it.</p>
+<h2>Viktor, Empty Words, and the communication drawings</h2>
+<p>Viktor (2006-2016) is the large-scale chalk-drawing machine: an adapted version of ordinary design software driving small industrial motors. It was the centerpiece of the 2008 ICA show &quot;A Recent History of Writing and Drawing&quot; (with graphic designer Alex Rich), drawing on the gallery walls during Thursday evening talks and leaving the work up for the following week. At SFMOMA&#x27;s &quot;Typeface to Interface&quot; it performed &quot;A Taxonomy of Communication&quot; with Jenny Hirons: a series charting the history of visual language, from smoke signals to the gestures we use with handheld devices, drawn live through the run of the exhibition. The drawings mirror the show&#x27;s objects: an IBM Selectric typewriter ball, Susan Kare&#x27;s 1984 MacPaint toolbar icons.</p>
+<p>Empty Words is the removal piece: posters consisting of holes, made with a machine for hole-punched posters (also in the ICA show). The ancestor is Rauschenberg&#x27;s Erased de Kooning: erasure as mark-making, the drawing defined by what is taken away.</p>
+<p>Rita is the third drawing machine in the Hektor/Rita/Viktor trio; details are thin in the sources I could reach and it needs a follow-up pass. Flood Fill and Apple Talk are named as software projects with no technique recovered. Later work: &quot;Typeface as Program&quot; (ECAL book with Peter Bilak and Erik Spiekermann, type-design workshops), &quot;Four Transitions&quot; (for the HeK Basel collection: four displays unveiling the current time, each unit taking one minute), &quot;Moving Picture Show&quot; (Chaumont poster festival installation).</p>
+<h2>Technique takeaways</h2>
+<ul><li>Design the tool, inherit its aesthetic. The machine&#x27;s interpolation</li></ul>
+<p>space IS the style: cable-space interpolation bows every long chord, and that bow is Hektor&#x27;s handwriting. The general principle: figure out what space your renderer natively thinks in, and compose in that space instead of fighting it.</p>
+<ul><li>Plot the control signals, not just the output. The L1/L2 diagram</li></ul>
+<p>reveals the native language (harmonic waves) that the wall drawing hides. Any system with an interesting actuator has a second artwork hiding in its drive signals.</p>
+<ul><li>Mechanical imperfection as medium. Quantization, pendulum sway, spray</li></ul>
+<p>diffusion, belt fragility: he did not engineer these out, the poetry is the point. Compare Vera Molnar&#x27;s 1 percent disorder and Hoff&#x27;s grain discipline. The craft is in choosing WHICH imperfections to keep.</p>
+<ul><li>Authorship moves to parameterization. Lehni&#x27;s claim (via the</li></ul>
+<p>computation-for-designers essay): the designer&#x27;s authorship concentrates on manipulating algorithms and data, on parameterizing contents and contexts. The piece is the parameter space, the outputs are samples.</p>
+<ul><li>Removal as mark-making. Empty Words and the Erased de Kooning lineage:</li></ul>
+<p>define the composition by what is taken away, holes and erasures as first-class marks.</p>
+<ul><li>Half automated, half manual. Puckey&#x27;s type tool and the Hektor-as-a-</li></ul>
+<p>service performances: the tool proposes, the hand disposes. Do not delegate the work to the machine and walk away (his own SFPC warning).</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Do not clone the cable-plotter bow. It is his handwriting, from his</li></ul>
+<p>hardware. Derive the principle (compose in the actuator&#x27;s native space) instead of imitating the artifact.</p>
+<ul><li>Do not fetishize the machine at the expense of the drawing. His own</li></ul>
+<p>warning: he is not interested in delegating the work to the machine. The machine is a means; the drawing still has to sing.</p>
+<h2>Visual pass 2026-09-28: the works, seen</h2>
+<h3>Hektor, finally seen</h3>
+<p>The SFMOMA install photo is the single most informative image of Hektor in the wild. The machine hangs on a gallery wall drawing on a taped-up paper sheet: a black spray rosette of short dashes spiraling outward, the spray-can gondola caught mid-drawing at the rosette&#x27;s right edge, two belts running up to small motors at the wall&#x27;s top corners, the &quot;HEKTOR OUTPUT DEVICE&quot; suitcase on the floor, and a laptop beside it showing the same rosette as clean blue vector lines. Screen and wall in one frame: this is the anti-WYSIWYG as a photograph. The dashes are Hektor&#x27;s test-pattern vocabulary (his earliest work was test patterns), and each dash has soft spray edges, slightly uneven density, the line carried by dot accumulation rather than a continuous stroke.</p>
+<p>The Core77 photo (Hektor live at the Swiss Institute, New York, 2007) shows the performance mode: red spray on a white wall, a large looping harmonic form of interlaced ovals, the can in its cardboard holder at bottom right, belts and cables, laptops and cable spaghetti on the floor. The loops read as &quot;mathematical diagrams depicting harmonic frequencies,&quot; the phrase from his SFPC talk notes. A machine that draws sine waves because its native language is sinusoidal.</p>
+<p>The MoMA 2008 photo (&quot;Hektor writes out the name of the exhibition Design and the Elastic Mind&quot;) shows the handwriting at full strength: four lines of black spray capitals, every letter wrapped in big round overshoot loops, a diagonal transit line crossing the whole text. You can read &quot;DESIGN AND THE ELASTIC MIND&quot; through the loops. The gondola hangs mid-word at top right; belts run to the top corners.</p>
+<h3>Where the loops come from (his own account)</h3>
+<p>The 2020 interview gives the origin story, and it is better than the reconstruction. Hektor was supposed to have FOUR motors, like Viktor later did: two lower motors for stability. But the stepper motors kept blocking each other and losing steps, and with two weeks left before the ECAL thesis deadline, Lehni and Franke cut the lower pair. The only fix available was software: make the motion careful and smooth. His mental model: &quot;what if this were a car, and I was driving without brakes and reaching out of the window with a brush, with the car moving at a constant speed and I was trying to steer at the same time. How would you draw a square in these circumstances? You would drive away on circles in the corners and come back to the next line and then push the brush again.&quot;</p>
+<p>He thought of it purely visually; when it became actual movement it turned into Hektor&#x27;s identity, &quot;a lucky accident.&quot; People watching said it was like a painter &quot;anticipating or planning their next stroke.&quot; The signature was a deadline workaround. He also confirms the copy story from the other side: hundreds of versions of the two-string principle now exist, &quot;you can&#x27;t own the simplicity of such an elemental idea,&quot; and he and Franke deliberately did not publish the recipe: &quot;we wanted to explore Hektor&#x27;s potential on our own, give it an identity and create a body of work around it.&quot;</p>
+<p>I re-rendered this locally (script in the evidence dir): a test square plus the word HEKTOR in a stick font, driven at constant speed with corners replaced by tangent circular arcs, then through quantized two-cable kinematics with a spring pendulum gondola and spray dots. Two passes at the render: the first was too faint and polite, the second (R_TURN larger, denser spray) shows the signature clearly. Square corners become loops, letter corners become loops, chords bow in cable space, the line wobbles from the pendulum. Next to the MoMA photo the mechanism reads as confirmed: constant speed plus no-brake cornering IS the handwriting. Honest note: my arcs are clean; his are messier (belt stretch, wall friction, stepper loss). Both renders visually inspected.</p>
+<h3>Viktor, seen: four belts and a voice</h3>
+<p>The Makezine photo: Viktor on a black wall, white chalk spirals and rectangular loop motifs, the aluminum cross gondola with its motor mounts visible mid-wall, chalk dust on the strokes. Four belts, not two: &quot;a lot of math involved in solving the geometric calculations, for example to always keep tension on all four belts.&quot;</p>
+<p>The SOMArts 2014 photo (the &quot;mind map&quot; for All Possible Futures): a huge chalk concept map on a black wall, hand-lettered nodes connected by sweeping arcs. XEROX PARC, MENLO PARK, AMPEX, INTERNET, DOUGLAS ENGELBART, DARPA, IVAN SUTHERLAND, MILITARY INDUSTRIAL COMPLEX, VANNEVAR BUSH, NASA, ATOMIC BOMB, SPACESHIP EARTH, MOON LANDING, STEWART BRAND, BUCKMINSTER FULLER, WHOLE EARTH CATALOG, CYBERNETICS, PERSONAL COMPUTER, FREE MARKET, MIND EXPANSION, THE WELL, PSYCHEDELIA, COUNTERCULTURE, COMMUNES, FREE SPEECH MOVEMENT, DECENTRALIZED ORGANISATION. The map charts exactly the cyberculture-meets-counterculture marriage he talks about: &quot;hippies, back-to-the-landers... versus the military industrial complex, researchers, and scientists, all connected way more tightly than you might think.&quot; Four motor modules visible at the wall&#x27;s corners, cables, the gondola hanging at bottom center. Chalk dust, uneven letterforms, the hand of the machine.</p>
+<p>The training photo: Lehni in an orange sweater holding Viktor&#x27;s gondola against the wall mid-draw (&quot;SPACEWAR =&quot; in chalk behind his hands). The machine needs training like an instrument needs tuning; the human hand is part of the performance.</p>
+<p>Technique detail from the essay: Lehni and Jenny Hirons selected the photographs and drawings for A Taxonomy of Communication through a long research process, then re-traced them in Illustrator to convert analog sketches into line-based vector instructions. &quot;The focus isn&#x27;t so much on the final result as on the dance of the machine. Each sequence is carefully choreographed.&quot; The machine reenacts hand drawings; the choreography is the artwork. And the naming is deliberate: &quot;By choosing the drawings that it will execute, the machine gains a voice and topics to &#x27;talk&#x27; about.&quot; The &quot;Frankenstein moment&quot;: when the machine first works it is different than imagined, then you discover its character.</p>
+<p>New facts: SFMOMA first wanted Hektor, then chose Viktor, partly practical (chalk has no fumes, works during public hours) and partly conceptual (chalk&#x27;s associations with lecturing and education). The essay dates the acquisition to 2016 (other sources say 2014; SFMOMA&#x27;s own essay wins). Viktor broke during the Typeface to Interface run, which raised the conservation questions (who fixes him, what can be replaced). Otto, the Long Now Foundation commission, is the workhorse version: every component chosen for long-term use, maintained and programmed by someone other than Lehni. Viktor is the delicate prototype.</p>
+<h3>The anti-WYSIWYG, stated plainly</h3>
+<p>&quot;Viktor and Hektor have their own handwriting. Whatever you see on the screen will definitely not be what you see on the wall in chalk or spray paint. It&#x27;s both a critical position and a playful one.&quot; The desktop publishing revolution promised WYSIWYG; his machines are a counter proposal to the whole promise. Scriptographer was the same move in software: &quot;a Trojan Horse, a parasite, but not in a negative sense,&quot; a way to blunt the dependency on Adobe. Paper.js is &quot;a new escape route... like the Japanese Ise shrine, where every twenty years they take it apart, move it to a new location, and rebuild it.&quot;</p>
+<p>The Scriptographer screenshot shows the idea working: Illustrator&#x27;s familiar document window (&quot;Clouds.ai @ 100%&quot;) with the Scriptographer palette tree (Examples, Rasters, Scripts, Tools: Clone Brush.js, Clouds.js, Dripping Brush.js, Fancy Brush.js, Friction.js, Grid.js, Growth.js), a console (&quot;print(&#x27;Hello World!&#x27;); Hello World!&quot;), and a CLOUDS parameter dialog (Minimum Size: 20, Fixed Size, Flip) drawing scalloped clouds in the document. A designer building their own tools inside the tool they were taught to obey.</p>
+<h3>Teaching notes (for the practice&#x27;s own pedagogy)</h3>
+<p>His teaching vocabulary: &quot;making drawing tools that have some sort of autonomy or behavior which you still use by hand. You go back and forth between being the engineer or craftsperson of your tool, and also the user of that tool.&quot; That is the half-manual principle, stated as curriculum. And the Bret Victor &quot;immediate connection&quot; reference: the shorter the feedback loop between modifying a program and seeing its effect, the better. Scriptographer won on this because Illustrator&#x27;s document model is &quot;almost physical&quot;: an emulated sheet of paper with layers of visual objects, so the programmer can reason by analogy with hand processes. Paper.js keeps the object model (paths, points, handles) while Processing/p5 tell the machine what to draw every frame; the object model is &quot;closer to the way a designer thinks.&quot;</p>
+<p>On p5&#x27;s dominance in schools: &quot;a massive library... a patchwork of sorts... I went in the opposite direction with Paper.js. There, the aim was to have a high level of control of the tool; a clear sense of design and of how elements are named, how things are structured, that follows a consistent methodology throughout the library.&quot; On tool monoculture: &quot;real diversity means we have lots of tools, and we use all of them.&quot;</p>
+<p>On machine learning (2020, worth keeping because the ML thread ran long in this study queue): &quot;A few years back, it was data visualization, now it&#x27;s machine learning until the next new thing. The fact that you&#x27;re using code is not enough. You have to have a really good reason for using it.&quot; And: &quot;this whole narrative about how machine learning will replace the artists is kind of defeating... I remain very suspicious of this celebration of the complexity, romanticizing the complexity of the machine, of its ability to process massive amounts of data.&quot; And the kicker for the whole practice: &quot;I don&#x27;t think it is our place as artists and designers to be in awe of technology.&quot;</p>
+<h2>Technique takeaways (visual pass additions)</h2>
+<ul><li>The deadline signature: Hektor&#x27;s entire handwriting came from a</li></ul>
+<p>two-weeks-to-deadline constraint (four motors down to two, fix it in software). Constraint-forced invention, kept because it sang. When a limitation produces a beloved artifact, the limitation becomes the medium. Compare Hoff&#x27;s grain discipline, Molnar&#x27;s 1 percent.</p>
+<ul><li>Choreography over image: for Viktor, the drawing sequence is composed</li></ul>
+<p>like dance; the wall is the score&#x27;s residue. A generative piece can be judged by its motion, not just its final frame.</p>
+<ul><li>Reenactment as method: Viktor&#x27;s drawings start as human hand drawings,</li></ul>
+<p>researched, selected, re-traced into vectors. The machine does not invent the drawing; it performs it. Authorship sits in the repertoire choice (&quot;the machine gains a voice and topics to talk about&quot;).</p>
+<ul><li>The repertoire is the voice: choosing WHAT the machine draws is the</li></ul>
+<p>artistic act. A drawing machine with no repertoire is a printer.</p>
+<ul><li>Screen and wall in one frame: the Hektor install photo with the laptop</li></ul>
+<p>showing blue vectors next to the black spray rosette is the whole anti-WYSIWYG thesis as an image. Show both states when documenting machine work.</p>
+<ul><li>Prototype vs workhorse: Viktor the delicate prototype (breaks, raises</li></ul>
+<p>conservation questions) versus Otto the workhorse (built for strangers to maintain). Design the maintenance model with the machine.</p>
+<h2>Avoid-list additions (visual pass)</h2>
+<ul><li>Do not draw loopy cable-plotter lettering as a style. The loops are</li></ul>
+<p>Hektor&#x27;s handwriting from his hardware and his deadline. Derive the principle (compose in the actuator&#x27;s motion constraints) instead.</p>
+<ul><li>Do not romanticize the machine&#x27;s complexity. His own warning, aimed at</li></ul>
+<p>the ML moment but general: awe at the technology is the wrong message; the work has to earn it some other way.</p>
+<h2>Doorways for next sessions</h2>
+<ul><li>Uli Franke (Hektor co-builder); Jonathan Puckey and Studio Moniker</li></ul>
+<p>(half-manual tool design); Alex Rich (the ICA collaboration); Jenny Hirons (Taxonomy of Communication); Dexter Sinister (the 2007 Swiss Institute Hektor performance).</p>
+<ul><li>The polargraph community: Sandy Noble&#x27;s Polargraph, Der Kritzler,</li></ul>
+<p>Maslow CNC. The idea visited other people; see what they did with it.</p>
+<ul><li>ECAL &quot;Typeface as Program&quot; workshops: type as program, the workshop</li></ul>
+<p>format as a way to evolve an API.</p>
+<ul><li>Otto (Long Now Foundation commission): the workhorse version of Viktor,</li></ul>
+<p>built for long-term use and stranger maintenance. The prototype vs workhorse design split.</p>
+<ul><li>Jonathan Puckey and Studio Moniker: half-manual tool design, the</li></ul>
+<p>engineer-craftsperson-user loop as curriculum. Conditional Design as a method (Luna Maurer, Edo Paulus, Puckey, Roel Wouters).</p>
+<ul><li>Dexter Sinister and the 2007 Swiss Institute Hektor performance.</li><li>Follow-up: Rita, Flood Fill, Apple Talk.</li><li>COMPLETED 2026-09-28: full visual pass on Hektor and Viktor works</li></ul>
+<p>(SFMOMA essay, 2020 interview, 8 images, no-brakes re-render). lehni.org still dead, archive.org offline in-session; his own site&#x27;s pages and the Vimeo films remain unseen.</p></div><nav class="pagenav"><a class="" href="jean-tinguely-homage.html"><span class="dir">Previous note</span><span class="t">Jean Tinguely - Homage to New York (1960)</span></a><a class="next" href="nicolas-schoffer-cysp1.html"><span class="dir">Next note</span><span class="t">Nicolas Schoffer, CYSP 1 and the Cybernetic Towers</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

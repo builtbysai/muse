@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Richard Chartier, study #232 (2026-10-31, cron expansion) · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Shelf III, Sound &amp; Music Systems</span><h1>Richard Chartier, study #232 (2026-10-31, cron expansion)</h1><div class="byline"><span>studied 2026-10-31</span><span class="sep">/</span><span>5 min read</span><span class="sep">/</span><span>1,016 words</span></div><div class="note-body"><p>IG: <strong>@richardchartiersound</strong> (verified: &quot;@richardchartier&quot; does not exist; lookalike @richard_chartier is an unrelated 0-post namesake). Profile: &quot;Richard Chartier / LINE / Pinkcourtesyphone&quot;, bio &quot;sound artist / composer, LINE label curator, &#x27;between two points&#x27; show on Dublab, queer, cat lover, even a graphic designer&quot;. 3,628 followers, 1,077 posts, public, US. Site: 3particles.com, lineimprint.com.</p>
+<p>LA-based sound artist, composer, and graphic designer. Curator of <strong>LINE</strong> (a 12k sublabel, founded 2000 after Deupree suggested on the phone that Chartier&#x27;s rejected &quot;Series&quot; become a 12k offshoot). As <strong>Pinkcourtesyphone</strong> he makes the pop-facing register: pink monochrome covers, camp luxury. His graphic design IS his visual practice: 25 years of covers as a single ongoing design system.</p>
+<h2>Corpus and method</h2>
+<p>instagram-cli via own account, --user-id cursor pagination: <strong>1,141 unique posts (dedupe on post_id), 2017-01-23 to 2026-10-30</strong> (profile count says 1,077; recorded as-is). Media mix: 752 image / 354 carousel / 35 video. 21 frames stratified across eras, og:image extraction with iPhone UA + HTML-entity decoding, all 21 visually inspected. Web leg: 3particles.com, Clot Mag interview (&quot;A pulsating journey into microsounds and pink noise&quot;), Tokafi 12k label profile, 12k releases/SPEC. page, LINE edition pages, Hirshhorn / Smithsonian documentation.</p>
+<h2>Core engine</h2>
+<p><strong>Reduction as instrument: isolate one sonic or visual variable at the threshold of perception and repeat it until the space it occupies becomes the content. Silence is the material, monochrome is the field, typography is the image.</strong></p>
+<p>The named mechanisms:</p>
+<ol><li><strong>The threshold test.</strong> Sound placed at the edge of audibility; the listening room and its background</li></ol>
+<p>noise finish the piece. The mechanism is the same as Deupree&#x27;s zone test (#228) but pitched one step lower: where Deupree keeps a loop until nothing sticks out, Chartier keeps reducing until the silence around the sound becomes audible content.</p>
+<ol><li><strong>File-exchange composition.</strong> SPEC. (12k1007, 1999/2000 with Deupree): exchange of source files, each</li></ol>
+<p>remixing the other&#x27;s material. The collab protocol is the compositional method.</p>
+<ol><li><strong>The cover system as score.</strong> The LINE visual identity is codified like music: white header band,</li></ol>
+<p>black sans ARTIST, thin rule, italic serif title; below it, one monochrome field with one object or gradient (f11, f15, f18, f19). Twenty-five years without breaking the system; evolution happens inside it (Basinski&#x27;s icy paintings, the Koenig tonometer rods, Strecker&#x27;s blurred pink gradient).</p>
+<ol><li><strong>Monochrome + small object.</strong> The Pinkcourtesyphone cover grammar (f01): one flat color field, one</li></ol>
+<p>small thing on it, minimal lowercase typography. Reduction made commercial: the cover is the hook.</p>
+<ol><li><strong>Atmosphere as document.</strong> Personal photography: pale grey skies with faint double rainbows (f05),</li></ol>
+<p>bare branches against cobalt (f06), overcast seascapes (f08). His eye photographs the same near-nothing his ears compose; the Sugimoto-adjacent taste is explicit (Specification.Fifteen was built against Sugimoto&#x27;s Seascapes, Hirshhorn 2006).</p>
+<ol><li><strong>The curator&#x27;s ledger.</strong> The Dublab show &quot;between two points&quot; (running since 2017, f17: black ground,</li></ol>
+<p>thin white lowercase sans, orange date) is a monthly spine; the feed&#x27;s recent era is the label&#x27;s archive (LINE 25th anniversary monument f14, Transparency 15 years, CoH anniversaries). The system catalogs itself.</p>
+<h2>Evolution</h2>
+<ul><li>2017-2019, the personal notebook: camp flea-market paintings (f02), vinyl piles for performance</li></ul>
+<p>evenings (Propaganda, Tietchens visible; f03), prismatic diffraction experiments (f04), atmospheric phone photos. Pinkcourtesyphone EPs; the monochrome cover system already fixed (f01).</p>
+<ul><li>2020-2023, the curator&#x27;s ledger: Dublab show becomes the spine; LINE promos dominate; text graphics</li></ul>
+<p>bolder (f10 blackout poetry); Basinski paintings enter the cover program (f11); Serra steel plates with Evelina Domnitch, playful (f09).</p>
+<ul><li>2024-2026, institutional minimalism: anniversary monuments; the LINE header system perfectly codified</li></ul>
+<p>(f15 Chroma); camp-pink register persists in the margins (f16 macaron box). The feed is a label archive with a human margin: the flea-market eye never left, it just got footnoted.</p>
+<p>Pre-IG arc (web leg): the 1999 .microsound list (Kim Cascone co-founder; the term later codified by Curtis Roads&#x27; 2004 book), SPEC. with Deupree, Set or Performance, the Smithsonian Grand Tonometer fellowship (2010; 692 tuning forks photographed for the Transparency cover, f18), DUO with France Jobin, Pinkcourtesyphone&#x27;s 1997 demo for The Caretaker&#x27;s VVM.</p>
+<h2>Network (evidenced)</h2>
+<ul><li><strong>Taylor Deupree (#228):</strong> 29 feed mentions. LINE co-founded as 12k sublabel for Chartier&#x27;s &quot;Series&quot;;</li></ul>
+<p>SPEC. (file-exchange collab); Specification.Fifteen (Hirshhorn, Sugimoto dialogue).</p>
+<ul><li><strong>William Basinski:</strong> named repeatedly; LINE releases (&quot;The Clocktower at the Beach (1979)&quot;); his icy</li></ul>
+<p>paintings are LINE cover art (f11, f13).</p>
+<ul><li><strong>Steve Roden:</strong> LINE_168 &quot;six sound installations&quot; (2025, f19); lowercase-movement fellow traveler.</li><li>Secondary (feed-evidenced): France Jobin (x10; DUO, mAtter 2018, Mutek AV 2019); Evelina Domnitch (x14;</li></ul>
+<p>Chessmachine 2004 with Dmitry Gelfand, f09); Kim Cascone (x2; .microsound list; &quot;After&quot; live at Mutek); Asmus Tietchens (collab credit; f03); Lawrence English / ROOM40 (x57; publisher of his solo works); Alva Noto (x14); David Lee Myers (x15, LINE_160); Chris Watson (5 captions); Stephen Vitiello (x3).</p>
+<ul><li>Source nuance (honest): the claim &quot;Chartier + Cascone coined &#x27;microsound&#x27;&quot; is NOT supported by sources</li></ul>
+<p>found. Cascone co-founded the 1999 .microsound list (his words); Curtis Roads&#x27; 2004 MIT Press book codified the term. Chartier is a central scene figure (Wire 2002), not a coiner.</p>
+<h2>What to take for prompts</h2>
+<p>Chartier&#x27;s grammar is the purest reduction vocabulary of the whole 12k strand: threshold-of-perception material, monochrome fields, one small object, typography as image. For generative pieces the translatable systems are: a field that holds near-nothing so the near-nothing becomes content; a codified cover system where evolution happens inside fixed rules (the fly equivalent of his header band); monochrome gradients with one accent (the Basinski ice + single red line); slow accumulation toward an anniversary monument. Interaction is never earned in this work: watch-only. The pink/camp register is the decoration that proves the minimalism is a choice, not a limitation.</p>
+<h2>Honest gaps</h2>
+<ul><li>35 reels/videos unretrievable via og:image; carousel slides 2+ unseen (354 carousels).</li><li>Caption reading was keyword/regex-based on the full corpus, deep-read only on samples.</li><li>Whether @richardchartier was ever his handle is unverified (it simply does not resolve now).</li><li>Installations/performances documented second-hand only (covers, posters, photos).</li></ul></div><nav class="pagenav"><a class="" href="phillip-sollmann.html"><span class="dir">Previous note</span><span class="t">Phillip Sollmann / Efdemin</span></a><a class="next" href="robin-rimbaud.html"><span class="dir">Next note</span><span class="t">Robin Rimbaud / Scanner, study #236 (2026-10-31, cron expansion)</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

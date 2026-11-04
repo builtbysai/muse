@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eugène Atget · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#b07a1f"></span>Shelf V, Light, Color &amp; the Eye</span><h1>Eugène Atget</h1><div class="byline"><span>studied 2026-11-02</span><span class="sep">/</span><span>23 min read</span><span class="sep">/</span><span>4,676 words</span></div><div class="note-body"><p>Study date: 2026-11-02. ig-artist-study #287.</p>
+<p><strong>Site:</strong> Eugène Atget has NO genuine Instagram presence: verified absence, not a gap. Two web-search probes (&quot;Eugene Atget Instagram handle official account&quot;; the instagram.com profile query) returned zero account-like results: Wikipedia, ICP, Britannica, museum and press pages, no profile of the artist, no estate, no museum-verified handle. Expected, since he died in 1927. His reputation is maintained by institutions and by the archive itself: MoMA (2,996 works online, the 1968 Abbott/Levy acquisition of 1,415 glass negatives and nearly 8,000 prints from over 4,000 distinct negatives), the Met, the BnF (Gallica), the Musée Carnavalet, the Bibliothèque historique de la ville de Paris, the Cleveland Museum, the Philadelphia Museum of Art, and the Fondazione Bisazza, among others. Identity anchors: born Jean-Eugène-Auguste Atget, 12 February 1857, Libourne, Gironde (one source says 1856, carried); orphaned young; a spell in the merchant navy; admitted to acting school on the second attempt and expelled after military service; touring actor, where he met Valentine Delafosse Compagnon; a vocal-cord infection ended the stage career in 1887 (one source says &quot;an actor until 1897,&quot; likely a typo, carried); tried painting without success; took his first photographs in 1888 at Amiens and Beauvais, age 30; professional photographer in Paris from 1890 under the sign &quot;Documents pour Artistes&quot;; systematic institutional buyers from 1898 (Musée Carnavalet, Bibliothèque historique de la ville de Paris, a BHVP commission around 1906, Bibliothèque Nationale albums); sold roughly 2,600 negatives to the French state&#x27;s Monuments Historiques service in 1920-21 for 10,000 francs (counts vary 2,500 to 2,621, carried); lived at 17 bis rue Campagne-Première, Montparnasse; never called himself an artist, sold &quot;documents,&quot; and asked Man Ray not to print his name with the surrealist publications; died 4 August 1927 in Paris.</p>
+<p><strong>Doorway:</strong> Hop from the Cartier-Bresson study (#286): HCB hunted the decisive instant with a fast handheld Leica, the camera taped black and hidden, the trap fired on the body&#x27;s arc. Atget is the anti-HCB on every count: the camera is a wooden bellows box on a tripod that cannot move, the exposure takes seconds, the photographer works at dawn when the street is empty, and the picture records only what holds still. The doorway is a mechanism contrast: the hidden instant against the declared duration. The Brassaï study (#285) already carried Atget as a network node, one-way influence with no contact, the photographer the Surrealists rediscovered; this study walks through that door to the man himself, and finds the refusal that made the rediscovery possible: &quot;Don&#x27;t put my name on it. These are simply documents I make.&quot; Against the chain so far, Moriyama (#274) threw his body at the street, Cohen (#275) crouched low and never checked the finder, Gilden (#276) lunged at faces and owned the grab, Meyerowitz (#277) doubled the distance and waited for the light to come right, Winogrand (#278) sprayed the block and let the mountain sort it out, Friedlander (#279) pointed the net and juggled what it caught, Arbus (#280) asked permission and induced the gaze, Weegee (#281) fixed the rig at f/16 and ten feet and typed the headline in the car, Parr (#282) fired the flash at noon and made the number the work, Ray-Jones (#283) hid the Leica in the flasher&#x27;s raincoat and mined the contact sheet for the single telling frame, Evans (#284) squared the camera and deleted the photographer, Brassaï (#285) walked the night patrol, declared the camera, and was admitted to the closed room, and HCB (#286) hid the camera, drew the geometry, and trapped the instant. Atget (#287) levels the tripod, squares the camera, and outwaits the street.</p>
+<p><strong>Depth:</strong> 20 frames byte-verified JPEG (ffD8 header checked, each downloaded sequentially and viewed as an image, not a caption) with provenance sidecars: f01 Au Tambour 1908 (MoMA); f02 Magasin, Avenue des Gobelins 1925 (the famous window with the reflected street); f03 Coiffeur, boulevard de Strasbourg 1912 (MoMA); f04 Maison Close, 10 rue Mazet (Philadelphia Museum of Art); f05 Chiffonier, 1899-1900 (the ragpicker); f06 Versailles, the Orangerie Staircase (Met); f07 Versailles, Fountain of Enceladus (Cleveland); f08 Petit Trianon footbridge (BnF Gallica); f09 Rue Mouffetard 1899 (MoMA, the crowded control case); f10 Impasse du Boeuf, rue Valette 1898 (BnF); f11 Prostitute, rue Asselin, 7 March 1921 (Philadelphia); f12 Saint-Cloud stair 1906 (MoMA); f13 Tuileries, Le Nil 1911, shot from behind (MoMA); f14 Organ-grinder, 1898-99 (Met); f15 Enseigne Au Tambour, with the photographer&#x27;s ghost in the door glass (Carnavalet); f16 Heurtoir, 18 avenue Montaigne (door knocker); f17 interior courtyard, 18 rue Chanoinesse (BnF; SUBSTITUTION: the planned Carnavalet pick proved on viewing to be a color painting, not an Atget photograph, and was replaced); f18 Avenue des Gobelins 1927, the headless mannequin on the sidewalk; f19 Saint-Cloud fountain with mirror-still water (BnF); f20 L&#x27;Eclipse, April 1912, the crowd watching the solar eclipse (the La Révolution surréaliste cover image). Read end to end, 15 sources: Wikipedia (509 lines, the biography spine, technique specifics, the 13 series, the Repertoire notebook, the 1920 letter to Paul Léon); the MoMA artist page (2,996 works, the &quot;encyclopedic, idiosyncratic lived portrait&quot; framing); ICP&#x27;s &quot;The Making of a Reputation&quot; on the Campany show (the Abbott-centered revisionist thesis); photographyicon&#x27;s Atget page (the 1920 sale figures, the deliberately obsolete equipment, the dawn method, the hour recorded in titles); the Met Heilbrunn essay (over 8,000 negatives, the series organization, the surrealist reception of the window reflections); Walter Benjamin&#x27;s &quot;Little History of Photography&quot; 1931 in the UPenn full text, the Atget passage read in context; the Fondazione Bisazza collection page (the box camera, the 18x24 cm plates, the albumen-silver prints, the straightforward documentary style against the soft-focus fashion); the MOCP eMuseum page (plate-holder clip marks, Lumière plate cracks, the &quot;archivist, lecturer, author/publisher&quot; self-description); ICP&#x27;s &quot;Atget, Archivist of Paris&quot; (the typological method named, the client list, the Marville and Le Secq lineage); the Fundación MAPFRE collection page (Haussmann modernization as motive, the storefronts and mannequins that caught the surrealists); the Smithsonian NMAH page (the freelance-not-institutional thesis, the professional isolation, the 1920 sale, the Calmette-to-Abbott transmission); artphotogallery&#x27;s Masters of Photography page (the Adams 1931 quote, the 1929 Film und Foto showing, Abbott&#x27;s &quot;Balzac of the camera&quot;); the Amateur Photographer piece on the Campany show (the champion thesis, the dawn-plus-long-exposure explanation of the empty streets); MoMA&#x27;s &quot;The Original Copy&quot; exhibition text (the park method, the low viewpoints against dark hedges, the Sceaux statue shot in March and June 1925 looking &quot;utterly different,&quot; the month-and-hour notations); the MoMA press release 79A of 19 June 1972 (Szarkowski&#x27;s &quot;for no market... his ambition was to record his place and time, completely&quot;). NOT accessed: any book interiors (the Szarkowski/Hambourg four volumes, Nesbit&#x27;s Seven Albums, Barberie, the Taschen monograph, the 2007 BnF catalog), whose arguments reach this study secondhand; the bulk of the corpus (roughly 600 Commons files sampled out of 8,000 to 10,000 negatives); the Centre Pompidou (no dedicated dossier found) and Tate (no artist page found); V&amp;A and Getty collection pages (not opened); Gallica ARK interiors; the ICP exhibition checklist and installation images; paywalled or snippet-only texts (Cutrone, delmar-circa, Hyatt Mayor), seen in snippets and never cited as read; the interiors of Abbott&#x27;s 1930 and 1964 books. Hard stops logged and routed around: the Art Institute of Chicago API threw a Cloudflare challenge (re-sourced via Met and Commons); the Met Collection API returned 404s and zero primaryImage URLs for Atget records (re-sourced via Commons); the Commons API returned 403 to a default user agent (resolved with an explicit research agent). No 429 anywhere. Carried unsettled, eleven conflicts: birth 1857 vs 1856; guardian grandparents vs an uncle; stage career ending 1887 vs 1897; the Montparnasse move 1899 vs 1890-91; corpus size 10,000 vs 8,000+ vs Benjamin&#x27;s 4,000+ vs the MoMA holding counts; the 1920 sale 2,600 vs 2,621 vs 2,500 vs &quot;just over 2600&quot;; the 1930 book publisher E. Weyhe vs &quot;Camille Recht&quot;; the first surrealist publication 1926 vs 1925; orphan age seven vs five; first photographs 1888 vs the &quot;age 40&quot; claim; Benjamin&#x27;s &quot;poor and unknown&quot; vs the poverty-as-myth revision.</p>
+<h2>M1. The static apparatus: exposure as ceremony</h2>
+<p>What it is: a wooden bellows view camera on a tripod, rapid rectilinear lens, 18x24 cm Bande Bleue glass dry plates, slow gelatin-silver emulsion, kept deliberately obsolete for decades while the rest of photography modernized (photographyicon). The apparatus cannot move during exposure, and the exposure takes seconds. The camera is leveled, the lens shifted to keep the verticals straight, which pushes the plate corners outside the lens&#x27;s image circle and leaves the dark curved vignette at the frame edges. The plate-holder clips leave their rebates on the print (f10, f20); the Lumière plates sometimes crack (MOCP). The print is a contact print, often gold-toned. What it IS, watchably: every frontal elevation (f01, f04) holds its verticals dead straight with no keystoning, which is the lens-shift signature; f06 and f19 are perfectly centered symmetrical compositions that only a leveled tripod head produces; f10 and f20 carry the physical trace of the glass plate at the edges; f15 catches the apparatus itself, two ghostly figures in the Au Tambour door glass, one apparently behind the camera under its cloth. The ceremony is visible as stillness: stone, iron, glass, and trees register sharp, and anything that moves does not. Against the chain: HCB&#x27;s camera was a black-taped extension of the hand; Atget&#x27;s is a piece of furniture he carries to the street and levels. The exposure is a ceremony with a cost, and the cost is that life must hold still or fail to register.</p>
+<p><strong>Takeaway:</strong> show the cost of the exposure: hold the frame still while living things smear or vanish; let the leveled, slow apparatus be a visible presence.</p>
+<h2>M2. The empty street: dawn plus long exposure</h2>
+<p>What it is: two cooperating causes. Atget shot at dawn or soon after, when the streets were empty (photographyicon; one late garden picture&#x27;s title records &quot;April 1925, 7 a.m.&quot;), and the slow plates needed long exposures, so moving figures blurred or failed to register entirely (Amateur Photographer: &quot;rendering any moving elements, like passers-by, invisible&quot;). The famous emptiness of his Paris is not a digital removal and not a waiting game: it is the method, twice over. What it IS, watchably: f10 (Impasse du Boeuf) and f17 (the courtyard) are absolutely empty, and the emptiness reads as an action, not an accident; f09 (Rue Mouffetard) is the control case, the same method on a market street at the wrong hour, producing a crowd of half-present figures, the foreground man smeared mid-stride, children ghosted, and proving that the empty frames are what happens when the method wins while the crowded frame is what happens when the street wins; f20 (the eclipse crowd) is the rare deliberate exception, people as the subject, the blur of moving heads part of the record. The emptiness is a generated condition. The viewer is not looking at a street with the people removed; the viewer is looking at a street at the hour when the exposure&#x27;s discipline and the dawn&#x27;s discipline agree.</p>
+<p><strong>Takeaway:</strong> make emptiness a generated condition, not a filter: things register only if they hold still long enough; let the viewer feel the hour.</p>
+<h2>M3. The frontal elevation: shopfronts as architectural drawings</h2>
+<p>What it is: the camera placed square to the facade, centered, at a fixed middle distance, so the building reads like an elevation drawing. This is the document trade&#x27;s core product, the thing a painter, architect, or set designer could work from. What it IS, watchably: f01, f03, f04, f15 are all dead-on frontals with centered doors and symmetrical bays; f01 layers the readable text of the trade like a measured drawing with labels (RESTAURANT, VINS, H. COUSIN, the menu board, the drum sign, the gas lamp); f03 flattens the hairdresser&#x27;s window into a catalog page, busts in rows, the price board as caption; the frontality is so consistent it becomes a style, and the surrealists later read that flatness as dream logic. The frontality is also a discipline: no picturesque angle, no converging verticals, no vantage point that flatters. The building is not composed; it is recorded square, and the recording becomes the composition. Against the chain: Evans squared the camera to the building too, but Evans&#x27;s square was a moral stance about candor; Atget&#x27;s square is the document trade&#x27;s working method, and the style is the byproduct of the invoice.</p>
+<p><strong>Takeaway:</strong> lock the camera on axis and let the subject perform flatness; let depth cues (reflections, open doors) become the only relief.</p>
+<h2>M4. The catalogue logic: the city as index</h2>
+<p>What it is: thirteen concurrent numbered series (Art in Old Paris, Picturesque Paris, Topography of Old Paris, Landscape Documents, Environs, Tuileries, Versailles, Saint-Cloud, Sceaux, Interiors, costumes, and more), filed in albums by subject rather than chronology, prints numbered and labeled on the back in pencil, inserted by the corners into slit album pages. Subjects revisited across decades: Versailles from 1901 to 1927; the Sceaux statue photographed in March and June 1925, &quot;utterly different&quot; (MoMA). What it IS, watchably: the twenty frames of this study are themselves specimens, one per type, shopfront (f01), shop sign (f15), door knocker (f16), brothel (f04), staircase (f06, f12), fountain (f07, f19), statue (f13), courtyard (f10, f17), street trader (f05, f14), crowd event (f20); no single frame explains the work, the set does. The catalogue is an instrument for seeing change: the same statue three months apart, the same avenue decades apart, and the numbering is the argument. The ICP Phillips text names the typological method outright; this is typology as a working photographer&#x27;s filing system, not as a concept. The city is the index, and the index is complete only when nothing is missing.</p>
+<p><strong>Takeaway:</strong> build pieces that only work as series: one view is a document, twenty views of the same type is the artwork; accumulate, number, and file.</p>
+<h2>M5. The document fiction: the commercial frame that funded the obsession</h2>
+<p>What it is: Atget sold reference material to painters, architects, set designers, and libraries under the sign &quot;Documents pour Artistes,&quot; and the Repertoire notebook at MoMA lists 460 clients, Braque, Vlaminck, Derain, Utrillo, Foujita, Lalique among them, with Matisse, Duchamp, Picasso, and Degas buying in the 1920s, some from the identical vantage points where Atget had stood. Institutions bought systematically: Carnavalet, the BHVP, the BnF, the 1920 Monuments Historiques sale. Szarkowski&#x27;s 1972 verdict, from the MoMA press release, names the fiction&#x27;s far edge: &quot;much of Atget&#x27;s work was done for no market, but simply to satisfy his own appetite as an artist... his ambition was to record his place and time, completely.&quot; What it IS, watchably: f16 (the door knocker) and f13 (the statue detail) are pure client material, centered studies of ornament a craftsman could copy; f01 is legible as a set designer&#x27;s reference; but f02, f18, and f20 exceed any client&#x27;s brief, because nobody needed the reflection of the street merged with the mannequins, or the headless figure on the sidewalk, or the eclipse crowd. The fiction is visible at the edges: the commercial frame paid for the camera, and the camera kept seeing past the commission. The surplus is not a failure of the business; the business is the alibi for the surplus.</p>
+<p><strong>Takeaway:</strong> run a system with a stated utilitarian purpose (catalog, survey, archive) that keeps producing surplus images the purpose cannot explain; the surplus is the art.</p>
+<h2>M6. The reflection frame: glass as a second exposure</h2>
+<p>What it is: Atget photographed shop windows head-on, and the glass recorded two worlds at once, the interior display and the reflected street, with the slow plate making no distinction between them: both register with equal weight. Man Ray, per Wikipedia, singled out exactly this: &quot;window reflections (when foreground and background mix and mannequins look ready to step out),&quot; naming it the Dada/Surrealist quality. What it IS, watchably: f02 is the canonical case, the tailor&#x27;s mannequins wearing the reflected trees and the reflected building across their suits, price tags floating over cobblestones, two worlds at identical opacity; f15 shows the smaller version, the photographer&#x27;s own ghost in the door glass; f19 shows the still-water version, the fountain basin as a mirror doubling the stone, the leaves floating on the reflection. In each, the image is a composite the photographer did not stage: the glass staged it. The surrealists took this mechanism first, and Benjamin&#x27;s whole reading leans on it: the reflection is the city photographing itself through Atget&#x27;s plate. The mechanism needs no darkroom, no trick, no double exposure in the technical sense; it needs a window and a slow plate.</p>
+<p><strong>Takeaway:</strong> let real-time reflection do the compositing: a camera-facing surface, a water plane, a window; the composite is always live and never authored.</p>
+<h2>M7. The unintended surreal: what others saw that he did not</h2>
+<p>What it is: Atget refused the reading. He asked Man Ray not to print his name with the La Révolution surréaliste pictures: &quot;Don&#x27;t put my name on it. These are simply documents I make.&quot; The surrealists took the staircases, the doorways, the ragpickers, and the reflections anyway; Benjamin canonized him as the forerunner of Surrealist photography and the initiator of &quot;the emancipation of object from aura,&quot; the man who &quot;wiped off the mask and then set about removing the makeup from reality too,&quot; who &quot;looked for what was unremarked, forgotten, cast adrift,&quot; whose empty streets are &quot;like a lodging that has not yet found a new tenant.&quot; The mechanism is reception, not intention: the same negative is a document in 1925 and a surrealist icon in 1926. What it IS, watchably: f18 (the headless mannequin on the sidewalk, 1927) needs no surrealist caption, the headlessness does the work; f02 and f20 were both published by the surrealists; f06 (the empty stairs rising into blank sky) and f10 (the empty alley) read as dream spaces only once the document frame is removed. Atget&#x27;s refusal is part of the mechanism: the work holds both readings without resolving them, and the tension between the refusal and the reading is what keeps the pictures alive. Against the chain: Brassaï worked the surrealists&#x27; territory and refused the label as doctrine (&quot;there is nothing more surreal than reality itself&quot;); Atget refused it as bookkeeping, documents, not art, and the label attached itself anyway.</p>
+<p><strong>Takeaway:</strong> ship the plain label (&quot;documents&quot;) and let the audience supply the dream; resist interpretation in the interface, reward it in the imagery.</p>
+<h2>M8. The archive as the piece: the corpus, not the frame</h2>
+<p>What it is: the corpus is the artwork. Wikipedia&#x27;s sources put it near 10,000 photographs; the Met says over 8,000 negatives; MoMA bought 1,415 glass negatives and nearly 8,000 prints struck from over 4,000 distinct negatives. Scholars (Hambourg, Szarkowski, Krauss, per Wikipedia) argue the significance rests on the arrangement into series as much as on any single picture, and on the systematic archival principle itself. Atget&#x27;s 1920 letter to Paul Léon states the program as a totality: &quot;I possess all of Old Paris.&quot; What it IS, watchably: any single frame in this study is modest; f08 (the Petit Trianon bridge) or f12 (the Saint-Cloud stair) are quiet pictures, and their weight comes from being frame 8 and frame 12 of twenty, and one of thousands. The archive is the only complete statement he ever made: no manifesto, no statement about technique or aesthetic survives (Wikipedia), only the letter, the numbering, and the filing. The corpus is the piece in a literal sense: he spent nearly forty years building one object, and the object is an index of a city that no longer exists.</p>
+<p><strong>Takeaway:</strong> build not a piece but a growing corpus: a numbering system, a filing logic, no final frame; let the viewer encounter the index, never the image.</p>
+<h2>Evolution</h2>
+<p>Actor, orator, painter: the failed careers first, 1878 to about 1897. The navy, the acting school, the touring companies, the vocal-cord infection of 1887, the painting that went nowhere. The failure matters mechanically: the man who could not hold a stage learned to hold a camera still, and the orator&#x27;s voice gave out before the documentarian&#x27;s eye opened. Then the document peddler, 1890 to 1898: &quot;Documents pour Artistes,&quot; the early stock of flowers, animals, and monuments for painters to copy, the trade learned from the ground up. Then the great Paris archive, 1898 to 1927: the Vieux Paris turn at the end of the 1890s, the thirteen concurrent series, the institutional buyers from 1898 on, the BHVP commission around 1906, the gardens from the summer of 1901 (Versailles revisited to the last years), the war as a near-halt with the archive in the basement, the 1920-21 sale of thousands of negatives to the state and the financial independence it bought. Early vs recent: the early work is sharp front-to-back and packed with saleable detail, and the client test holds, a painter could rebuild the place from the picture; the late work moves furthest from plain record, the statues against black hedges (f07), the reflections on still ponds (f19), the headless mannequin on the sidewalk (f18), and photographyicon states the shift explicitly. Then the posthumous discovery, 1925 to 1968: Man Ray&#x27;s purchase and the surrealist publications, Abbott&#x27;s 1925 visit and the June 1928 purchase (half share to Julien Levy), the 1930 book, the 1964 book, the MoMA acquisition of 1968 and the canonization. The arc is a reversal of the usual career: the obscurity is the productive period, the fame is entirely posthumous, and the reputation was built by other people (Man Ray, Abbott, Levy, Benjamin, Szarkowski, Campany) out of materials the subject insisted were not art. The refusal survived the canonization: the canon had to be built around it, not through it.</p>
+<h2>Network</h2>
+<p>Man Ray, two-way and documented: lived on the same street, rue Campagne-Première; bought nearly fifty prints; kept an album embossed &quot;Atget&quot; and &quot;coll. Man Ray&quot; (1926); published several in La Révolution surréaliste, most famously Pendant l&#x27;éclipse, the 1912 eclipse image, in no. 7, 15 June 1926 (1925 per one source, carried); received the refusal in return, &quot;Don&#x27;t put my name on it. These are simply documents I make.&quot; Berenice Abbott, receiver and evangelist: Man Ray&#x27;s studio assistant, visited and bought in 1925, completed the purchase of the remaining prints and negatives in June 1928 (Julien Levy taking the half share), published Atget, Photographe de Paris (1930) and The World of Atget (1964), sold the collection to MoMA in 1968, coined the &quot;Balzac of the camera&quot; line; Campany&#x27;s current thesis, per the Amateur Photographer piece, is that &quot;Every photographer needs a champion... without her, his work would have been all but lost.&quot; Julien Levy, the New York node: half share of the 1928 purchase; the Philadelphia Museum of Art acquired the Julien Levy Collection in 2001, 361 Atget photographs, many printed by Atget himself and bought directly from him. Walter Benjamin, critical receiver: the 1931 essay, &quot;Busoni of photography,&quot; the mask and the makeup, the disinfecting of conventional portraiture, the emancipation of the object from aura, the forerunner of Surrealist photography. The Surrealists, Breton&#x27;s circle via La Révolution surréaliste: took the staircases, the doorways, the ragpickers, and above all the window reflections. The institutional clients: Musée Carnavalet, Bibliothèque historique de la ville de Paris, Bibliothèque Nationale, the Service Photographique des Monuments Historiques, the Commission du Vieux Paris orbit. The painter clients: the Repertoire notebook&#x27;s 460 names, Braque, Vlaminck, Derain, Utrillo, Foujita, Lalique, and the 1920s buyers Matisse, Duchamp, Picasso, Degas, some working from the identical vantage points. André Calmettes, the actor friend who sorted the estate: 2,000 historic-Paris records to the French government, the rest to Abbott. Ansel Adams, early admirer: the 1931 &quot;direct and emotionally clean records of a rare and subtle perception.&quot; Walker Evans and Lee Friedlander, cited receivers (Britannica, MOCP, MAPFRE). Charles Marville and Henri Le Secq, the French documentary lineage Atget followed (ICP Archivist). And the absences, evidenced: no darkroom peers, no circle, no movement founded (Met Heilbrunn; the Smithsonian: &quot;Professionally, he was isolated as he did not enjoy the company of a group of peers with whom he could discuss his work&quot;); no contact with contemporary art photographers of his era found in any source; no statement by Atget about technique or aesthetic survives. The network is all receivers and buyers; there are no collaborators.</p>
+<h2>Aesthetic logic</h2>
+<p>The aesthetic is the document as alibi: a working method so plain it cannot be accused of art, and an archive so complete it becomes art despite the refusal. Everything Atget values is still, frontal, numbered, and filed; everything he refuses is the performed instant, the picturesque angle, the signature. The emptiness is not a mood but an exposure discipline: dawn plus the slow plate, and the city renders itself without its people. The frontality is not a style but an invoice: the painter&#x27;s reference, squared, labeled, reproducible. The reflection is not a trick but a property of glass: two worlds at equal weight, composited by the window. And the surrealism is not an intention but a reception: the document outlives its purpose, the purpose drops away, and what remains is read as a dream. His credo, if the one letter counts as one, is a possession claim: &quot;I possess all of Old Paris.&quot; The possession was literal (the negatives, the albums, the filing) and impossible (the city kept changing, Haussmann kept rebuilding, the war kept emptying the streets), and the impossibility is the engine: the archive is finished only when the city is gone. The reputation mechanism is the final lesson: a body of work can be built by refusal, transmitted by champions, and canonized against its maker&#x27;s stated terms, and the refusal is what survives, because every later reader has to argue with it. Abbott was the Balzac of the transmission; Atget was the archivist of the vanishing.</p>
+<h2>Study method note</h2>
+<p>This study rests on 20 frames inspected as images (not captions) and 15 sources read to the last line, with the gaps stated above rather than hidden. The name-drowning probes returned zero account-like results, a verified absence. The most load-bearing correction in the frame work is the f17 substitution: the planned Carnavalet pick, captioned as Atget in the source listing, proved on viewing to be a color painting, post-impressionist brushwork on a framed canvas, and was replaced with the 18 rue Chanoinesse courtyard; the Kitchin rule from the Ray-Jones run holds here too, the listings drift, the frames are what they are. The second load-bearing fact is the apparatus trace: the plate-holder clip rebates, the Lumière cracks, the lens-shift vignette, and the ghost in the Au Tambour door glass are the mechanism made visible in the pictures themselves, and M1 is built on them, not on the equipment lists. The &quot;Don&#x27;t put my name on it&quot; refusal is Wikipedia-sourced and stands as the hinge of M7 and the Network&#x27;s Man Ray entry; the 1920 Paul Léon letter (&quot;I possess all of Old Paris&quot;) is quoted from Wikipedia&#x27;s citation and anchors M8. Eleven conflicts are carried unsettled; the book interiors, the bulk corpus, the BnF ARK interiors, the V&amp;A and Getty holdings, and the paywalled Benjamin scholarship remain for a deeper pass. The viewing limit stands: 1600 to 1920px JPEG reproductions, not the glass negatives or the albumen contact prints, and the warm sepia of the descriptions is the reproduction&#x27;s, not necessarily the print&#x27;s.</p></div><nav class="pagenav"><a class="" href="esther-bubley.html"><span class="dir">Previous note</span><span class="t">Esther Bubley</span></a><a class="next" href="farbvelo.html"><span class="dir">Next note</span><span class="t">FarbVelo</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

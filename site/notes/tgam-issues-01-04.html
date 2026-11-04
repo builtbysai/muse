@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TGAM Issues #01–#04 — Deep · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5e5648"></span>Shelf X, Scenes &amp; Gatherings</span><h1>TGAM Issues #01–#04 — Deep</h1><div class="byline"><span>17 min read</span><span class="sep">/</span><span>3,310 words</span></div><div class="note-body"><p>Study-only notes for Generative Doodles. No production code. Brochures read in full; 2–3+ actual works per issue inspected from local PDF image extractions (contact sheets + full views); one external hop per issue for the most interesting artist.</p>
+<p>Sources:</p>
+<ul><li>Issue #01 &quot;For the Love of Art&quot;: https://tgam.xyz/exhibitions/issue-01-for-the-love-of-art/brochure (PDF, 14 pp)</li><li>Issue #02 &quot;Computergrafik&quot;: https://tgam.xyz/exhibitions/issue-02-computergrafik/brochure (PDF, 15 pp)</li><li>Issue #03 &quot;Red Pill&quot;: https://tgam.xyz/exhibitions/issue-03-red-pill (landing) and /brochure (PDF, 18 pp)</li><li>Issue #04 &quot;Intersection&quot;: https://tgam.xyz/exhibitions/issue-04-intersection/brochure (PDF, 27 pp)</li></ul>
+<p>Local evidence: /tmp/tgam/img0{1,2,3,4}/ (PDF image extractions), /tmp/tgam/view/ (contact sheets), /tmp/tgam/prada/ (5 direct CDN works for Issue #03). PDF hyperlink annotations extracted with pypdf for work/visit links.</p>
+<hr>
+<h2>Issue #01 — For the Love of Art (Dec 2021, inaugural)</h2>
+<h3>Curatorial thesis</h3>
+<p>TGAM introduces itself as a metaverse space &quot;dedicated to celebrate and promulgate art made by autonomous systems (non-human) that can independently create artwork&quot; — but the working definition is broader and more interesting: it embraces <strong>any piece where humans interact with automated tools to create unique pieces</strong>. The thesis is that affordable computers, easy scripting tools, and blockchain provenance are the &quot;icing on the cake&quot; for a digital-art renaissance. Tone is celebratory rather than academic: love of the medium first, theory second.</p>
+<h3>Artists and visually observed work</h3>
+<p><strong>Synesthesia</strong> — &quot;Translating audio frequencies into the very fabric of the universe.&quot; An experimental amalgam of analog hardware and digital processing: CV gate and MIDI messages feed custom Python scripts, sculpting the aural outputs of modified vintage and contemporary gear into a hybrid of audio signals merged with generative digital visuals. Explicitly political goal: decentralize audio-art distribution to a collector network, a &quot;denouement of the traditional music industry models.&quot; Works in brochure: Y001, Objkt #257900, #306449, P009 #557474, Patches #386763, G010, P006 #576127, #557448, debug500 #506916 (all via henext/objkt links). Observed (i01-013–018): dark, signal-like compositions — the visual language reads as oscilloscope/waveform imagery turned compositional.</p>
+<p><strong>Marcelo Soria-Rodríguez</strong> (msoriaro) — artist/strategist; interested in the &quot;total cognitive space of systems&quot;: the whole range of possibilities a system can cover. Explores parameter spaces and whether synthetic systems can exhibit taste/emotion intelligible to humans. Writes at iillucid.com. Works: &quot;The four seasons in polycircle space: Spring&quot; (details i, iii — Objkt #23995, #7099), &quot;polyline creatures&quot; iii/iv/v (Objkt #284333, #340243, #439970), &quot;songs my mother taught me&quot; (Objkt #511610), &quot;Palazuelo&quot; (Objkt #223600). Observed (i01-024): explosive, high-energy composition — thick impasto-like strokes in orange/blue collide with large black crescent arcs while fine needle-thin lines radiate outward on a cream ground. Gesture + geometry in tension; the arcs act as compositional anchors inside the chaos.</p>
+<p><strong>Ismahelio</strong> — trained architect (Spain, Mexico, India, China, Hong Kong); parametric/generative design; &quot;geometrical compositions holding chaos and randomness within.&quot; Obsessed with automated detail, chaos within boundaries, semi-controlled randomness, and reproducing 3D constructions as 2D drawings. Works: &quot;Palazuelo&quot; (Objkt #223600) and architectural cluster pieces. Observed (i01-039, i01-040): dense axonometric clusters of wireframe cubes/boxes with flat colored faces — one on cream (white/yellow/blue faces), one on dark navy (multicolor faces). Reads as an impossible city or &quot;Non Spaces&quot;-style architectural drawing generated from a 3D voxel-ish field, flattened to line work. Later external work confirms the trajectory: &quot;Invisibles&quot; (Art Blocks, 2023, plottable, SVG export for pen plotting) and &quot;The Machine&quot; (419 outputs, JS algorithm combining blocks/cubes).</p>
+<h3>Techniques / code approaches</h3>
+<ul><li>Audio-reactive pipeline: CV gate + MIDI → custom Python → generative visuals</li></ul>
+<p>merged with the audio signal itself (Synesthesia). Takeaway: the control signal can be a first-class visual element, not just an input.</p>
+<ul><li>Parameter-space cartography: artworks as samples from a system&#x27;s possibility</li></ul>
+<p>space; small ingredient changes in complex scenarios (Marcelo).</p>
+<ul><li>3D-to-2D translation: build the system in three dimensions, render the</li></ul>
+<p>drawing in two; bounded chaos via constrained randomness (Ismahelio).</p>
+<ul><li>Objkt/henext single editions on Tezos; brochure links route through</li></ul>
+<p>tgam.xyz/visit/artist/&lt;handle&gt; redirects.</p>
+<h3>Piece seeds (original, not copies)</h3>
+<ol><li><strong>&quot;CV Garden&quot;</strong> — Take Synesthesia&#x27;s control-signal idea but go silent and</li></ol>
+<p>botanical: a bank of slow software oscillators (&quot;control voltages&quot;) drawn as visible wires connecting node points; each wire&#x27;s voltage bends the curvature of an ink-like vine stroke. No audio — the control metaphor itself becomes the composition. Cream ground, two inks.</p>
+<ol><li><strong>&quot;Paper Architect&quot;</strong> — Take Ismahelio&#x27;s 3D→2D translation but grow the city</li></ol>
+<p>with a cellular automaton instead of random stacking: a voxel field evolves a few generations, then gets flattened to an axonometric line drawing with one accent color per depth layer. The city&#x27;s history (its growth) is the seed.</p>
+<hr>
+<h2>Issue #02 — Computergrafik (Apr–Jun 2022)</h2>
+<h3>Curatorial thesis</h3>
+<p>A tribute to <strong>Georg Nees</strong> and the first exhibition of graphics algorithmically generated by a digital computer (Siemens, Erlangen). The brochure leans on the anecdote that a program can imitate an artist only if the artist can state how they draw — Max Bense&#x27;s &quot;Artificial Art.&quot; The issue frames generative art as a 60-year continuum, not an NFT-era invention, and implicitly dares the viewer to compare plotter-era restraint with contemporary color and motion.</p>
+<h3>Artists and visually observed work</h3>
+<p><strong>Quentin Hocdé</strong> — creative developer / visual artist, Gobelins (l&#x27;école de l&#x27;image) graduate, ex-Lead frontend at Locomotive (Montreal); relocated to Brussels, traveling/working from a campervan. &quot;Addicted to well thought-through animations and smart user experiences.&quot; Makes colorful compositions and infinite mesmerizing loops. Observed (i02-023): translucent vertical capsule/pill tubes in coral red, peach, and mint green floating on near-black, arranged in loose rows with soft glow — glassy, candy-like, clearly built for looping motion. External hop: his &quot;Parallelism&quot; (Responsive Dreams 2024) is responsive generative art exportable to <strong>SVG for pen-plotter tracing</strong> — press &#x27;p&#x27; for PNG, &#x27;s&#x27; for SVG. Web-design craft as baseline: elementary shapes building complex ecosystems.</p>
+<p><strong>Lisa Orth</strong> — artist/designer/tattooer/creative coder (Seattle). Ex-Sub Pop first Art Director (designed Nirvana&#x27;s first records and logo); award-winning woodcut/engraving-style linework tattooer; moved to code in 2020. Works entirely in <strong>Processing and p5.js</strong>; themes: colliding textures, movement, color. Observed: (i02-033) a woven grid of chevron/herringbone blocks in red-orange/teal/black/cream — textile-like, rhythmic, op-art adjacent; (i02-035) concentric swirling fine-line rings in red/gold on dark — radiant, meditative. Both read as linework-first abstraction with tattoo/engraving DNA. External hop: &quot;Liminal Rooms&quot; (Verse, 2023) — 256-edition p5.js series, 3500×5000 PNG output, &quot;press [s] in live view to save&quot;; named palettes (Reds, FR/ST, 707). Her site: lisaorth.xyz (digital work) / lisaorth.com (tattoo).</p>
+<p><strong>Aurora</strong> — &quot;generative artist exploring human experience through shape and light.&quot; The <strong>Morgenrot</strong> collection (genesis NFT project): every artwork symbolizes the dawn of a new beginning. Observed (i02-038, i02-040): soft full-bleed gradient backdrops (mint-to-cream; peach-to-lavender) with a centered 3D-rendered orb inside a light square frame — one pearl-like with banded strata, one smooth pink-violet gradient sphere. Radiating, calm, &quot;inner world unfolding in light and form.&quot; Per aurora.gallery: 4-piece genesis micro-series (1/1s on Ethereum) named for the Anemoi winds (Eurus, Zephyrus, Notus, Boreas); 28 traits; hand-crafted/curated rather than long-form.</p>
+<h3>Techniques / code approaches</h3>
+<ul><li>p5.js as the lingua franca (Lisa Orth; Quentin&#x27;s web-canvas practice).</li><li>Plotter-ready vector output as a feature: SVG export baked into the work</li></ul>
+<p>(Quentin&#x27;s &#x27;s&#x27;-to-save-SVG).</p>
+<ul><li>Infinite-loop animation design: compositions conceived as seamless cycles,</li></ul>
+<p>not stills (Quentin).</p>
+<ul><li>Curated 1/1 hand-finished generative pieces vs. long-form editions: Aurora&#x27;s</li></ul>
+<p>&quot;hand-crafted generative art… uniquely curated 1/1&quot; with video-loop + still deliverables.</p>
+<ul><li>Gradient-pane + sphere motif system: 28 traits across backdrops/gradients</li></ul>
+<p>(Aurora) — small trait space, high polish.</p>
+<h3>Piece seeds (original, not copies)</h3>
+<ol><li><strong>&quot;Nees Study №n&quot;</strong> — Plotter-era homage without pastiche: a strict</li></ol>
+<p>black-on-white geometric line system (rotated squares on a grid, one rule perturbation per row, à la Schotter) where the perturbation is a random walk the viewer reseeds by clicking. Still-first, code-drawn, printable.</p>
+<ol><li><strong>&quot;Dawn Plotter&quot;</strong> — Aurora&#x27;s dawn-sphere motif rebuilt in Lisa Orth&#x27;s</li></ol>
+<p>linework language: a radiant sphere implied purely through concentric hatching density on paper-white — no fills, no gradients, light rendered as line weight. Dawn as engraving.</p>
+<hr>
+<h2>Issue #03 — Red Pill</h2>
+<h3>Curatorial thesis</h3>
+<p>&quot;Pushing boundaries&quot;: the flaw being removed is <strong>curation itself</strong>. Long-form collections (500+ pieces) can&#x27;t be fairly reduced to a few wall slots, so TGAM with Tannhäuser Gate built an <strong>indexer</strong> tracking everything the three artists ever minted, on any platform, and the exhibition <strong>rotates 15 works per artist daily</strong> — 1,350 unique works per artist, 4,000+ total across the three-month run. The Matrix quote is the wrapper; the real idea is infrastructure as curatorial statement: the museum becomes a feed, not a wall.</p>
+<h3>Artists and visually observed work</h3>
+<p><strong>Ryan Bell</strong> — &quot;Software engineer, visual artist and musician&quot; (Las Vegas). Themes: radical complexity, recursion, playfulness; process = &quot;inventing new software tools to solve interesting technical challenges which yield colorful, sophisticated visual forms.&quot; Live generative minting galleries at Art Basel (Switzerland, Hong Kong). Brochure works: <em>Fragments of a Wave</em> #7/#431, <em>Microgravity</em> #253/#268/#376, <em>Decision Trees</em> #26, <em>Organized Chaos</em> #60, <em>Drip Cube</em> #97, <em>Sprocket Factory</em> #6/#180/#183, <em>Negative Space</em> #181, <em>Antiflow</em> #55. Observed: (prada/497612, Decision Trees series) a one-point perspective wireframe corridor with a white dotted vertical stem sprouting cyan branching tentacle-strokes and particle spray — organic branching grafted onto rigid perspective scaffolding; (i03-046) a black tree trunk whose canopy is replaced by radiating multicolor dashes, standing in a perspective-grid room — illustrative, playful, nature-via-math.</p>
+<p><strong>Landlines Art</strong> — &quot;Exploring generative art.&quot; 10+ years at the code/medium intersection; generative music history. Two workflows: <strong>JavaScript + HTML Canvas</strong> in-browser, and <strong>Python + Blender</strong> for detailed 3D renders. Process is iterative and accident-driven: &quot;inspired by accidental coding mistakes that push the project in a new and unexpected direction.&quot; Collaborative experiments (ArtCardz: collectors curate generative operations applied in order). On-chain innovation: <em>Distrukt</em> stored its Python code in a custom Tezos smart contract, Blender (open-source) as the only external renderer dependency. Brochure works: <em>Absolute Error</em> #11/#17, <em>Sedimentary Dissolution</em> #28/#36/#102/#108/ #175/#351/#464, <em>Archaea</em> #36, <em>Abrupt</em> #24, <em>Additive Synthesis</em> #76, <em>Anamnesis</em> #89, <em>Aura</em> #7, <em>Dots</em> #15/#16, <em>Textiles</em> #63, <em>Negative Space</em> #181. Observed: (i03-036) dense cellular network of thin hatched lines forming black/gold/teal triangular cells — sediment-strata-like, maximalist line density; the <em>Sedimentary Dissolution</em> language.</p>
+<p><strong>Thomas Lin Pedersen</strong> — &quot;Visualization and beyond.&quot; Danish; bioinformatician/ data-scientist background. Started 2017 inspired by Anders Hoff (Incongruent); early dynamic systems → monochrome → strong color palettes → texture + strong geometry; &quot;abandoning the pure dynamic aspects… incorporating texture and stronger geometric forms.&quot; Insists on the <strong>physical manifestation</strong>: print is &quot;a big part of how the work should be explored,&quot; plus pen plotters and other analog production. Systems take inspiration from old production methods to capture their &quot;fractal imprecisions.&quot; Brochure works: <em>Screens</em> #775/#834/ #987/#993, <em>Rapture</em> #842/#8779, <em>Constructive</em> 47, <em>winds</em> 4922/5060/7582, <em>Yonder</em> 793, <em>Versum</em> #96. Observed: (prada/screens91, Screens #91) diagonal isometric blocks in teal/white/pink on dark teal-black, visibly grainy with misaligned color layers — Bauhaus/constructivist geometry with analog flaw. External hop (thomaslinpedersen.art + Art Blocks interview + digiart21): <em>Screens</em> (Art Blocks Curated, Jan 2022, 1000 pcs) is a <strong>virtual screen-printing system</strong> — renders one color at a time onto a master image, lightest to darkest; each virtual screen may be slightly misaligned, &quot;a lovely flawed balance&quot;; 5 actors, 7 scenes, 3 interactions, 4 screen types, 14 palettes; grain/dithering as a deliberate 2021 focus after <em>Rapture</em>; taming chaos via Kandinsky/Popova compositional cues. Companion tools on his site: Screens Layers (build-up view), Surfer, Scaler, Sails, Show (fullscreen frame mode). 25% of proceeds donated to Den Blå Planet (Danish National Aquarium).</p>
+<h3>Techniques / code approaches</h3>
+<ul><li>Indexer-driven exhibition: track all mints per artist across platforms,</li></ul>
+<p>rotate daily (infrastructure as curation).</p>
+<ul><li>Virtual screen printing: single-color passes, deliberate misregistration,</li></ul>
+<p>light→dark ordering, grain (TLP).</p>
+<ul><li>Custom tool-building as the art practice itself (Ryan Bell); hyper-complex</li></ul>
+<p>fractal math (<em>Microgravity</em>) vs. illustrative nature scenes (<em>Dreamcatchers Forest</em>) — range as a feature.</p>
+<ul><li>Dual workflow JS/Canvas + Python/Blender; accident-driven iteration;</li></ul>
+<p>on-chain code storage with minimal external dependencies (Landlines).</p>
+<ul><li>Physical-first mindset: screen prints, pen plotter, engraved outputs as the</li></ul>
+<p>intended final form, not merch.</p>
+<h3>Piece seeds (original, not copies)</h3>
+<ol><li><strong>&quot;1,350 Mornings&quot;</strong> — Nod to the daily-rotation indexer: a piece that</li></ol>
+<p>renders one composition per calendar day from a date hash — strict Bauhaus-style geometric blocks with exactly one misregistered color layer (TLP&#x27;s flaw), where the misregistration offset equals the day-of-year. The flaw is calendrical; collecting days becomes the series.</p>
+<ol><li><strong>&quot;Decision Grove&quot;</strong> — Ryan Bell&#x27;s branching-trees-over-perspective-grid,</li></ol>
+<p>but the branches are the literal decision paths of a tiny decision tree classifying the pixel field beneath it: ML diagram meets tree. One-point perspective room, one tree, branches as labeled splits.</p>
+<hr>
+<h2>Issue #04 — Intersection (Oct 2022)</h2>
+<h3>Curatorial thesis</h3>
+<p>&quot;Intersection&quot; as human↔machine meeting point. The brochure&#x27;s &quot;previously on&quot; pages recap Issues #01–#03 (DOTS #16 Landlines/fxhash #510843, Fragments of a Wave #28 Ryan Bell/fxhash #508658, Screens #91 TLP/Art Blocks #255000091), then three artists each probing where the human ends and the system begins. Andreas Rau (dialogue with the machine), riiis (naive/playful systems), Rudxane (balance between human and machine).</p>
+<h3>Artists and visually observed work</h3>
+<p><strong>Andreas Rau</strong> — generative artist, interaction design + creative coding background (Berlin/Oslo). &quot;Builds bridges between the physical and the digital in a continuous dialog between human and machine.&quot; Works span interactive installations, kinetic sculptures, plotter/CNC drawings; &quot;playful interactions, organic movement patterns, rich textures, slowness, unexpected breaks and overlapping rhythms&quot;; music/nature influences; &quot;the becoming rather than the actual.&quot; Brochure series: Elevation, Concrete, Loom, Tocata, City Scapes, Transition, Patchwork. Observed: (i04-040) pointillist grain fields resolving into dark rectangular masses on light — stipple as tonal system; (i04-044) cream ground, horizontal banded line-fields with a dark swirling scribble mass overhead and thin triangle outlines below — drawing vs. gesture; (i04-051) vertical glitch-textured bands in red/orange/ black — woven, screen-like. External hop (andreasrau.eu/loom/text/): <em>Loom</em> (fxhash #79, Nov 2021) is a generative exploration of texture/color inspired by Bauhaus textile artists — palettes drawn from Anni Albers, Gunta Stölzl, Sophie Taeuber-Arp, Hilma af Klint; deliberately <em>sketches</em> rather than finished weaves (a response to fxhash beta instability, incl. the famous &quot;bug #64&quot; misassigned tokens); faint grid guidelines in some outputs.</p>
+<p><strong>riiis</strong> — self-described &quot;naive designer,&quot; &quot;console.love logger,&quot; &quot;inconfident coder.&quot; Works: Bubbles, Manic, Peaks, typographic/symbolic series. Brochure: BUBBLES, S-EXPRESSION #0. Observed: (i04-067, &quot;Manic&quot;-like) dense field of small black dots and short gray dashes peppered with pastel marks on light gray — controlled mania, dot-matrix energy; (i04-071, &quot;Bubbles&quot;) a central rectangle of dense multicolor confetti-noise (TV-static particle field) ringed by scattered black/orange bubbles on white — the noise core vs. calm margin contrast is the whole composition. Playful, low-pretension maximalism.</p>
+<p><strong>Rudxane</strong> — visual artist (Amsterdam), &quot;searching for balance between human and machine&quot;; HTML/CSS/JS + small interactive sites since the 90s. Tries to inject human inconsistency into generative systems: &quot;generative art can sometimes feel too clean&quot; — aims for the personal connection of heavy/soft brushwork inside the algorithm. Series: Grid Studies, Bingo, Unfinished, Giant Steps, Fold, rings. Brochure: TYCH #5 (fxhash #133432). Observed: (i04-085, Tych-like) off-white ground, horizontal rows of tiny dot-dashes with occasional bold black vertical bars — punch-card / musical-score / data-readout aesthetic, the &quot;Sheets&quot; vernacular (spreadsheet, early terminal, PCB diagrams); (i04-089, rings-like) concentric translucent neon arcs (green/cyan/pink) radiating from a corner on white — pure luminous geometry. External note: <em>Sheets</em> (Verse) &quot;displays the explicit mathematical logic underlying its own visuals&quot;; six outputs translated into engraved metal plates — digital→physical again.</p>
+<h3>Techniques / code approaches</h3>
+<ul><li>Texture-as-subject: pointillist grain fields, woven bands, textile palettes</li></ul>
+<p>(Andreas Rau).</p>
+<ul><li>Noise-core compositions: dense particle/confetti centers with calm,</li></ul>
+<p>bubbled margins (riiis) — contrast of densities as structure.</p>
+<ul><li>Data-vernacular aesthetics: spreadsheets, staff notation, PCB diagrams as</li></ul>
+<p>visual language; self-describing systems (Rudxane&#x27;s Sheets shows its own math).</p>
+<ul><li>Physical outputs: pen plotter, CNC, engraved brass plates.</li><li>fxhash gentks across all three; long-form series thinking.</li></ul>
+<h3>Piece seeds (original, not copies)</h3>
+<ol><li><strong>&quot;Bubbles, Quietly&quot;</strong> — riiis&#x27;s noise-core/margin contrast, slowed down:</li></ol>
+<p>a monochrome flow-field particle core with a sparse halo of colored rings; particles that fall below a speed threshold &quot;escape&quot; and become halo rings. Still image of a dynamic rule.</p>
+<ol><li><strong>&quot;Tych Cards&quot;</strong> — Rudxane&#x27;s data-vernacular turned self-referential: staff</li></ol>
+<p>lines of tiny ticks where the &quot;data&quot; is the piece&#x27;s own draw-call log (counts per layer, per color) — the artwork visualizes its own rendering statistics as it draws, bold bars marking layer boundaries.</p>
+<hr>
+<h2>Artist out-links for follow-up</h2>
+<p>Every artist, exact own-site URLs found (verbatim from sources; gaps noted honestly — several artists have no discoverable personal site and live on platform profiles):</p>
+<p><strong>Issue #01</strong></p>
+<ul><li>Synesthesia — own site not found (TGAM &quot;Visit Synesthesia&quot; redirect at</li></ul>
+<p>https://tgam.xyz/visit/artist/Synesthesia could not be resolved; fetch failed). TGAM artist page: https://tgam.xyz/artist/Synesthesia</p>
+<ul><li>Marcelo Soria-Rodríguez — iillucid.com (personal website named in the Issue</li></ul>
+<p>#01 brochure). TGAM visit redirect: https://tgam.xyz/visit/artist/msoriaro</p>
+<ul><li>Ismahelio — own site not found (TGAM visit redirect:</li></ul>
+<p>https://tgam.xyz/visit/artist/Ismahelio, unresolved). Profiles: https://verse.works/ismahelio/exhibitions and https://www.artblocks.io/collection/invisibles-by-ismahelio</p>
+<p><strong>Issue #02</strong></p>
+<ul><li>Lisa Orth — lisaorth.xyz (stated as her website on her Verse and</li></ul>
+<p>expanded.art profiles; tattoo work at lisaorth.com). TGAM artist page: https://tgam.xyz/artist/LisaOrth</p>
+<ul><li>Quentin Hocdé — own site not found. Profile with work + technique notes:</li></ul>
+<p>https://responsivedreams.com/artist/QuentinHocde</p>
+<ul><li>Aurora — https://www.aurora.gallery/ (Morgenrot collection site). TGAM</li></ul>
+<p>artist page: https://tgam.xyz/artist/Aurora</p>
+<p><strong>Issue #03</strong></p>
+<ul><li>Ryan Bell — own site not found (active as @iRyanBell). TGAM artist page:</li></ul>
+<p>https://tgam.xyz/artist/RyanBell — interview: https://tgam.xyz/interview/a-casual-chat-with-ryan-bell</p>
+<ul><li>Landlines Art — own site not found. TGAM artist page:</li></ul>
+<p>https://tgam.xyz/artist/LandlinesArt — on-chain project write-up: https://paragraph.com/@kaloh/%E3%80%B0-discover-how-landlines-art-is-creating-innovative-on-chain-nfts</p>
+<ul><li>Thomas Lin Pedersen — https://thomaslinpedersen.art/ — Screens project hub:</li></ul>
+<p>https://thomaslinpedersen.art/work/screens/ — Art Blocks interview: https://www.artblocks.io/articles/in-conversation-with-thomas-lin-pedersen</p>
+<p><strong>Issue #04</strong></p>
+<ul><li>Andreas Rau — https://andreasrau.eu/ (bio: https://andreasrau.eu/bio/ ;</li></ul>
+<p>Loom essay: https://andreasrau.eu/loom/text/ ). TGAM artist page: https://tgam.xyz/artist/AndreasRau</p>
+<ul><li>riiis — own site not found. TGAM interview &quot;A casual chat with riiis&quot;</li></ul>
+<p>exists on https://tgam.xyz/interviews</p>
+<ul><li>Rudxane — own site not found. Profiles: https://verse.works/rudxane and</li></ul>
+<p>https://www.lerandom.art/artists/rudxane</p>
+<h3>Most interesting technique per issue (external-hop summary)</h3>
+<ul><li>#01 Synesthesia: CV gate + MIDI → custom Python scripts → vintage/modern</li></ul>
+<p>audio gear → generative visuals merged with the audio signal; decentralizing audio-art distribution. (Hop limited: TGAM visit-link fetch failed; technique from TGAM artist bio.)</p>
+<ul><li>#02 Lisa Orth: full-time p5.js/Processing practice, woodcut-linework DNA,</li></ul>
+<p>&quot;colliding textures, movement and color&quot;; Liminal Rooms shows the working method (live view, named palettes, press-s-to-save PNG pipeline).</p>
+<ul><li>#03 Thomas Lin Pedersen: virtual screen-printing — one color pass at a time,</li></ul>
+<p>light→dark, deliberately misaligned screens, grain/dither as medium; print and plotter as the intended final form; companion web tools (Layers, Surfer, Scaler, Sails, Show).</p>
+<ul><li>#04 Andreas Rau: Loom — Bauhaus-textile-inspired generative texture/color</li></ul>
+<p>studies, palettes from four abstract-art pioneers, sketch-not-weave aesthetic; physical plotter/CNC outputs as continuous practice.</p></div><nav class="pagenav"><a class="" href="tgam-articles.html"><span class="dir">Previous note</span><span class="t">TGAM interviews + Responsive Dreams festival — deep study</span></a><a class="next" href="tgam-issues-05-08.html"><span class="dir">Next note</span><span class="t">TGAM Issues #05–#08 — (Generative Doodles)</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

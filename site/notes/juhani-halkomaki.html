@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juhani Halkomäki · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>Shelf IV, The Living Sketch</span><h1>Juhani Halkomäki</h1><div class="byline"><span>7 min read</span><span class="sep">/</span><span>1,319 words</span></div><div class="note-body"><dl class="catalogue"><dt>Site</dt><dd>juhani.halkomaki.com (&quot;A creative coding scrapbook&quot;) | <strong>Profile:</strong> x.com/JuhaniHalkomaki | <strong>OpenProcessing:</strong> openprocessing.org/user/208584 | <strong>Instagram:</strong> instagram.com/juhani.halkomaki | <strong>Bluesky:</strong> bsky.app/profile/juhani.halkomaki.com</dd><dt>Depth</dt><dd>deep. Four artworks visually inspected at full resolution: the single-continuous-line self portrait (from his homepage via the screenshot rig), and Kratta #3, Untitled #14, and Sun Scribble (high-res images from the STIRworld profile, downloaded and viewed directly). His tweets about the spring-line technique were read via a TwStalker mirror, and the STIRworld interview (May 2023) was read in full. Not reached: the X profile itself (login-walled), his OpenProcessing profile page (fetch failed, needs revisit), his YouTube process video (&quot;Untitled&quot;, 2022, I7pnzu6Ngt4). No GitHub account found under his handle.</dd></dl>
+<h2>Who he is</h2>
+<p>A Helsinki-based digital artist, born in Southern Finland. He started as a kid writing QBasic programs that drew moving circles and rectangles, studied Media Engineering, then worked as a front-end web developer until a colleague suggested he apply to the New Media program at Aalto University in 2017. That is where the art practice started properly. Day job is still web development; the generative work is a side practice and a way to unwind. He has shown in pop-up exhibitions in Japan arranged by 3XHIBITION. He cites Aleksandra Jovanic, Kwame Bruce Busia, Melissa Wiederrecht, Erik Swahn, and Zach Lieberman as inspirations.</p>
+<p>His stated process is a feedback loop: start with a simple question like &quot;how could I make something that looks like Japanese sand raking&quot; or &quot;how could I mimic that real-world phenomenon&quot;, code it, get surprised by the output, and layer the ideas that work. For color, he is honest that he is not good at it: black and white is the easiest choice, muted colors second. When a piece needs a wider palette he generates random color combinations, renders a huge batch of test versions, and keeps the best-looking ones as palettes.</p>
+<h2>Core techniques</h2>
+<p>Everything he makes is line work. The mark is the whole practice, and the techniques are constraint games around how a line can carry an image.</p>
+<h3>Density-modulated single-line drawing (Self portrait, 2024)</h3>
+<p>One continuous black line on white draws a full tonal portrait. Dark areas are dense overlapping loops of scribble, light areas are sparse long curves, and the line never lifts. What is visible in the pixels is a wandering line whose loop-back density tracks image brightness: hair and shadow are tight nests of overlapping strokes, skin is open wandering curves. It reads like a pen-plotter stipple piece done with scribble density instead of dots. The algorithm was not published, but the visible behavior is consistent with a walker steered by the source image&#x27;s brightness gradient, spending more pen-time (tighter loops) where the image is dark. Treat that as an inference, not a confirmed implementation.</p>
+<h3>Contour extraction from a noise height field (Kratta series, 2022)</h3>
+<p>Kratta #3 is white contour lines on a flat ochre ground, looking exactly like raked sand in a zen garden or rippled wood grain. The lines are smooth closed and open curves that follow a height field, the classic marching-squares contour output from Perlin/simplex noise. The signature detail: lines break into dashed and dotted segments where contours would crowd or cross, giving it a raked, hand-made feel instead of a clean topographic map. The question behind it was literally &quot;how could I make something that looks like Japanese sand raking&quot;.</p>
+<h3>Perspective-warped line fields (Untitled #14, 2022)</h3>
+<p>Black on white again, this time a corridor or tunnel rendered purely with line density. Hundreds of near-parallel lines converge toward a bright opening at center-right; line spacing and wobble follow a radial perspective field, and the tonal shading of the tunnel walls emerges from line crowding and slight moiré interference. It is the same density-shading idea as the portrait but geometric: the &quot;image&quot; being drawn is a perspective transform, and lines displaced by it produce the 3D read for free.</p>
+<h3>Asemic-writing gradients (Sun Scribble, 2022)</h3>
+<p>A sunset over the ocean built entirely from tiny unreadable scribble marks, like fragments of handwriting. Each mark is a small wiggly glyph, and its color is sampled from a sunset gradient: deep indigo and violet sky at top, magenta and pink at the horizon, orange and yellow sun disc, dark blue ocean below with a golden reflection path under the sun. Density modulates too, sparser at the edges. The piece started as an asemic writing algorithm; the gradient came from playing with line heights and densities, and the blue made him think of the ocean, so he aimed the piece at a sunset. Color carries the image, the marks carry the texture.</p>
+<h3>Spring-relaxed lines (from his own tweets)</h3>
+<p>He describes his line smoothing directly: lines are made of points connected by springs, each point connected to five neighboring points, and the springs try to keep their rest length, which straightens curves. It is a physical relaxation applied to generated polylines. He also replied to a rope-physics thread saying he would like to move the physics to the GPU when he has the energy. So the pipeline is: generate noisy polyline, relax with a spring network, then render. That explains why his lines look hand-drawn rather than mathematically crisp.</p>
+<h2>Palette and composition</h2>
+<p>Default mode is black line on white paper, or white line on one flat muted ground (the Kratta ochre). He says so himself: black and white is the easiest choice for him. Sun Scribble is the colorful outlier and it works because the palette is doing narrative work, a sunset needs its gradient, and because he curated it from a big batch of test renders. Compositions are portrait-format, full-bleed fields of marks with no frames or borders, usually one dominant read (a face, a tunnel, a sunset, a raked field). Negative space does a lot of the work: the self portrait lets the white paper be the light.</p>
+<h2>What makes it sing</h2>
+<p>The work is fully coded but reads as expressionistic and hand-made, Van Gogh is the comparison the STIRworld piece reaches for, and it is fair. The secret is that every piece starts from a physical question (raking sand, scribbling like writing, a corridor of lines) rather than from an algorithm, so the output keeps a physical metaphor instead of looking like a math demo. The spring relaxation is the quiet technical move underneath it all: slightly imperfect, slightly hand-wobbly lines.</p>
+<h2>What to steal / avoid-list</h2>
+<p>Steal:</p>
+<ul><li>The constraint-game framing: one continuous line, marks sampled from an</li></ul>
+<p>image&#x27;s color, lines relaxed by springs. Pick one physical metaphor per piece and let it drive the algorithm.</p>
+<ul><li>Density as shading: scribble-loop density for tone is a fresh alternative</li></ul>
+<p>to dot stipple and reads beautifully at large sizes.</p>
+<ul><li>Breaking contour lines into dashes where they crowd (the Kratta trick),</li></ul>
+<p>which turns a sterile topographic look into something raked and tactile.</p>
+<ul><li>The palette workflow when color is needed: batch-render many random</li></ul>
+<p>combinations and keep the winners, instead of agonizing over one palette up front.</p>
+<ul><li>Spring-relaxation of generated polylines (each point tied to N neighbors)</li></ul>
+<p>as a general-purpose &quot;make it look hand-drawn&quot; pass.</p>
+<p>Avoid:</p>
+<ul><li>Straight noise flow fields with uniform stroke: the generic hairball look.</li></ul>
+<p>His lines always serve an image (a face, a tunnel, a sunset); the field is the means, not the subject.</p>
+<ul><li>His comfort zone is also his trap: endless black-on-white line pieces would</li></ul>
+<p>blur together. He knows this and says he wants a more recognizable style. For our work, when the palette is muted, make the mark itself do something new.</p>
+<ul><li>Do not copy the asemic-scribble sunset directly; that piece is his, and the</li></ul>
+<p>technique is now his signature. Use the gradient-sampling idea on a different subject.</p></div><nav class="pagenav"><a class="" href="josh-on-design-canvas-deep-dive.html"><span class="dir">Previous note</span><span class="t">Josh On Design: HTML Canvas Deep Dive (deep)</span></a><a class="next" href="junkiyoshi.html"><span class="dir">Next note</span><span class="t">JUNKIYOSHI</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

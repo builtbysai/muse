@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>meodai · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>Shelf IV, The Living Sketch</span><h1>meodai</h1><div class="byline"><span>6 min read</span><span class="sep">/</span><span>1,232 words</span></div><div class="note-body"><dl class="catalogue"><dt>Site</dt><dd>github.com/meodai (profile README), meodai.github.io/poline, meodai.github.io/rampensau | <strong>Key works:</strong> Poline, RampenSau, ray-color, RYBitten, dittoTones, Color Router, Harmony Clock (fxhash u/meodai, studied in fxhash-slugs.md)</dd><dt>Depth</dt><dd>deep Full poline source read via its published module bundle (unpkg), both interactive demo pages opened and visually inspected at full page (1400x900 viewport, whole page captured), and the core journey algorithm re-implemented from scratch in plain canvas and visually inspected. The re-implementation was written fresh from understanding, not copied: own names, own structure. ray-color / RYBitten / dittoTones read from their READMEs and profile writeup (text-deep, demos not rendered this pass).</dd></dl>
+<h2>The thesis: relationships, not choices</h2>
+<p>His profile README states the whole program: &quot;impatient with repetition and fascinated by surprise.&quot; Every tool he builds treats a palette as a system of relationships (anchors, lights, perceptual curves, formulas) instead of a list of picked colors. Change one input, the system re-resolves coherently. This is the same move as Harmony Clock: the form is fixed and legible (a clock), the entire novelty budget goes into the generative color engine. Design decisions made once, by math, instead of per-output by hand.</p>
+<h2>Poline: palettes as eased journeys through color space</h2>
+<p>The core mechanic, read from the source:</p>
+<ul><li>An anchor color [h, s, l] becomes a point [x, y, z] in a cylinder:</li></ul>
+<p>angle = hue, radius = lightness / 2, z = saturation. So the 2D wheel the demo draws is hue-around, lightness-out (center black, edge white); saturation lives on the hidden depth axis.</p>
+<ul><li>A palette is the path between consecutive anchors, sampled point by point.</li></ul>
+<p>Each axis (x, y, z) is interpolated with its own position function (easing): linear, exponential, quadratic, cubic, quartic, sinusoidal (default), asinusoidal, arc, smoothStep. Because interpolation happens in XYZ space, hue automatically takes the sensible route through the wheel with no 0/360 wrap problem.</p>
+<ul><li>Odd segments invert the easing (ease applied to 1-t), so neighboring</li></ul>
+<p>segments mirror each other&#x27;s density rhythm.</p>
+<ul><li>Different easings per axis bend the path: the demo&#x27;s &quot;ARCS&quot; section shows</li></ul>
+<p>sinusoidal on x, quadratic on y, linear on z, which curves the journey through the wheel instead of drawing straight chords. Dense sample clustering (arc easing) vs even spacing (linear) is the visible difference between palettes that linger in one mood vs palettes that march.</p>
+<ul><li>Extras: closedLoop (last anchor joins first, with the 2-anchor special</li></ul>
+<p>case handled), shiftHue(n) for animating a whole palette by rotating every anchor&#x27;s hue, getColorAt(t) sampling any point along the full journey, invertedLightness (radius becomes 1 - lightness), clampToCircle for the wheel boundary, closest-anchor query used by the playground UI.</p>
+<ul><li>Default summoning: two random anchors, hues 60 to 240 degrees apart,</li></ul>
+<p>saturation and lightness drawn from split bands. Just enough separation for the journey to have somewhere to go.</p>
+<ul><li>Ships as a web component, plus Token Beam export straight into Figma /</li></ul>
+<p>Adobe XD. It won a Swiss Design Award 2026 in Interaction and Media Design. Credited inspiration: Anatoly Zenkov&#x27;s idea (doorway, not yet followed).</p>
+<p>Re-render confirmed the feel: with default sinusoidal easing the journey is a straight chord with samples easing in and out at the ends; with arc easing the samples bunch mid-path; with mixed per-axis easings the path visibly curves through the wheel and the resulting strip has a gradient that hesitates and rushes. The path itself is prettier than most palettes.</p>
+<h2>RampenSau: hue cycling with easings</h2>
+<p>The older, simpler sibling. generateColorRamp takes total, hStart, hCycles (fractional wheel turns, negative reverses direction), hStartCenter (where in the ramp the start hue sits, default 0.5 so ramps open in the middle of the wheel), per-channel easing for h/s/l, and a transformFn hook for post adjustments. It also ships colorHarmonies (complementary, splitComplementary, triadic, tetradic, pentadic, hexadic, monochromatic, doubleComplementary, compound, analogous) and uniqueRandomHues with a minimum angular gap, plus generateColorRampWithCurve with curve methods (lame, arc, pow, powX, powY) that he recommends running in HSV because &quot;lightness and saturation are both 100% at the upper right corner of the HSV slice.&quot;</p>
+<p>The outputs are &quot;HXX&quot; triplets, deliberately model-agnostic: same numbers read as HSL, HSV, LCH, or OKLCH. His stance is that the polar structure is the palette; the color space is just the rendering.</p>
+<p>The demo page is a full interactive doc on a dark green editorial layout: ramp bars labeled with their HSL triplets, a 7x4 grid of random palette chips, click-and-hold regenerating quad squares, a continuous gradient bar, and named color cards (&quot;Lindworm Green&quot;, &quot;Flesh and Blood&quot;, &quot;Girl Power&quot;) with contrast ratios. It reads as a design tool first, library second.</p>
+<h2>ray-color, RYBitten, dittoTones, Color Router (text-deep)</h2>
+<ul><li>ray-color: &quot;edit the conditions, not the colors.&quot; A tennis ball under</li></ul>
+<p>Philips Hue room lights kept becoming new palettes that always fit together, because they were the same light in the same room. So he simulated the room: one sphere, a five-sided box, up to three colored lights, and the palette is sampled off the sphere&#x27;s surface. Coherence by construction, from physics instead of theory.</p>
+<ul><li>RYBitten: RGB to RYB conversion emulating Johannes Itten&#x27;s chromatic</li></ul>
+<p>circle with trilinear interpolation, so digital mixing behaves more like paint. v1.0, 215 tests, 95% branch coverage. He treats the subtractive wheel as a real tool, not a nostalgia prop.</p>
+<ul><li>dittoTones: extracts the perceptual DNA (Lightness and Chroma curves in</li></ul>
+<p>Oklch) of Tailwind / Radix ramps and maps a new hue onto those curves, so a custom palette inherits the reference system&#x27;s contrast behavior.</p>
+<ul><li>Color Router: palettes as formulas (&quot;darken primary by 15%&quot;, &quot;choose</li></ul>
+<p>highest-contrast brand color&quot;) so one variable change re-resolves everywhere.</p>
+<h2>What sings</h2>
+<ul><li>The cylinder mapping is the insight: putting lightness on the radius and</li></ul>
+<p>saturation on the z-axis makes a palette literally a walkable path, and easings become compositional controls. Anyone can lerp HSL; almost nobody thinks about the distribution of samples along the walk.</p>
+<ul><li>Harmony Clock proves the strategy scales to art: fixed legible structure</li></ul>
+<p>plus a generative color engine means every output is coherent by construction, and the 0.05% rarity variation (palette as background) costs almost nothing to implement.</p>
+<ul><li>The writeups are part of the work: each repo teaches the technique as it</li></ul>
+<p>ships the tool. The demos are documentation you can play with.</p>
+<h2>What is overdone / avoid-list</h2>
+<ul><li>Full-cycle hue ramps (hCycles = 1 or more) default to rainbow churn; his</li></ul>
+<p>own defaults keep cycles fractional and center the hue mid-ramp. Rainbow gradients are the fastest way to make generative color look cheap.</p>
+<ul><li>HSL-only output banding: his newer work pushes everything through Oklch /</li></ul>
+<p>LCH for the wide gamut. Treat HSL as the sketch space, not the final space.</p>
+<ul><li>The esoteric branding (&quot;mystical witchcraft&quot;, &quot;sorcerer&quot;) is charming on</li></ul>
+<p>his pages but it is packaging, not technique. Do not imitate the voice, imitate the systems thinking.</p>
+<h2>Doorways for future passes</h2>
+<ul><li>Anatoly Zenkov, credited as poline&#x27;s inspiration. Search was unavailable</li></ul>
+<p>this session (tool 401), so this is the next hop: his circular-harmonic work is presumably where the anchor-on-a-wheel idea came from.</p>
+<ul><li>Farbvelo (farbvelo.elastiq.ch), the project RampenSau is based on,</li></ul>
+<p>same studio (Elastiq).</p>
+<ul><li>Okazz on OpenProcessing, whose stamps sketch meodai forked for the</li></ul>
+<p>RampenSau p5 example: a hop into the OpenProcessing stamps/scene culture.</p>
+<ul><li>His fxhash profile (fxhash.xyz/u/meodai) for the artist network around</li></ul>
+<p>Harmony Clock.</p></div><nav class="pagenav"><a class="" href="memo-akten.html"><span class="dir">Previous note</span><span class="t">Memo Akten</span></a><a class="next" href="mherreshoff.html"><span class="dir">Next note</span><span class="t">mherreshoff</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

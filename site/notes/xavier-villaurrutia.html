@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xavier Villaurrutia · Muse</title>
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff;
+  --ink:#1a1e20; --ink-soft:#4b5254; --ink-faint:#8d9496;
+  --rule:#dfe3e2; --rule-soft:#ecefec;
+  --accent:#10406b; --accent-ink:#0c3255;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:var(--serif); font-size:17px; line-height:1.65;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{color:var(--accent-ink)}
+::selection{background:rgba(16,64,107,.16)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 32px}
+.smallcaps{font-family:var(--sans); text-transform:uppercase; letter-spacing:.14em; font-size:11.5px}
+
+/* ---------- masthead ---------- */
+.topline{height:3px; background:var(--accent)}
+.masthead{padding:52px 0 30px}
+.masthead .kicker{font-family:var(--sans); text-transform:uppercase; letter-spacing:.24em;
+  font-size:11.5px; color:var(--ink-faint); margin:0 0 16px}
+.masthead h1{font-size:clamp(52px,8vw,96px); line-height:1; margin:0; font-weight:500;
+  letter-spacing:-.01em}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.2vw,20px);
+  margin:16px 0 0; max-width:36em; line-height:1.6}
+.colophon{display:flex; flex-wrap:wrap; gap:10px 26px; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:13px 0; color:var(--ink-soft);
+  font-family:var(--sans); font-size:12.5px}
+.colophon .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint); margin-right:7px}
+
+/* ---------- search & shelf filter ---------- */
+.controls{padding:30px 0 4px; display:flex; flex-direction:column; gap:20px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative; border-bottom:1px solid var(--ink-faint)}
+.searchbox:focus-within{border-bottom-color:var(--accent)}
+.searchbox svg{position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:17px; height:17px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font-family:var(--serif); font-size:19px; font-style:italic; color:var(--ink);
+  background:transparent; border:none; padding:10px 4px 10px 30px}
+#q::placeholder{color:var(--ink-faint)}
+#q:focus{outline:none}
+#clearq{display:none; font-family:var(--sans); font-size:12px; background:none;
+  border:1px solid var(--rule); color:var(--ink-soft); padding:0 16px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.shelves{display:flex; flex-wrap:wrap; gap:4px 26px}
+.chip{font-family:var(--sans); font-size:13px; cursor:pointer; background:none;
+  border:none; border-bottom:2px solid transparent; color:var(--ink-soft);
+  padding:7px 1px; display:inline-flex; align-items:center; gap:8px}
+.chip .sw{width:8px; height:8px; flex:none; background:var(--sw,#888)}
+.chip .n{color:var(--ink-faint); font-size:11.5px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{color:var(--ink); font-weight:600; border-bottom-color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--ink-soft)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
+
+/* ---------- shelves & catalogue ---------- */
+.theme{margin:52px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
+  padding-bottom:10px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px; min-width:2.2em}
+.theme-head h2{margin:0; font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:.005em}
+.theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline;
+  text-decoration-thickness:1px; text-underline-offset:3px}
+.card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:13px 0;
+  font-family:var(--sans); font-size:12.5px}
+.backline a{color:var(--ink-soft); text-decoration:none;
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px}
+.backline a:hover{color:var(--accent)}
+.note{max-width:700px; margin:0 auto; padding:46px 32px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:11.5px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-soft); margin-bottom:18px}
+.note .theme-tag .sw{width:9px; height:9px}
+.note h1{font-size:clamp(32px,4.8vw,50px); line-height:1.1; margin:0 0 10px;
+  font-weight:600; letter-spacing:-.005em}
+.note .byline{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
+  text-transform:uppercase; letter-spacing:.12em; border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); padding:11px 0; margin-bottom:30px;
+  display:flex; gap:14px; flex-wrap:wrap}
+.note .byline .sep{color:var(--rule)}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:0 24px; margin:0 0 34px;
+  border-top:1px solid var(--rule); font-size:15px; line-height:1.6}
+.catalogue dt{font-family:var(--sans); font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap;
+  padding:12px 0; border-bottom:1px solid var(--rule-soft)}
+.catalogue dd{margin:0; color:var(--ink-soft); padding:12px 0;
+  border-bottom:1px solid var(--rule-soft)}
+.note-body{font-size:18.5px; line-height:1.74}
+.note-body > p:first-of-type::first-letter{font-size:3.3em; float:left; line-height:.88;
+  padding:5px 12px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:23px; margin:2.1em 0 .6em; font-weight:600;
+  border-bottom:1px solid var(--rule); padding-bottom:8px}
+.note-body h3{font-size:19px; margin:1.7em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.15em}
+.note-body ul,.note-body ol{margin:0 0 1.25em; padding-left:1.4em}
+.note-body li{margin-bottom:.45em}
+.note-body blockquote{border-left:2px solid var(--accent); margin:1.5em 0;
+  padding:2px 0 2px 20px; font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#22282c; color:#e8ecec; padding:16px 18px; overflow:auto;
+  font-size:13.5px; line-height:1.6}
+.note-body code{font-family:var(--mono); font-size:.84em}
+.note-body p code,.note-body li code,.note-body td code{background:#e7ebe9;
+  padding:1px 6px}
+.note-body table{border-collapse:collapse; margin:1.5em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:9px 11px; text-align:left}
+.note-body th{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--ink-soft); background:#eef1f0}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2.2em auto; width:33%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  margin:52px 0 6px; border-top:1px solid var(--rule); padding-top:22px}
+.pagenav a{text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover .t{color:var(--accent); text-decoration:underline;
+  text-underline-offset:3px}
+.pagenav .dir{font-family:var(--sans); font-size:11px; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--ink-faint); display:block; margin-bottom:5px}
+.pagenav .t{font-size:16.5px; font-weight:600; line-height:1.4}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:1px solid var(--ink); margin-top:64px; padding:22px 0 70px;
+  color:var(--ink-soft); font-family:var(--sans); font-size:12px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:8px 28px; justify-content:space-between}
+footer.site .lbl{text-transform:uppercase; letter-spacing:.12em; font-size:10.5px;
+  color:var(--ink-faint)}
+@media (max-width:640px){
+  .wrap{padding:0 20px}
+  .note{padding:34px 20px 16px}
+  .pagenav{grid-template-columns:1fr}
+  .pagenav .next{text-align:left}
+  .catalogue{grid-template-columns:1fr; gap:0}
+  .catalogue dt{border-bottom:none; padding-bottom:0}
+}
+</style>
+</head>
+<body>
+<div class="topline"></div><div class="backline"><div class="wrap"><a href="../index.html">&larr; The reading room</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#50586e"></span>Shelf VIII, Text, Type &amp; Concrete Poetry</span><h1>Xavier Villaurrutia</h1><div class="byline"><span>studied 2026-11-04</span><span class="sep">/</span><span>25 min read</span><span class="sep">/</span><span>4,939 words</span></div><div class="note-body"><p>Study date: 2026-11-04. ig-artist-study #314.</p>
+<p><strong>Site:</strong> Xavier Villaurrutia Gonzalez (March 27, 1903, Mexico City -- December 25, 1950, Mexico City; the birth date is confirmed by two November 1903 baptism records found in 2017, one of which, three days later, names a girl, Maria Javier, a certified mystery carried unsettled). No Instagram: verified absence, not a gap. Poet, playwright, translator, literary and art critic, the Contemporaneos&#x27; sleepwalker: the triangle&#x27;s fourth point, the one who wrote about the other three. Identity anchors: the double (in Villaurrutia one is always two); the nocturne as an instrument, not a mood; the statue left behind in the bed while the voice descends; the word-game as an engine (madura, quemadura, bosque madura, quema dura); the mirror facing the mirror; death as a country to return to rather than an end to fear; the dream as a jurisdiction where the artist stays awake; the plastic poem, built like an object. Slim output by design: the complete poems fit in about a hundred pages (Octavio Paz: the rest is theatre, criticism, and a few texts that approach the novel without being it). Wrote about Castellanos (&quot;inocencia aparente&quot;), about the dead Abraham Angel (&quot;gracia y fervor&quot;), found Angel&#x27;s body, co-created the Teatro de Ulises (1928) with Salvador Novo and Antonieta Rivas Mercado, directed the Ulises magazine (1927-28) with Novo, went to Yale on a Rockefeller grant (1935-36) with Rodolfo Usigli, and died Christmas morning 1950 of a &quot;fulminant heart attack&quot; that the 2017 archival biography prints in scare quotes alongside his sister&#x27;s 1922 gunshot wound and his brother&#x27;s 1942 carbon-monoxide &quot;intoxication.&quot;</p>
+<p><strong>Doorway:</strong> Hop from the Julio Castellanos study: the one who wrote the sentence that study leaned on. Castellanos (#313) had Cardoza y Aragon&#x27;s closed form and his own tending women; Villaurrutia, sitting in the audience of the same years, named the mechanism from the stalls: &quot;su inocencia aparente respira tan lejos del milagro que ya constituye un milagro nuevo.&quot; He is the triangle&#x27;s witness turned subject: he wrote the key text on Castellanos, he wrote the elegy-adjacent praise of the dead Angel (&quot;Muerto Abraham Angel en plena adolescencia, su pintura es la expresion del estado juvenil de su mente: gracia y fervor&quot;), he is said to have found Angel&#x27;s body through the window bars, he acted and directed in the Teatro de Ulises that Castellanos designed sets for. Where Lozano withdrew, Angel affirmed, and Castellanos contained, Villaurrutia doubled: every mechanism in this study is a machine for being two things at once. The painter closed the form; the poet put two mirrors face to face and watched the voice fall between them.</p>
+<p><strong>Depth:</strong> 17 poems read end to end in full text: NOCTURNO, NOCTURNO MIEDO, NOCTURNO GRITO, NOCTURNO DE LA ESTATUA, NOCTURNO EN QUE NADA SE OYE, NOCTURNO PRESO, NOCTURNO SOLO, NOCTURNO ETERNO, NOCTURNO MUERTO, OTROS NOCTURNOS (the Yale NOCTURNO), NOCTURNO MAR, ESTANCIAS NOCTURNAS, DECIMA MUERTE (decimas I, II, V, VII, IX), AMOR CONDUSSE NOI AD UNA MORTE, EL VIAJE SIN RETORNO, POESIA. 12 images downloaded sequentially (foreground curl loop, file(1)-checked, .url.txt sidecars, sha256 MANIFEST.txt; 3 FAILs: the Christie&#x27;s Montenegro portrait lot image timed out twice, two blog portraits 404&#x27;d): 7 distinct frames viewed (the ov3 studio portrait with hand to chin; the ov8/penumbria FCE Letras Mexicanas cover with the flower skull; the ov1 ink self-caricature signed XV; the ov7 Lecturas Mexicanas 36 cover with the string-threaded skeleton puppets; the gaceta22/insolente pinstripe-suit portraits, one a seated full-length from the same shoot). Read end to end, 12 sources: EN and ES Wikipedia; the ELEM/FLM author page; the INBA press profile; the otroangulo.info Nostalgia edition page (poems plus the Paz, Anderson Imbert, and Blanco criticism in full); the Cervantes Virtual full text of Textos y pretextos (the &quot;Pintura sin mancha&quot; essay in full, the Lozano/Angel/Castellanos/Tamayo/Lazo/Kahlo passages verbatim, the Orozco essay opening); Diego Lima&#x27;s 2017 Latin American Literature Today archival biography (baptism records, the Venetian mirrors, the family deaths); Guillermo Schmidhuber&#x27;s theatre diptych (the Jan 17, 1936 Novo letter dating Invitacion a la muerte); the circulodepoesia Nocturnos page; the arquitrave poems page. Key passages read from 6 more: the scielo essay on Nocturno de la estatua (Lazo dedication, the 8 a.m. Christmas death, &quot;circunstancias nunca bien aclaradas&quot;); the Martin-Rodriguez thesis (1938 first edition, 1946 definitive, word-prison and teeth-bars imagery); the 2005 UAM genetic-edition thesis (individual nocturno publication history 1930-1945, the &quot;la muerte es tambien una patria&quot; manuscript line); the ciudadania-express piece (the epitaph quoted from memory, Nandino on the posthumous papers); the 2011 UNAM La muerte polimorfa thesis (the Obras 1953 compilation by Schneider, Capistran, Chumacero); the discursovisual Antonieta article (the Teatro Ulises founding account). NOT accessed: the FCE Obras volume itself; the Schneider/Capistran critical editions; the full Invitacion a la muerte text; the Yale letters; the Teatro Ulises playbills and Mesones 42 photographs; the 1938 first edition of Nostalgia de la muerte (covers viewed are modern FCE reissues); the Montenegro portrait of Villaurrutia c.1921 (Christie&#x27;s lot image un downloadable); any manuscript pages; the INBAL-acquired personal archive (available for consultation, not online); the complete Autos profanos. Conflicts carried unsettled: Nocturnos 1931 (ELEM, INBA, ES Wikipedia, six sources) vs 1933 (EN Wikipedia, two poetry sites); Invitacion a la muerte written ca. 1935-36 per the Novo letter vs bearing the date 1940 vs published 1944 vs premiered 1947; Textos y pretextos 1940 (ELEM) vs 1949 (ES Wikipedia); the Teatro Ulises founder credit (Antonieta alone per ES Wikipedia Teatro Ulises page vs the joint creation per carteleradeteatro); the window-bars account of finding Angel&#x27;s body (In Memoriam testimony chain per #312, Cosio Villegas 1924 quoted secondhand, not read firsthand); the epitaph (quoted from memory by Gutierrez Vega via ciudadania-express, inscription unverified); the death certificate&#x27;s &quot;fulminant heart attack&quot; (Lima&#x27;s scare quotes, no alternative evidenced). No mechanism invented; every engine below is footed to a poem read in full, an essay read end to end, or a viewed frame.</p>
+<h2>M1. The double: one is always two</h2>
+<p>Lima&#x27;s section title is the thesis: &quot;In Villaurrutia, one is always two.&quot; The mechanism is stated as a fear in NOCTURNO MIEDO: &quot;El miedo de no ser sino un cuerpo vacio / que alguien, yo mismo o cualquier otro, puede ocupar, / y la angustia de verse fuera de si, viviendo, / y la duda de ser o no ser realidad.&quot; The double is not a theme, it is the operating condition: the speaker meets himself on the deserted street (&quot;no se ha visto pasar o venir a su encuentro&quot;), the body is a vacant house someone might occupy, the self is seen from outside while still being lived from inside. NOCTURNO PRESO makes the doubling recursive: &quot;No sabe que soy el sueno / de otro.&quot; The watchable behavior is the encounter: two figures approaching on a night street, each possibly the other, neither certain which one is the original. The 2017 baptism discovery literalizes it: two records, three days apart, one naming Javier, one naming Maria Javier, the same parents, the same address. The archive itself doubles him.</p>
+<p>Against the chain: Castellanos (#313 M3) withheld the gaze; Villaurrutia multiplies the gazer. Angel (#312 M5) put the sitter on the threshold between worlds; Villaurrutia puts the self on both sides of it at once. Lozano (#311) withdrew from the viewer; Villaurrutia withdraws from himself and watches it happen. Nobody else in the chain made the self a pair.</p>
+<p><strong>Takeaway:</strong> Stage the encounter with the double as the mechanism, not the metaphor: two figures, one street, no original. Watch the approach: when you cannot tell which one is you, the mechanism is on.</p>
+<h2>M2. The nocturne as instrument: night does the drawing</h2>
+<p>The night is not the poem&#x27;s setting, it is its tool. NOCTURNO (1938) opens with the operating sentence: &quot;Todo lo que la noche / dibuja con su mano / de sombra.&quot; The poem then runs night&#x27;s hand over everything: pleasure revealed, vice undressed, voices kindled at intervals, the shout of blood, lost footsteps, the vapor of desire, the sweat of the earth. The mechanism is procedural: invoke the night-hand, then inventory what it touches. OTROS NOCTURNOS (the Yale nocturne) shows the instrument&#x27;s calibration: &quot;Y es inutil que encienda a mi lado una lampara: / la luz hace mas honda la mina del silencio / y por ella desciendo, inmovil, de mi mismo.&quot; Light deepens the mine; the instrument works by deepening, not by illuminating. ESTANCIAS NOCTURNAS gives the field report: &quot;Sonambulo, despierto y dormido a la vez, / en silencio recorro la ciudad sumergida.&quot; The city is submerged; the walk is the sounding line.</p>
+<p>Against the chain: Lozano (#311 M2) emptied the ground so proportion could judge; Villaurrutia floods it so the night-hand can draw. Castellanos built the room first; Villaurrutia lets the dark build it around him. Angel painted the night sky as a color field; Villaurrutia uses the night as the brush. Nobody else in the chain made darkness the instrument instead of the background.</p>
+<p><strong>Takeaway:</strong> Let the night do the drawing: invoke the hand of shadow, then list what it touches. Watch the inventory: when darkness reveals instead of hiding, the mechanism is on.</p>
+<h2>M3. The statue: the body that stays while the voice leaves</h2>
+<p>The single most load-bearing image in the oeuvre, from NOCTURNO EN QUE NADA SE OYE: &quot;en la tumba del lecho dejo mi estatua sin sangre / para salir en un momento tan lento / en un interminable descenso.&quot; The mechanism splits the person into two artifacts: the statue (bloodless, left in the bed-tomb) and the voice (which falls, which is no longer mine: &quot;Y mi voz ya no es mia&quot;). NOCTURNO DE LA ESTATUA, dedicated to Agustin Lazo, runs the statue through a chase of substitutions: &quot;Sonar, sonar la noche, la calle, la escalera / y el grito de la estatua desdoblando la esquina. / Correr hacia la estatua y encontrar solo el grito, / querer tocar el grito y solo hallar el eco, / querer asir el eco y encontrar solo el muro / y correr hacia el muro y tocar un espejo. / Hallar en el espejo la estatua asesinada.&quot; Every grasp finds the next medium: statue, shout, echo, wall, mirror, murdered statue. The statue is the self as object, the thing that can be left behind, chased, found dead in a reflection. Jose de la Colina&#x27;s remembered staging literalizes it: Villaurrutia at midnight before the open window onto the Zocalo, &quot;quieto, elegante, mudo, intoxicado de noche y de silencio, estatuario casi,&quot; and the pun he intends: zocalo means pedestal, the base of a statue.</p>
+<p>Against the chain: Castellanos (#313 M2) carved the sitter like stone to hold them; Villaurrutia carves himself to leave himself. Angel&#x27;s bodies are flat color; Villaurrutia&#x27;s is a statue precisely because it has no blood. Lozano&#x27;s figures dissolve into dusk; Villaurrutia&#x27;s harden into the one object that stays. Nobody else in the chain split the person into the thing left behind and the thing that leaves.</p>
+<p><strong>Takeaway:</strong> Leave the statue in the bed and let the voice descend without it. Watch the split: when the body stays as an object and the voice goes on alone, the mechanism is on.</p>
+<h2>M4. The word-game as engine: puns that think</h2>
+<p>The famous passage from NOCTURNO EN QUE NADA SE OYE: &quot;Y en el juego angustioso de un espejo frente a otro / cae mi voz / y mi voz que madura / y mi voz quemadura / y mi bosque madura / y mi voz quema dura / como el hielo de vidrio / como el grito de hielo.&quot; The mechanism is phonetic mutation driving conceptual mutation: madura to quemadura to bosque madura to quema dura, each sound-shift producing a new image (ripening, burning, forest, hard burning). Villaurrutia&#x27;s own poetics, in the letter to Bernardo Ortiz de Montellano quoted by Paz: &quot;no se hallara en mis poesias un juego de palabras inmotivado o gratuito. Los uso no por juego sino por necesidad ineludible. Juego con fuego y a riesgo de quemarme.&quot; The pun is not decoration, it is the engine that moves the poem from one thought to the next: the sound finds the sense. NOCTURNO ETERNO runs the same engine at full length: &quot;cuando la vi cuando la vid cuando la vida,&quot; the verb becoming the vine becoming life. Jose Joaquin Blanco: &quot;Lenguaje que sigue el proteico mecanismo de los suenos, gracias a juegos de acentos, paradojas y palabras.&quot;</p>
+<p>Against the chain: Angel (#312 M3) used color clash as structure; Villaurrutia uses sound clash. Castellanos used the closed contour; Villaurrutia uses the closed sound (the rhyme that seals). Lozano&#x27;s line was a wall; Villaurrutia&#x27;s pun is a hinge. Nobody else in the chain made the pun the load-bearing structure.</p>
+<p><strong>Takeaway:</strong> Let the sound mutate and let the mutation do the thinking: one phoneme shift, one new image. Watch the hinge: when the poem moves because the word changed shape, the mechanism is on.</p>
+<h2>M5. The mirror facing the mirror: recursion as the room</h2>
+<p>&quot;Y en el juego angustioso de un espejo frente a otro cae mi voz.&quot; Two mirrors face each other and the voice falls between them, multiplying. Anderson Imbert&#x27;s catalogue of the devices: &quot;espejos enfrentados que repiten sus imagenes hasta el infinito.&quot; The mechanism is architectural: place two reflectors opposite and the space between them becomes infinite, and whatever falls into it (the voice, the self) is repeated until it is nothing but repetition. The muro of NOCTURNO MIEDO is &quot;livido espejo de soledad&quot;: even the wall is a mirror. The family house of the Lima biography had Venetian mirrors in the great dining room, which Salvador Novo found ugly: the poet grew up among actual facing mirrors. The watchable behavior is the corridor: stand between two mirrors and watch the selves recede; drop the voice in and hear it come back changed each time.</p>
+<p>Against the chain: Angel (#312 M7) nested frames as threshold devices, painting inside painting; Villaurrutia nests reflections, mirror inside mirror, with no painting at all. Castellanos painted both sides of the canvas (#313 M8); Villaurrutia puts the two faces opposite each other and lets them generate infinity. Lozano used the real arched window as a proscenium; Villaurrutia uses two mirrors as a corridor with no stage. Nobody else in the chain made recursion the room.</p>
+<p><strong>Takeaway:</strong> Face two mirrors and drop the voice between them; let the repetition be the architecture. Watch the corridor: when the selves recede to infinity and the voice comes back changed, the mechanism is on.</p>
+<h2>M6. Death as a country: nostalgia for the already known</h2>
+<p>The title is the mechanism. From the &quot;Notas autobiograficas&quot; via Capistran (2001 thesis): &quot;La muerte es tambien una patria a la que se vuelve; por eso es posible que haya un libro de versos que se llama Nostalgia de la muerte. Nostalgia de lo ya conocido. La muerte es algo ya conocido por el hombre.&quot; Nostalgia is homesickness; the book proposes death as the home, the known place, the country one returns to. DECIMA MUERTE runs the logic as scholastic play: &quot;que puesto que muero existo&quot; (I die, therefore I am), and &quot;si mi muerte te da vida / y goce mi frenesi, / que sera, Muerte, de ti / cuando al salir yo del mundo, / deshecho el nudo profundo, / tengas que salir de mi?&quot; Death is addressed as a lover who lives inside the speaker and will be evicted by his dying: the tenant, not the landlord. &quot;No duermo para que al verte / llegar lenta y apagada... / sentir que muero despierto.&quot; The mechanism inverts the fear: stay awake so you can watch death arrive, greet it as the familiar, die awake.</p>
+<p>Against the chain: Lozano painted dusk as the verdict; Villaurrutia treats death as the address. Angel died at 19 and the work became the elegy; Villaurrutia lived to 47 and made the elegy the method. Castellanos painted the tending of the wounded; Villaurrutia tends the dying as a host tends a guest. Nobody else in the chain made death the home country.</p>
+<p><strong>Takeaway:</strong> Treat death as the known address, not the unknown: homesickness for it, wakefulness toward it, the tenant evicted by the host&#x27;s dying. Watch the return: when death arrives like someone who lives there, the mechanism is on.</p>
+<h2>M7. The sleepwalker&#x27;s jurisdiction: awake inside the dream</h2>
+<p>Paz: &quot;Al inclinarse sobre la complejidad de las sensaciones y las pasiones, Villaurrutia descubrio que hay corredores secretos entre el sueno y la vigilia, el amor y el odio, la ausencia y la presencia. Lo mejor de su obra es una exploracion de esos corredores.&quot; The mechanism is the corridor itself: not dream, not waking, but the passage between them, patrolled. The ethics come from &quot;Pintura sin mancha&quot;: &quot;un verdadero artista debe hallarse siempre, hasta en suenos, completamente despierto,&quot; and &quot;el sueno [es] la red finisima de hilos conductores tendidos entre los mundos de la pintura y de la poesia.&quot; The dream is a jurisdiction with laws; the artist is the sleepwalker who enforces them while asleep. ESTANCIAS NOCTURNAS is the patrol log: &quot;Sonambulo, despierto y dormido a la vez.&quot; NOCTURNO EN QUE NADA SE OYE ends with the treaty between the two powers: &quot;porque el sueno y la muerte nada tienen ya que decirse.&quot; The corridors have been fully mapped; the parties no longer need to negotiate.</p>
+<p>Against the chain: Castellanos painted the dreamless room; Villaurrutia patrols the corridor out of it. Angel&#x27;s masks confront the viewer awake; Villaurrutia&#x27;s speaker is asleep and more awake than the viewer. Lozano closed his eyes to refuse the world; Villaurrutia keeps his open inside the dream. Nobody else in the chain made sleep a jurisdiction.</p>
+<p><strong>Takeaway:</strong> Patrol the corridor between sleep and waking, awake inside the dream, and map it until the parties fall silent. Watch the patrol: when the sleepwalker is the most alert figure in the poem, the mechanism is on.</p>
+<h2>M8. The plastic poem: the verse as an object</h2>
+<p>From &quot;Pintura sin mancha&quot;: &quot;mis poemas que no han querido ser solamente criaturas irreales, seres matematicos o existencias musicales sino, tambien y sobre todo, objetos plasticos.&quot; And the program: &quot;en un juego inverso al que yo he seguido hagan mas poetica su pintura como yo he pretendido hacer mas plastica mi poesia.&quot; The mechanism is cross-training: the poem is built like a sculpture, the painting is read like a poem. The poems are full of handled objects: the bed-tomb, the mirror pair, the statue at the corner, the ear&#x27;s conch (&quot;aqui en el caracol de la oreja&quot;), the net of nerves (&quot;siento caer fuera de mi la red de mis nervios&quot;), the threaded skeleton puppets on the Lecturas Mexicanas cover (viewed: ov7). The 1928 Cuesta anthology note, quoted on the otroangulo page, already saw it: &quot;La plastica de su poesia se ajusta mejor al equilibrio de las formas, al dibujo de los objetos, a la calidad de la materia empleada, a la estatica de las actitudes.&quot; The poem has weight, balance, material. This is the study&#x27;s bridge to generative work: his poems are already staged scenes with props, and the props are load-bearing.</p>
+<p>Against the chain: Castellanos made paint the skin of a drawing (#313 M2); Villaurrutia makes the poem the skin of an object. Angel pasted the figure onto the village; Villaurrutia builds the poem out of the props. Lozano&#x27;s line was architecture; Villaurrutia&#x27;s stanza is a vitrine. Nobody else in the chain made the poem a handled thing.</p>
+<p><strong>Takeaway:</strong> Build the poem out of objects with weight: the bed, the mirrors, the statue, the conch of the ear. Watch the handling: when the verse can be picked up and turned over, the mechanism is on.</p>
+<h2>Evolution</h2>
+<p>1919-1926 (Reflejos): the Lopez Velarde line, playful, &quot;un espiritu mas gracioso y ocurrente&quot; (Anderson Imbert), the ultraist-adjacent metaphors without the ultraist noise. 1927-1928 (the Ulises years): Dama de corazones in the magazine, the Teatro Ulises (four programs, six foreign plays, January to July 1928, Mesones 42, &quot;El Cacharro&quot;), the group defining itself as &quot;grupo sin grupo.&quot; 1931 (Nocturnos): the instrument found, the night-hand, the statue, the mirror pair; individual nocturnos had been appearing since 1930 in Contemporaneos, Letras de Mexico, Barandal, Alcancia. 1935-1936 (Yale, the only time he left Mexico City): the Rockefeller year with Usigli, the &quot;Otros nocturnos,&quot; the letter to Novo (&quot;En estos momentos el Xavier de ayer y el de manana admiran, aplauden, envidian, todo al mismo tiempo, al Xavier de hoy&quot;), the January 17, 1936 letter already mentioning Invitacion a la muerte. 1938 (Nostalgia de la muerte): the synthesis, the definitive 1946 Mictlan edition. 1941 (Decima muerte): the scholastic turn, ten strict decimas, Paz: &quot;un mecanismo sonoro y conceptual que participa del juguete, el silogismo y el instrumento musico... podia haber sido escrito por un discipulo de Calderon.&quot; 1943-1950 (the plays): Autos profanos (1943), Invitacion a la muerte (published 1944, premiered 1947), La mulata de Cordoba (1948, with Lazo, music by Moncayo), Tragedia de las equivocaciones (1950, premiered after his death). Chumacero&#x27;s three stages (via ES Wikipedia): the game confused with intelligence; emotion under strict intellectual vigilance (the best period, the Nocturnos and Nostalgia); emotion overpowering intelligence, restricted to metric surfaces. The curve is a tightening, not Angel&#x27;s vertical line or Castellanos&#x27;s slow arc: the forms get stricter as the content gets darker.</p>
+<h2>Aesthetic logic: the double as a system</h2>
+<p>Lozano made refusal his architecture, Angel made affirmation his, Castellanos made containment his. Villaurrutia, who watched all three from the stalls and wrote about two of them, made doubling his. Every mechanism is a machine for being two things at once: the self and its double (M1), the night as setting and as hand (M2), the statue that stays and the voice that leaves (M3), the pun that is sound and sense (M4), the mirror that is surface and corridor (M5), death as end and as country (M6), the sleeper who is awake (M7), the poem as music and as object (M8). His famous formulation of the poet&#x27;s circle is the system stated as poetics: &quot;la combinacion y la superacion de estas dos potencias antagonicas del lenguaje: la potencia logica y la potencia misteriosa.&quot; The logic and the mystery are not reconciled; they are combined and surpassed, which is to say, doubled. Even the biography doubles: two baptism records, the poet and the maybe-sister; the family house with its Venetian mirrors; the death certificate that says heart attack and the archive that whispers otherwise. The aesthetic is exact where Castellanos&#x27;s is merciful and Angel&#x27;s ecstatic: the corridor is measured, the statue is placed, the mirrors are faced, and then the voice is allowed to fall.</p>
+<h2>Network</h2>
+<p>In: Julio Castellanos (#313) -- the &quot;inocencia aparente&quot; text in &quot;Pintura sin mancha&quot; (Textos y pretextos); the pencil-portrait sitter (per #313, Cardoza-cited); Teatro Ulises set designs. Abraham Angel (#312) -- the &quot;gracia y fervor&quot; praise in the same essay; the window-bars account of finding the body (In Memoriam testimony chain, Cosio Villegas 1924 via secondary quotation, not read firsthand); the Contemporaneos shows. Manuel Rodriguez Lozano (#311) -- &quot;el papel de incitador que representa en la nueva pintura mexicana&quot;; the triangle&#x27;s teacher. Salvador Novo -- co-director of Ulises magazine (1927-28, six numbers) and of Teatro Ulises; the June 1924 Angel praise was his, not Villaurrutia&#x27;s; lifelong friend from the Preparatoria. Antonieta Rivas Mercado -- Teatro Ulises co-creator, funder, actress; introduced to Villaurrutia by Lozano per her own account (&quot;Manuel Rodriguez Lozano me puso en contacto con Xavier Villaurrutia&quot;). Gilberto Owen and Jorge Cuesta -- Ulises magazine collaborators; Owen translated the opening Simili; Cuesta&#x27;s 1928 anthology framed the plastic poetry. Bernardo Ortiz de Montellano -- the wordplay letter (&quot;Juego con fuego&quot;); the Red drawings link from #313. Agustin Lazo -- partner of decades (Lazo survived him twenty years, &quot;hermetico&quot; about him, per the scielo essay); dedicatee of Nocturno de la estatua; introducer of surrealism to Mexico; de Chirico friend; co-librettist of La mulata de Cordoba. Lateral: Octavio Paz -- student, elegist (&quot;Xavier se escribe con equis&quot;), prologuist of the 1978 persona-y-obra volume; Ali Chumacero -- the three stages, co-compiler of Obras (1953) with Schneider and Capistran; Ramon Lopez Velarde -- the early line; Roberto Montenegro -- the c.1921 portrait (Christie&#x27;s lot, image un downloadable); Rodolfo Usigli -- the Yale companion, the parallel founder of modern Mexican theatre (El gesticulador); Jose Gorostiza -- paired with him in the &quot;Pintura sin mancha&quot; opening; Rufino Tamayo, Maria Izquierdo, Frida Kahlo, Carlos Orozco Romero, Antonio Ruiz, Federico Cantu, Jesus Guerrero Galvan -- the painters judged in the same essay; Fernando de Fuentes -- the Vamonos con Pancho Villa screenplay (1935); Jose Pablo Moncayo -- La mulata de Cordoba (1948); Manuel Maples Arce -- the 1934 &quot;purify&quot; attack, the Estridentista enemy; Elias Nandino -- the posthumous poems (Estaciones, 1956). Out: Diego Lima -- the 2017 archival biography, the baptism records; Enrique Anderson Imbert -- the Historia de la literatura hispanoamericana readings; Jose Joaquin Blanco -- the Cronica de la poesia mexicana; Tomas Segovia -- &quot;fantasmagoria, de dudosa realidad, de cosa que se esfuma&quot;; Jose de la Colina -- the midnight Zocalo staging; Guillermo Schmidhuber -- the theatre diptych, the 1936 letter; the 2025 scielo essayist on the Lazo nocturne. Negatively evidenced (brief or source claims that die on contact): the June 1924 praise of Angel (Novo&#x27;s, not his; his verifiable Angel praise is the 1940s &quot;Pintura sin mancha&quot;); Teatro Ulises founded by Villaurrutia alone with Antonieta (the founder credit is split across sources: Antonieta&#x27;s money and impulse, Villaurrutia and Novo&#x27;s direction; the joint-creation account is the honest one); Nocturnos 1933 (1931 per six sources); Invitacion a la muerte 1941 (written ca. 1935-36, dated 1940, published 1944, premiered 1947); Nostalgia de la muerte published posthumously (1938 first edition, 1946 definitive); Textos y pretextos 1949 (1940 per ELEM); the &quot;found the body through the window bars&quot; as a firsthand Villaurrutia text (attested only through the In Memoriam chain); the epitaph as a verified inscription (quoted from memory). Do not restudy Lozano, Angel, or Castellanos except as network context.</p>
+<h2>Study-method note</h2>
+<p>The brief arrived with a clean story: the writer as subject, the &quot;inocencia aparente&quot; text, the window bars, the June 1924 praise, Teatro de Ulises co-founded with Antonieta, Nostalgia de la muerte 1938, the Nocturnos. The research kept the subject, the text, the theatre, and the book, and corrected the rest. The &quot;inocencia aparente&quot; passage is real and verbatim, in &quot;Pintura sin mancha&quot; (Cervantes Virtual full text), and it sits inside a longer Lozano-Angel-Castellanos sequence that also contains the Angel praise (&quot;gracia y fervor... la frescura y la malicia de nuestros retablos populares&quot;) and the famous suicide line (&quot;interrumpir el drama no es resolverlo. El drama sigue en pie&quot;). But the June 1924 praise was Novo&#x27;s: #312&#x27;s network line attributes it to Novo, and nothing found puts Villaurrutia praising Angel in print in 1924. His verifiable Angel text is the 1940s essay. The Teatro Ulises founder credit is genuinely split: the theatre&#x27;s own ES Wikipedia page says created by Antonieta and directed by Villaurrutia and Novo; the theatre history site says created jointly by the three. The joint account is the one the evidence supports, with Antonieta&#x27;s money doing the creating and the two men doing the directing. Nocturnos is 1931 in six sources against two; EN Wikipedia&#x27;s 1933 is the outlier, and one poetry site even claims the Nocturnos appeared &quot;in 1933 in the book Nostalgia de la muerte,&quot; which is wrong twice over. Invitacion a la muerte is the worst date tangle: 1941 (EN Wikipedia, the brief), 1944 (ES Wikipedia, ELEM, INBA), bearing the date 1940 (Schmidhuber), mentioned in a January 1936 letter to Novo, premiered 1947. The play was written in the mid-thirties and published in the mid-forties; every single-year citation is a different event. The glli-us page&#x27;s claim that Nostalgia de la muerte was &quot;published after his own death&quot; in 1953 is simply wrong: 1938, definitive 1946, and the 1953 book is Obras. The window-bars account survives only as #312 left it: the In Memoriam chain, quoted secondhand. The Lima biography added the one genuinely new archival fact of the study: the double baptism, Javier and Maria Javier, three days apart. What survived contact with the sources: the double as the system, the night-hand, the statue, the pun-engine, the facing mirrors, death as a country, the sleepwalker&#x27;s corridor, the plastic poem. The study is built only from what survived.</p>
+<h2>Future candidates</h2>
+<p>Roberto Garibay (the disciple-witness; the studio no one entered; carried from #313) &gt; Agustin Lazo (the partner; surrealism&#x27;s introducer; de Chirico friend; Nocturno de la estatua dedicatee; La mulata co-librettist) &gt; Antonieta Rivas Mercado (the Ulises sponsor; the Notre Dame ending; the joint-creation account) &gt; Octavio Paz (the student; the elegist; the prologuist; the corridor thesis) &gt; Roberto Montenegro (the c.1921 portrait; the introducer from #312) &gt; Rodolfo Usigli (the Yale companion; the parallel founder) &gt; Jose Gorostiza (the paired poet; Muerte sin fin as the counter-nocturne) &gt; Gilberto Owen (the Ulises collaborator; the translator of Simili) &gt; Jorge Cuesta (the anthologist; the critic of the plastic) &gt; Salvador Novo (the lifelong friend; the other Ulises director) &gt; Elias Nandino (the posthumous editor; the 1956 poems) &gt; Manuel Maples Arce (the enemy; the 1934 &quot;purify&quot; attack; the Estridentista counter-study) &gt; Fernando de Fuentes (the screenplay; Vamonos con Pancho Villa). Carried: German Cueto, Emilia Revueltas, Miguel Covarrubias, Lola Alvarez Bravo, Gunther Gerzso, Carlos Pellicer, Luis Seoane / Norberto Frontini, Fernando Gamboa, Tina Modotti, Edward Weston, Francisco Zuniga, Mardonio Magana, Angel Torres Jaramillo (Tebo), Mark A. Castro / Mireida Velazquez, plus the photo-lane list in study312&#x27;s future-candidates.md. Lozano, Angel, and Castellanos are studied; they appear only as network.</p></div><nav class="pagenav"><a class="" href="ruth-wolf-rehfeldt.html"><span class="dir">Previous note</span><span class="t">Ruth Wolf-Rehfeldt</span></a><a class="next" href="blank-windows.html"><span class="dir">Next note</span><span class="t">Blank Windows : Rafaël Rozendaal (2016)</span></a></nav></article><footer class="site"><div class="wrap"><span><span class="lbl">Muse</span> a reading room.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>
