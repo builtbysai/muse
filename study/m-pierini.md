@@ -1,0 +1,179 @@
+# M:PY (M_Pierini): Study Notes
+
+**Site:** M:PY (@M_Pierini, https://x.com/M_Pierini), a code artist who posts p5.js loops on X, usually in the early morning, usually captioned with a single emoji and #p5js -- black and cream geometric grids with rainbow chromatic-aberration fringes, seamless loops, checkerboard illusions, moon phases, and bitcrushed discs; first name "Marco" only from his Instagram bio, real name, location, and day job unknown, joined X in February 2012, 1,339 followers as of 15 November 2026; his bio reads "Code-Artist when you need it. Musician every other days." and the music side is unfindable anywhere.
+
+**Doorway:** Hop from the Ehrenstrahl study: leave the court painter who wrote his own key to his own pictures, and meet the coder whose code IS the picture -- M:PY, who posts a p5.js loop in the early morning and lets the sketch speak in a single emoji.
+
+Two-hundred-and-twelfth doorway check in a row. The check is recorded as a NON-HOLD -- the seventy-first non-hold; the hold count stays at one hundred and forty-eight. (The tally arithmetic is flagged, not fixed: 148 + 71 = 219 against 212 checks run -- see C863, carried; the gap stays 7.) The carried #591 pick was Pierre Mignard; Hans ordered M:PY instead, breaking the chain, so the sketch's substantive clauses do not hold even though the hop itself does.
+
+D0 "Hop from the Ehrenstrahl study" -- HOLDS in substance, HOLDS in the letter. Study #590 is the David Klocker Ehrenstrahl study (pushed 2026-11-15); #591 is its direct successor, and the doorway above names it.
+
+D1 "the biggest unstudied name left in the chain, and the French counterpart to Ehrenstrahl's Stockholm career" -- DOES NOT HOLD in substance or in the letter. That clause is the #590 sketch's description of Pierre Mignard, and the subject taken is M:PY, a living p5.js artist with no connection to the seventeenth-century French chain. The break is Hans-ordered (he sent the X link and said "Study"), not a research failure, and it is recorded as such. Mignard stays unstudied and remains the chain's next pick whenever the chain resumes.
+
+D2 "Vouet pupil (1633); Rome 1635-57, twenty-two years, where he painted Madonnas" -- DOES NOT HOLD, same reason: Mignard's biography, not M:PY's. M:PY's evidenced biography is a handle, a bio, and a posting record (see "The life, what little of it is public").
+
+**Depth:** three research legs (83 search passes; 18 pages read end to end, 3,143 lines: leg 1, 7 pages, 439 lines; leg 2, 6 pages, 1,226 lines; leg 3, 5 pages, 1,478 lines), plus a live logged-out browser fetch of x.com/M_Pierini (2026-11-15 06:54-07:12 EST) that recovered the profile header, 21 posts from January to November 2026 with dates, texts, and engagement counts, visual descriptions of 20+ works from their posted media, 5 verified replies, and the linked objkt, OpenProcessing, and Instagram accounts. Works catalogued: 20 numbered entries (W01-W20), meeting the 15-20 target, January-November 2026, plus a coda of further works. Images viewed: 20+ works' media viewed on X profile/status pages, objkt, and OpenProcessing via the live browser fetch; descriptions recorded in ~/workspace/fly-watch/591-pierini/browser-fetch.md. NOT accessible: the X following list (login-gated), the Media tab (blocked logged-out), the /with_replies view (blocked); the timeline recovered is the indexed/verified subset, not a guaranteed-complete archive (see C1621); the @klig114 reply is unverified (see C1624); the music side is unfindable (see C1628); the CERN identity hypothesis is unconfirmed (see C1561). The legs' "no other platform found" findings (C1569, C1609) are superseded by the fetch, which found objkt, OpenProcessing, and Instagram accounts. Note on C-numbers: the three legs used distinct ranges (leg 1 C1561-C1580, leg 2 C1581-C1594 with C1595-C1600 unused, leg 3 C1601-C1614 with C1615-C1620 unused) with no collisions this run, so leg flag numbers ARE cited in the study text; the study's own Corrections series starts at C1621.
+
+## The life, what little of it is public
+
+Almost nothing about the person is public, and the study does not fill the gaps. The evidenced record: X display name "M:PY", handle @M_Pierini, bio verbatim "Code-Artist when you need it. Musician every other days." Profession label on the profile: "Artist". Link field: his objkt.com user page (Tezos wallet tz1TUdvDnKN77H4M5bnmffSunwQ1vQ8BWLWY). No location shown. Joined February 2012. 418 following, 1,339 followers as of 15 November 2026 (the mirrors' "1K" was a rounded figure; see C1626). An older mirror crawl put him at 405 followers / 376 following around January 2026, so the audience roughly tripled across 2026 as he posted through the year. The avatar is a pixelated pointing-hand cursor in white with red/cyan/blue chromatic-aberration fringes -- the signature, worn on the face. The banner is a light-grey grid, a horizontal rainbow stripe, and nested rectangular tunnel frames receding to a black centre.
+
+First name "Marco" comes ONLY from the Instagram bio (@m.piery: "Marco. Code-artist just enough. Musician every other days.") -- see C1622. Real name, location, day job, and account history before 2026: not found anywhere, and the study says so rather than guessing. The music side is the bio's second sentence and nothing else: no releases, no instruments, no music platform found (Bandcamp, SoundCloud, Spotify all searched, nothing). The only two music traces in the record are the bio itself and a replier, Sebastian Gonzalez Majo (@StianOnTheLoops), writing on the Molecules post, "If these are your visuals, I can't imagine how are your musiks" -- answered only with "So kind of you, thanks". When Denys Myronov (@myfunc96) asked on the Oct 27 post, "Why do these glitches are so attractive dude? What do you research? :D", M:PY answered the first half and not the second: "Honestly, I don't even know, but making them is just as attractive as watching them :D Thank you!!" That reply is the closest thing to an artist statement in the record, and the study quotes it whole because it is the whole of it.
+
+Three identity confusions are ruled out here and must not be reintroduced. (1) The Maurizio Pierini hypothesis -- that M:PY is Maurizio Pierini, the CERN/CMS physicist who advised on art@CMS's "Dark matter (live coding)" (2016) and works on GANs for LHC data -- is UNCONFIRMED (C1561). No source links the X artist to the physicist; the physicist was advisor/contributor on Dark Matter, never performer, developer, or composer; his GitHub (pierinim) holds 6 repos, all physics/ML, no genart repo. Do not import CERN, Geneva, or GAN biography into M:PY. (2) Marc Pierini (@MarcPierini1, Senior Fellow at Carnegie Europe, Brussels, former EU Ambassador) is a different person entirely. (3) GitHub user mpierini is a different person (UT Austin alumna, software developer). The surname is common; the handle alone carries no identification.
+
+## The practice: a loop in the morning
+
+The posting pattern is the practice's most legible fact. Twenty-one posts were verified between 30 January and 15 November 2026, and almost all went up between 6:12 and 7:09 AM EST -- a morning sketch, posted before the day starts. The caption is almost always a single emoji or symbol plus #p5js: a moon phase, a plus sign, a ruler, a slot machine, a bubble, a black disc, the word "bitcrush". One post, the 2 March isometric cubes, carries no #p5js at all. The pinned post is "Molecules." (31 March 2026), 41,416 views, 2,419 likes -- the piece he chose to lead with. The most-engaged post found is the 9 June checkerboard illusion (100,874 views, 4,915 likes, 946 bookmarks). Engagement is lumpy: the illusions and the bitcrush pieces travel (tens of thousands of views), the quieter grids sit in the hundreds. He answers commenters briefly and warmly, shares code links when asked ("I'll share it on @openprocessing", to @boredboy_ase asking for the Molecules code), and announces objkt drops in self-replies. The OpenProcessing account (@u538742) holds 32 sketches, all CC BY-NC-SA, and is where the code lives; the objkt account holds 11 created works, mostly in editions of 3 under the collection "Spectrum", plus two 1/1s. The Instagram grid (@m.piery, 1,074 followers) reposts the same work as video, with two indexed reels from mid-2025 ("Oil on display", May 2025; "Last six months be like", June 2025) -- the only evidence of activity before January 2026, and thin evidence at that.
+
+## The evolution: Genuary grids to bitcrush, with the fringe constant
+
+January 2026 is the Genuary month, and the two verified Genuary pieces set the terms. Day 6, "Lights on/off" (OpenProcessing sketch "On Off", created 5 January): a 7x7 grid of white-outlined squares on dark grey, each holding a white ring, some rings "on" with glowing RGB chromatic-aberration offsets. The prompt was "make something that changes when you switch on or off the 'digital' lights", and the answer is a grid with a binary state and a fringe. Day 30, "Accordion" (posted 30 January, sketch created 27 January): a cream field, an animated GIF morphing between a plain grey 3D cube and a large hexagon of stacked rainbow chevron layers forming a folded accordion ribbon, with a pale grey triangular void at bottom left. The tweet reads "Its not a bug, its a feature" -- the "bug" is a layer misalignment in the animation, kept in as a feature. The glitch-as-feature stance is declared in the first month and never leaves. No other Genuary 2026 days were verified, and no posts at all were found between 30 January and 2 March -- a February gap that may be a real pause or an indexing gap, and the study does not decide (C1623).
+
+Spring (March-May) is the grid's expansion: isometric primary-colour cube tiles (2 March), the Molecules lattice (31 March), the In and Out grid where circles jump in and out of holes (14 April), a neon slot machine (16 April), rows of moon discs in phases (5 May), a black plus-sign grid with rainbow fringes (14 May), and Board Bends (26 May), a black-and-pale-mint checkerboard with a circle of rainbow concentric squares moving across it. The palette settles here: black field, cream field, pale mint, and the rainbow fringe. Summer (June-July) is the illusion turn: the 9 June checkerboard that "changes once you focus on one square" (a replier's words), circles morphing into squares (23 June), black discs with rainbow glitch squares and crescents (25 June, 7 July). Then a summer quiet -- nothing found between 7 July and 15 September -- and autumn (September-November) is the glitch turn: petal/scale flowers with chromatic patches (15 September), moire rectangles that make viewers dizzy (8 October), two rainbow half-moons (12 October), then the bitcrush pair (13 and 15 October), the bubbles video (20 October), the "follow" loop with its invisible loop point (27 October), the diagonal cross-hatch lattice (3 November), the 8-bit fall (12 November), and the split-screen bubbles video (15 November). The arc is real but modest: same grid, same two fields, same fringe -- the variation is in what the grid does (morphs, illusions, crushes, loops) rather than in what it is. The chromatic aberration is the one constant from the Genuary grid to the November split-screen, and it is the signature a replier named: "Such a unique style, instantly recognizable!" (wozo, on Bitcrusher).
+
+**Takeaway:** M:PY's evolution is a deepening, not a widening. One system -- a black-or-cream grid, a binary state, an RGB fringe -- is put through a year's worth of operations, and the operations are the oeuvre.
+
+## M1 -- The chromatic-aberration fringe
+
+The signature mechanism, present in nearly every work and in the avatar itself. Forms carry red/cyan/blue (sometimes full-rainbow) offsets at their edges, as if the colour channels have slipped a few pixels apart. In "On Off" the "on" rings glow with RGB offsets; in the plus grid (14 May) the black pluses wear vertical rainbow bars; in the bitcrush pair the white discs fringe at the top; in the bubbles videos the discs carry rainbow edges and striped interiors. The fringe does two jobs at once: it marks the form's edge, and it makes the flat grid feel optical, like light through cheap glass. It is the one element that survives every palette change, and it is how a viewer recognises an M:PY piece before reading the caption.
+
+**Takeaway:** the fringe is not decoration on the system; it is the system's voice. A grid without it would be anyone's grid.
+
+## M2 -- The seamless loop
+
+The works are loops, and the best of them hide the join. The 27 October "follow" piece -- two large overlapping circles with rainbow edges on a striped black field, a small black dot in the lower circle that follows -- drew the telling reply from DAEMONS: "the loop point on this one is invisible, I sat here waiting for it to restart and it just never did." The loop is the unit of the practice: a GIF or short video that returns to itself without a seam, so the watching never has to stop. The Moons video (5 May) cycles phases; the Accordion morphs cube to hexagon and back; the bubbles cross the divide and return. Nothing in the record is a still image presented as a still -- every verified work moves, and the movement is cyclical.
+
+**Takeaway:** the loop point is the craft. A visible seam would break the spell; the invisible one is the point of the piece.
+
+## M3 -- Grid morphing
+
+The grid is not a container; it is the material, and it changes shape. Circles morph into squares (23 June: a row of white-outlined circles containing pale mint squares, mid-transformation). A plain grey cube unfolds into a hexagon of stacked rainbow chevrons (Accordion). The plus grid's crosses could be read as squares with corners removed. The petal/scale pattern (15 September) makes diamond flowers out of overlapping black scales. The morph is always geometric and always gradual -- one regular form becoming another regular form, with the grid holding the transformation together so the eye can follow it.
+
+**Takeaway:** morphing works because the grid stays put. The transformation is legible only against a stable field.
+
+## M4 -- Bitcrush and pixelation
+
+The autumn turn makes resolution itself the material. "bitcrush" (13 October): two white discs with rainbow fringes, their edges pixelated and crushed. "Bitcrusher x64" (15 October, objkt): black discs with rainbow fringes falling on a cream field; the objkt version is black-top/cream-bottom with white discs. "8-bit" (12 November): pale cyan discs with rainbow fringes falling over a cream band of pixelated light-blue shapes and small yellow/cyan/red squares. A replier corrected the title -- "6-bit, no transparency on X unfortunately" -- which tells you the audience reads the bit-depth as part of the work. The crush is applied to the same discs and fringes as everything else: the system is not changed, its resolution is lowered, and the lowering is the piece.
+
+**Takeaway:** bitcrush is the fringe's cousin -- both are controlled damage to the signal, and both are applied with restraint.
+
+## M5 -- The optical illusion
+
+Three works turn the viewer's own eye into the mechanism. The 9 June checkerboard (black and pale mint) "changes once you focus on one square" -- the pattern reorganises under attention. The 8 October moire rectangles -- black rectangles filled with rainbow concentric arcs and moire stripes -- made a replier write "this makes me dizzy." Board Bends (26 May) bends the checkerboard under a moving circle of rainbow squares. The illusion pieces are the most-engaged works in the record (100,874 views for the June checkerboard), which suggests the audience comes for the moment the static image refuses to stay static.
+
+**Takeaway:** the illusion is the only mechanism where the viewer does the work. Everything else moves on screen; this one moves in the eye.
+
+## M6 -- Moon phases
+
+The moon is the only recurring subject that is not pure geometry. The 5 May video is rows of pale cream moon discs in phases; 12 October is two small rainbow half-circles on a black field with cream grid lines; the OpenProcessing sketch "Moons" is white discs on black, some half red/yellow. The phase is a natural fit for the practice: a disc that changes by a binary-ish rule (lit/unlit), a cycle that loops, a form that is already a circle in a grid. The moon pieces are the quietest in the record -- no glitch, no crush, just the phase turning.
+
+**Takeaway:** the moon is the fringe's opposite pole -- the same disc, the same loop, with the damage turned off.
+
+## M7 -- The emoji title
+
+The caption is a mechanism, not an afterthought. A moon emoji, a plus sign, a ruler, a slot machine, a bubble, a black disc: the title names the work's one visible thing and nothing else, and #p5js names the tool. The emoji does the work a title usually does -- it tells you what to look at -- without telling you what it means. "Its not a bug, its a feature" (30 January) and "bitcrush" (13 October) are the only captions that say more, and both say it about the process, not the picture. The minimal captioning is part of the minimalism: the sketch speaks, the text gets out of the way.
+
+**Takeaway:** the emoji title is the anti-statement. It refuses interpretation and points at the form.
+
+## M8 -- The two-field palette
+
+Every work sits on one of two fields: black or cream. Black fields carry pale mint, white, lavender/pink, and the rainbow fringe; cream fields carry black discs, pastel squares, and the same fringe. The two fields never mix inside a work except at a deliberate divide -- the 15 November video is split cream-top/black-bottom, with black discs above and rainbow-outlined hollow rings below, bubbles crossing the divide. The binary field is the visual form of the binary state in the Genuary prompt: on/off, black/cream, lit/unlit. The rainbow fringe is the third term that keeps the binary from being monochrome.
+
+**Takeaway:** black and cream are not two palettes; they are one palette with a switch. The switch is the work.
+
+## The network: a room, not a web
+
+No confirmed follow, interaction, collaboration, or collector exists for M:PY beyond what the browser fetch verified, and the study states the network at exactly the strength the evidence supports. The strongest link is a named influence: the Instagram caption for "Fall" reads "Sketch inspired by an idea from Etienne Jacob. I couldn't find his repository on GitHub, so I d..." (truncated in the index; see C1627). Etienne Jacob (bleuje) is study #446, the seamless-loop artist -- and the loop is M:PY's unit, so the influence is visible in the work, not just the caption. Verified interactions on X are all brief and warm: the @myfunc96 exchange quoted above; @StianOnTheLoops on the music question; @boredboy_ase asking for the Molecules code ("I'll share it on @openprocessing"); @SteveFitzg4w0 ("Thank you Steve"); @Hunnernpc ("@Hunnernpc & [blue square]"). Repliers who noticed the craft: DAEMONS on the invisible loop point; wozo ("Such a unique style, instantly recognizable!"); SCP_j_0001 on the checkerboard ("It changes once you focus on one square"); Badjano Entertainment on the bit-depth ("6-bit, no transparency on X unfortunately"). On objkt he follows 3 accounts (zolfaqqari, rickacrane, Atelie 407) and is followed by 7 (hadi, Esiart, AstralTrash, Xponential, tiegenhof, Stampfigang, Josh); on OpenProcessing he follows 6 accounts (names not captured) and has 11 followers. The mirror-page co-occurrences from leg 3 -- Yazid Azahari, Daniel Oropeza, apollinariya_06, Iskra Velitchkova, and the rest -- are weak co-occurrence only (C1601: the mirror rails are unlabeled suggestion modules, not follower lists), and the study does not upgrade them. The honest picture is a coder in a room full of coders, known to the room, interacting lightly, with one named influence and a small, attentive audience.
+
+## Aesthetic logic: the glitch is the beauty
+
+M:PY's aesthetic is a wager: that a grid with a defect is more beautiful than a grid without one. The defect takes three forms -- the channel slip (the fringe), the resolution drop (the crush), and the misalignment (the Accordion "bug", kept in as a feature) -- and each is applied to the same spare material: circles, squares, pluses, discs, on black or cream. Nothing is maximal. The palette is two fields plus a rainbow edge; the caption is one emoji; the loop is a few seconds; the sketch is one idea. The restraint is what makes the defect legible: on a busy canvas a fringe would be noise, on this canvas it is the event. The audience's responses track exactly this -- they notice the loop point they cannot find, the square that changes when they focus, the style they recognise at a glance. And the artist's own account of it, the one sentence he gave, is the aesthetic stated plainly: making them is just as attractive as watching them. The work is not about the glitch; the work IS the glitch, made watchable.
+
+## Works catalogue
+
+W01 -- "Lights on/off" / "On Off" (Genuary 2026, Day 6). X post (text preserved via Are.na block 42832447; the X post itself was not found in the visible/indexed set, see C1625) and OpenProcessing sketch, created 5 January 2026, updated 5 February 2026, CC BY-NC-SA, 137 views. 7x7 grid of white-outlined squares on dark grey, each holding a white ring, some rings "on" with glowing RGB chromatic-aberration offsets. The Genuary prompt (George Henry Rowe): "Lights on/off. Make something that changes when you switch on or off the 'digital' lights." The Are.na save date is 20 January 2026; day 6 falls on 6 January, so the post was likely late (C1581/C1594).
+
+W02 -- "Accordion" (Genuary 2026, Day 30). X post 30 January 2026, 6:57 AM EST ("Its not a bug, its a feature. Prompt by @Unordered__list #genuary2026 #genuary30 #genuary #p5js", 2,115 views); OpenProcessing sketch created 27 January 2026, CC BY-NC-SA, 1 heart. Cream field; animated GIF morphing between a plain grey 3D cube and a large hexagon of stacked rainbow chevron layers forming a folded accordion ribbon; pale grey triangular void bottom left; dark grey rounded border. The "bug" is a layer misalignment in the animation.
+
+W03 -- Isometric cubes (2 March 2026, 6:47 AM EST, "blue/yellow/red squares" emoji, 850 views). Isometric repeating cube/chevron tile pattern in primary blue, yellow, red. No #p5js in the text -- the only verified post without it.
+
+W04 -- "Molecules." (31 March 2026, 6:50 AM EST, pinned post, 41,416 views, 2,419 likes, 313 reposts). Black field; grid of pale lavender/pink filled circles with thin white outlines, wavy diagonal connecting chains, small red/green/blue dots. The piece he chose to lead with.
+
+W05 -- "In and Out" (14 April 2026, 6:12 AM EST, "black circle" emoji, 860 views). Cream field; grid of pastel squares (pink, yellow, blue, mint), each with a small circle/hole that circles jump in and out of. Self-reply links the OpenProcessing sketch "In and Out".
+
+W06 -- Slot machine (16 April 2026, 6:23 AM EST, "slot machine" emoji, 2,711 views). Black field with gold border; neon slot-machine symbols -- envelope, signal bars, rainbows, plus signs, pills, circles.
+
+W07 -- "Moons" (5 May 2026, 6:38 AM EST, moon-phase emojis, video, 3,305 views). Black field; rows of pale cream moon discs in phases. Self-reply links the OpenProcessing sketch "Moons".
+
+W08 -- Plus grid (14 May 2026, 7:01 AM EST, "+" , 16,782 views, 773 likes). Cream field; black plus-sign grid with rainbow chromatic fringes (red/yellow/blue/cyan vertical bars).
+
+W09 -- "Board Bends" (26 May 2026, 6:24 AM EST, white/black square emojis, 11,433 views, 466 likes). Black-and-pale-mint checkerboard with a circle of rainbow concentric squares moving across it. Self-reply: "Offers welcome", linking the objkt token (collection "Spectrum", edition of 3).
+
+W10 -- Checkerboard illusion (9 June 2026, 6:25 AM EST, "ruler" emoji, 100,874 views, 4,915 likes, 946 bookmarks). Black-and-pale-mint checkerboard; optical illusion -- a replier notes "It changes once you focus on one square". The most-engaged post found.
+
+W11 -- Circle-to-square morph (23 June 2026, 6:38 AM EST, white-circle/black-square emojis, 7,128 views). Black field; row of white-outlined circles containing pale mint squares, circles morphing into squares.
+
+W12 -- Black discs, glitch squares (25 June 2026, 6:44 AM EST, white/black circle emojis, 3,578 views). Cream field; grid of black discs with white ring outlines, small rainbow glitch squares over two discs.
+
+W13 -- Black discs, crescents (7 July 2026, 7:09 AM EST, two black circles, 2,645 views). Cream field; grid of black discs, some with rainbow chromatic crescents at the bottom edge.
+
+W14 -- Petal/scale flower (15 September 2026, 6:42 AM EST, "hibiscus" emoji, 568 views). Grey field; black overlapping petal/scale pattern forming diamond flower shapes, small rainbow/chromatic patches at edges. The quietest post in the record by engagement.
+
+W15 -- Moire rectangles (8 October 2026, 6:16 AM EST, "dizzy face" emoji, 1,428 views). Cream field; grid of black rectangles filled with rainbow concentric arcs / moire stripes (red/yellow/green/blue/black); a replier: "this makes me dizzy."
+
+W16 -- Two moons (12 October 2026, 6:43 AM EST, half-moon emojis, 2,688 views). Black field; cream grid lines; two small rainbow half-circles (moons).
+
+W17 -- "bitcrush" (13 October 2026, 6:42 AM EST, 11,242 views, 688 likes). Black field; two white discs with rainbow chromatic fringes at top, pixelated/bitcrushed edges. Self-reply 14 October announces 3 editions on objkt.
+
+W18 -- "Bitcrusher x64" (15 October 2026, 6:37 AM EST, 10,773 views, 692 likes). Cream field; black discs with rainbow chromatic fringes falling. The objkt version is black-top/cream-bottom with white discs (collection "Spectrum", edition of 3).
+
+W19 -- Bubbles (20 October 2026, 6:43 AM EST, "bubbles" emoji, video, 19,090 views, 1,332 likes). Black field with cream horizontal stripes; large bubble/discs with rainbow chromatic edges and striped interiors. Self-reply 21 October announces 3 editions on objkt (token KT1Ko5szKb43nb8VLyVbF3aPsQMw9BJk6W3v/4).
+
+W20 -- "follow" (27 October 2026, 7:44 AM EST, 2,839 views, 142 likes). Black field with cream horizontal stripes; two large overlapping circles with rainbow chromatic edges (red/yellow/blue/cyan), small black dot in the lower circle -- the dot follows; seamless loop. DAEMONS: "the loop point on this one is invisible, I sat here waiting for it to restart and it just never did."
+
+Coda -- further verified works, not numbered: diagonal cross-hatch diamond lattice (3 November 2026, "/\", 4,370 views; black field, cream lattice, rainbow fringes at intersections, small RGB squares bottom right); "8-bit" (12 November 2026, 2,754 views; pale cyan discs with rainbow fringes falling, cream band with pixelated light-blue shapes); split-screen bubbles (15 November 2026, video; cream top, black bottom, black discs with RGB fringes above, rainbow-outlined hollow rings below, bubbles crossing the divide, small RGB test bars bottom-right); OpenProcessing-only sketches "Drops" (cream field, grid of black holes with colourful dripping discs), "Pinwheels", "Clock", "Grinder", "Traffic lights", "Froot Loops", "Zen Garden", "Bau suaH", and 20 more (32 sketches total, titles listed in browser-fetch.md); objkt works "Lenses x3", "Still there x3", "Bit Bounce x3", "Dive x2" (collection "Start from Scratch"), "Entanglement" 1/1, "A Single Red Seed" 1/1; Instagram-only titles "Bounce", "Drop it", "Fall", "Hacked", "The last meal", "IP traffic", "Connect", "Where the words end", "67 Prompt CUBE", "Oil on display" (May 2025), "Last six months be like" (June 2025).
+
+## Corrections
+
+C1561 (leg 1) -- Identity "M:PY = Maurizio Pierini" is UNCONFIRMED; no source links them. The study presents the physicist only as a candidate, clearly labeled, and imports none of his biography.
+
+C1562 (leg 1) -- Artist's real first name not evidenced in the legs; the browser fetch adds "Marco" from the Instagram bio ONLY (see C1622). "Maurizio" remains hypothesis-only.
+
+C1569 (leg 1) / C1609 (leg 3) -- SUPERSEDED in part by the fetch: the legs found no fxhash/objkt/OpenProcessing/Instagram/GitHub/website for the artist, but the live browser fetch found the objkt account (linked from the X bio), the OpenProcessing account (32 sketches), and the Instagram account (@m.piery). No fxhash or GitHub account for M:PY was found by any leg or by the fetch; no music platform was found.
+
+C1581/C1582/C1583/C1584 (leg 2) -- W01's date is the Are.na save date, not a confirmed tweet date; "Lights on/off" is the tweet text / Genuary prompt title, not necessarily a formal work title; no visual description of W01 existed in the legs' sources -- the fetch supplies one from the OpenProcessing "On Off" sketch, which the study uses and attributes to the sketch, not to the tweet.
+
+C1590 (leg 2) -- Zero site-search results for fxhash / objkt / OpenProcessing did not prove absence; the fetch confirms objkt and OpenProcessing exist. The caveat was correct.
+
+C1601 (leg 3) -- Mirror-page co-occurrence is not a follow relationship: TwStalker/Instalker account rails are unlabeled suggestion modules ("You might like"). All same-page links in the network section are weak co-occurrence only. The brief's "follower/following lists" framing is not supported.
+
+C1602 (leg 3) -- LOG CORRECTION: the study log's carried candidate "David Klein / beesandbombs" (#448 entry) misnames the artist; beesandbombs is Dave Whyte (Dublin), per isohedral.ca, Craig Kaplan's publications, and the Bridges 2026 archive. The log should carry "Dave Whyte" from here on.
+
+C1603 (leg 3) -- M:PY's genuary6 tweet date: the Are.na block date (20 Jan 2026) is the save date, not necessarily the tweet date (day 6 = 6 Jan). Unresolved.
+
+C1604 (leg 3) -- Whether M:PY was among the 42 artists in EditArt's Genuary 2026 is unknown; he is not among the named winners and no artist list naming him was found.
+
+C1605 (leg 3) -- "M. Pierini" composer credits on Anna Oxa's Proxima (2016) are an unverified identity lead; no evidence links them to the X code-artist.
+
+C1607 (leg 3) -- "Piero" in the Genuary/EditArt material is Piero Guicciardi (@pifragile), NOT M:PY. Guicciardi died in early March 2026 (before 10 March); exact death date not established.
+
+C1611 (leg 3) -- LOG CORRECTION: three un-numbered "Study Notes" exist in the muse repo (Ahmad Moussa / Gorilla Sun, study/gorillasun.md; Matt DesLauriers, study/matt-deslauriers.md; Lammetje / Jeroen Lam, study/lammetje-nl.md) that slug checks miss. They count as studied. The #447 carried-candidate note naming DesLauriers is stale, and the log's "lammetje-nl template" mentions are a methodology reference to the lammetje study, not an unstudied artist.
+
+C1621 -- The recovered X timeline (21 posts, January-November 2026) is the indexed/verified subset, not a guaranteed-complete archive: logged-out scrolling shows grey skeleton placeholders that never load, and older posts were recovered one-by-one via status URLs found through search. Posts may exist that no index surfaced.
+
+C1622 -- First name "Marco" comes ONLY from the Instagram bio (@m.piery). No other source gives a first name; do not treat it as a confirmed real name.
+
+C1623 -- No posts were found between 30 January and 2 March 2026, and none between 7 July and 15 September 2026. Either gap may be a real pause or an indexing gap; the study does not decide.
+
+C1624 -- The @klig114 reply ("I feel the same. Thank you") is UNVERIFIED: https://x.com/klig114 returns "User Profile Not Found", and no search results exist. It may sit in a reply thread gated behind sign-in. The study does not use it as evidence.
+
+C1625 -- The Genuary day-6 X post was not found on X itself in the visible/search-indexed set; it is evidenced by the Are.na save of its text and by the OpenProcessing "On Off" sketch. The visual description in W01 comes from the sketch.
+
+C1626 -- Follower counts: the live fetch (15 November 2026) gives 1,339 followers / 418 following; the mirrors' "1K" was a rounded figure and their 405/376 January snapshot is approximate.
+
+C1627 -- The Instagram "Fall" caption is truncated in the index ("Sketch inspired by an idea from Etienne Jacob. I couldn't find his repository on GitHub, so I d..."). The full caption was not read; the Etienne Jacob influence is evidenced by the visible part, and the study claims nothing about the rest.
+
+C1628 -- The music side of the bio is entirely unevidenced beyond the bio line and one replier's question. No releases, instruments, or music platforms were found by any leg or by the fetch. Do not describe M:PY's music.
+
+C1629 -- The two log corrections in this study (C1602 Dave Whyte; C1611 un-numbered notes) are carried here so the next runs do not repeat the errors. The #448 entry itself is not rewritten; corrections live in the studies that catch them.
